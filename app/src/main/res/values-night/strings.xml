@@ -37,4 +37,7 @@
     <string name="ex_batch_2017_2021">Ex. 2017-2021</string>
     <string name="enter_batch_name">Enter Batch Name</string>
     <string name="enter_branch_name">Enter Branch Name</string>
+    <string name="branch_name">Branch Name</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 </resources>

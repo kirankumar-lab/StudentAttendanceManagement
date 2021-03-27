@@ -40,7 +40,7 @@
                     android:fontFamily="@font/eagle_lake"
                     android:gravity="start"
                     android:padding="10dp"
-                    android:text="@string/batch_name"
+                    android:text="@string/branch_name"
                     android:textSize="12sp"
                     android:textStyle="bold|italic" />
 
@@ -56,7 +56,7 @@
                     android:fontFamily="@font/eagle_lake"
                     android:gravity="start"
                     android:padding="10dp"
-                    android:text="@string/manage_batch"
+                    android:text="@string/manage_branch"
                     android:textColor="@color/black"
                     android:textSize="12sp"
                     android:textStyle="bold|italic" />
@@ -103,7 +103,7 @@
                     android:textColor="#FF0000"
                     android:textSize="12sp"
                     android:textStyle="bold|italic"
-                    card_view:drawableLeftCompat="@drawable/ic_delete" />
+                    card_view:drawableStartCompat="@drawable/ic_delete" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

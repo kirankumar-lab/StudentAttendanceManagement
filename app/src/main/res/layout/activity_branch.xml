@@ -19,14 +19,26 @@
         android:textSize="24sp"
         android:textStyle="italic|bold" />
 
-    <android.support.design.widget.FloatingActionButton
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dataBranch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
         android:src="@drawable/ic_add"
         android:onClick="addBranch"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="20dp"
-        android:contentDescription="@string/add_branch" />
+        android:contentDescription="@string/add_branch"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>
