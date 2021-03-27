@@ -3,6 +3,8 @@ package com.pss.myapplication;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -54,12 +56,27 @@ public class Batch extends AppCompatActivity {
 
     public void addBatch(View view)
     {
-        startActivity(new Intent(Batch.this, ManageBatch.class).putExtra("action","add"));
+        Intent i = new Intent(Batch.this, ManageBatch.class).putExtra("action","add");
+        startActivityForResult(i,1);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         myAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 1)
+        {
+            if(requestCode == RESULT_OK)
+            {
+                myAdapter.notifyDataSetChanged();
+            }
+        }
+
     }
 }

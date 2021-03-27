@@ -7,6 +7,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 public class dbSAMS extends SQLiteOpenHelper {
 
     //database
@@ -234,9 +236,27 @@ public class dbSAMS extends SQLiteOpenHelper {
 
     protected Cursor getAllBatch() {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT * FROM batch";
+        String q = "SELECT * FROM batch ORDER BY btid DESC";
         Cursor cursor = db.rawQuery(q, null);
         return cursor;
+    }
+
+
+    protected boolean isBatchAlready(String batch) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT  batch_name FROM batch";
+        Cursor cursor = db.rawQuery(q, null);
+
+        boolean flag = false;
+        while (cursor.moveToNext())
+        {
+            if ( cursor.getString(0).equals(batch))
+            {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
     }
 
     protected String insertBranch(String branchName) {

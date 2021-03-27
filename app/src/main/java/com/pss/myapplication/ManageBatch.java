@@ -1,6 +1,7 @@
 package com.pss.myapplication;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -9,12 +10,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class ManageBatch extends AppCompatActivity {
 
+    private dbSAMS db = new dbSAMS(this);
     private EditText edtBatchName;
+
     private TextView tvAction;
     private Button btnBatch;
     private String batchName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,15 +47,29 @@ public class ManageBatch extends AppCompatActivity {
         }
 
         btnBatch.setOnClickListener(v -> {
+
             batchName = edtBatchName.getText().toString().trim();
+            Pattern p = Pattern.compile("[2][0][0-9]{2}[-][2][0][0-9]{2}");
+            Matcher m = p.matcher(batchName);
+            boolean match = m.matches();
+
             if (action.equals("add")) {
-                if (!batchName.isEmpty()) {
-                    String insert = new dbSAMS(this).insertBatch(batchName.toString().trim());
-                    Toast.makeText(this, insert, Toast.LENGTH_SHORT).show();
-                    finish();
+                if (!batchName.isEmpty() && match) {
+                    if (db.isBatchAlready(batchName)) {
+                        Toast.makeText(this, "Batch already exists !", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String insert = db.insertBatch(batchName.toString().trim());
+
+                        Toast.makeText(this, insert, Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(ManageBatch.this, Batch.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                        finish();
+                    }
                 } else {
-                    Toast.makeText(this, "Please Enter Batch Name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Enter Valid Batch Name", Toast.LENGTH_SHORT).show();
                 }
+
             }
 
 //            if (action.equals("edit")) {
