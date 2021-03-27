@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".AdminPanel">
+
+    <TextView
+        android:id="@+id/admin_panel_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:clickable="false"
+        android:padding="30dp"
+        android:fontFamily="@font/eagle_lake"
+        android:gravity="center"
+        android:isScrollContainer="false"
+        android:text="@string/admin_panel"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="italic|bold"
+        android:background="@color/purple_700"
+        />
+
+    <TextView
+        android:id="@+id/user_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/admin_panel_title"
+        android:layout_marginHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:clickable="false"
+        android:fontFamily="@font/eagle_lake"
+        android:isScrollContainer="false"
+        android:text="@string/admin_panel"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="italic|bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/adminLogout"
+        android:layout_below="@+id/user_id"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="5dp"
+        android:gravity="center"
+        android:isScrollContainer="true"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/admin_manage_batch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:drawableStart="@drawable/ic_list"
+                android:drawableLeft="@drawable/ic_list"
+                android:fontFamily="@font/eagle_lake"
+                android:gravity="center"
+                android:onClick="batch"
+                android:padding="10dp"
+                android:text="@string/manage_batch"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold|italic" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/admin_manage_branch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:drawableStart="@drawable/ic_list"
+                android:drawableLeft="@drawable/ic_list"
+                android:fontFamily="@font/eagle_lake"
+                android:gravity="center"
+                android:onClick="branch"
+                android:padding="10dp"
+                android:text="@string/manage_branch"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold|italic" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/admin_manage_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:drawableStart="@drawable/ic_subject"
+                android:drawableLeft="@drawable/ic_subject"
+                android:fontFamily="@font/eagle_lake"
+                android:gravity="center"
+                android:onClick="subject"
+                android:padding="10dp"
+                android:text="@string/manage_subject"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold|italic" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/admin_manage_staff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:drawableStart="@drawable/ic_people_24"
+                android:drawableLeft="@drawable/ic_people_24"
+                android:fontFamily="@font/eagle_lake"
+                android:gravity="center"
+                android:onClick="professor"
+                android:padding="10dp"
+                android:text="@string/manage_professor"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold|italic" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/admin_manage_student"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:drawableStart="@drawable/ic_people_24"
+                android:drawableLeft="@drawable/ic_people_24"
+                android:fontFamily="@font/eagle_lake"
+                android:gravity="center"
+                android:onClick="student"
+                android:padding="10dp"
+                android:text="@string/manage_student"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold|italic" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/admin_manage_attendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:drawableStart="@drawable/ic_attend"
+                android:drawableLeft="@drawable/ic_attend"
+                android:fontFamily="@font/eagle_lake"
+                android:gravity="center"
+                android:onClick="attendance"
+                android:padding="10dp"
+                android:text="@string/manage_attendance"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold|italic" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/admin_change_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:onClick="changePassword">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:drawableStart="@drawable/ic_change_password"
+                android:drawableLeft="@drawable/ic_change_password"
+                android:fontFamily="@font/eagle_lake"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="@string/change_password"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold|italic" />
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/adminLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="25dp"
+        android:foregroundGravity="center"
+        android:isScrollContainer="false"
+        android:padding="10dp"
+        app:cardBackgroundColor="#FFC5C5">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ic_logout"
+            android:drawableLeft="@drawable/ic_logout"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/amarante"
+            android:onClick="logOut"
+            android:padding="10dp"
+            android:text="@string/logout"
+            android:textColor="#950000"
+            android:textStyle="bold|italic" />
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

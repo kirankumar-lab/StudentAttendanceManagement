@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Student Attendance Management</string>
+    <string name="copy"><![CDATA[Developed By Parth Shah & Kirankumar Vaghela]]></string>
+    <string name="logo">Logo</string>
+    <string name="login_to_select_user">Login to Select User</string>
+    <string name="admin">Admin</string>
+    <string name="staff">Professor/Principal</string>
+    <string name="student">Student</string>
+    <string name="enter_user_id">Enter User ID</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="login">Login</string>
+    <string name="admin_login">Admin Login</string>
+    <string name="staff_login">Professor/Principal Login</string>
+    <string name="student_login">Student Login</string>
+    <string name="change_password">Change Password</string>
+    <string name="login_error">Please Enter Correct UserID and Password</string>
+    <string name="manage_batch">Batch</string>
+    <string name="manage_branch">Branch</string>
+    <string name="manage_subject">Subject</string>
+    <string name="admin_panel">Admin Dashboard</string>
+    <string name="staff_panel">Staff Dashboard</string>
+    <string name="student_panel">Student Dashboard</string>
+    <string name="manage_student">Student</string>
+    <string name="manage_professor">Professor</string>
+    <string name="logout">Logout</string>
+    <string name="manage_attendance">Attendance</string>
+    <string name="back">Back</string>
+    <string name="enter_your_old_password">Enter Your Old Password</string>
+    <string name="enter_new_password">Enter New Password</string>
+    <string name="re_enter_new_password">Re-Enter New Password</string>
+    <string name="add_batch">Add Batch</string>
+    <string name="add_subject">Add Subject</string>
+    <string name="add_student">Add Student</string>
+    <string name="add_branch">Add Branch</string>
+    <string name="add_professor">Add Professor</string>
+    <string name="ex_batch_2017_2021">Ex. 2017-2021</string>
+    <string name="enter_batch_name">Enter Batch Name</string>
+    <string name="enter_branch_name">Enter Branch Name</string>
+</resources>
