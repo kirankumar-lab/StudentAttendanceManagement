@@ -22,10 +22,15 @@ public class ManageBatch extends AppCompatActivity {
     private Button btnBatch;
     private String batchName;
 
+    private int btid;
+    private String batch_name;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_batch);
+
 
         edtBatchName = findViewById(R.id.batchName);
         tvAction = findViewById(R.id.textAction);
@@ -33,11 +38,19 @@ public class ManageBatch extends AppCompatActivity {
 
 
         String action = getIntent().getStringExtra("action");
+
+
+
         if (action.equals("add")) {
             tvAction.setText("Add Batch");
             btnBatch.setText("Insert");
         }
         if (action.equals("edit")) {
+
+            btid = getIntent().getIntExtra("btid",0);
+            batch_name = getIntent().getStringExtra("batch_name");
+            edtBatchName.setText(batch_name);
+
             tvAction.setText("Edit Batch");
             btnBatch.setText("Update");
         }
@@ -72,15 +85,23 @@ public class ManageBatch extends AppCompatActivity {
 
             }
 
-//            if (action.equals("edit")) {
-//                if (!batchName.isEmpty()) {
-//                    String update = new dbSAMS(this).updateBatch(batchName);
-//                    Toast.makeText(this, update, Toast.LENGTH_SHORT).show();
-//                    finish();
-//                } else {
-//                    Toast.makeText(this, "Please Enter Batch Name", Toast.LENGTH_SHORT).show();
-//                }
-//            }
+            if (action.equals("edit")) {
+                if (!batchName.isEmpty() && match) {
+                    if (db.isBatchAlready(batchName)) {
+                        Toast.makeText(this, "Batch already exists !", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String result = db.updateBatch(btid,batchName);
+
+                        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(ManageBatch.this, Batch.class);
+                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(i);
+                        finish();
+                    }
+                } else {
+                    Toast.makeText(this, "Enter Valid Batch Name", Toast.LENGTH_SHORT).show();
+                }
+            }
 //
 //            if (action.equals("delete")) {
 //                if (!batchName.isEmpty()) {

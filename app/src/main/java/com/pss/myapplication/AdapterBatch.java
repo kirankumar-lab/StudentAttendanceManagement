@@ -4,10 +4,13 @@ import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,27 +24,24 @@ public class AdapterBatch extends RecyclerView.Adapter<AdapterBatch.ViewHolder>{
         void onItemClicked(int index);
     }
 
-    public AdapterBatch (ArrayList<ListBatch> list)
+    public AdapterBatch (Context context,ArrayList<ListBatch> list)
     {
         data = list;
-//        activity  = (ItemClicked) context;
+        activity  = (ItemClicked) context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView dataBatchName;
+        TextView dataBatchName,tvEdit,tvDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             dataBatchName = itemView.findViewById(R.id.dataBatchName);
+            tvEdit = itemView.findViewById(R.id.tvEdit);
+            //tvDelete = itemView.findViewById(R.id.tvDelete);
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    activity.onItemClicked(data.indexOf((ListBatch) v.getTag() ));
-//                }
-//            });
+
 
         }
     }
@@ -59,6 +59,12 @@ public class AdapterBatch extends RecyclerView.Adapter<AdapterBatch.ViewHolder>{
         holder.itemView.setTag(data.get(position));
 
         holder.dataBatchName.setText(data.get(position).getBatch_name());
+
+        holder.tvEdit.setOnClickListener(v -> {
+            activity.onItemClicked(data.indexOf((ListBatch) data.get(position)));
+        });
+
+
     }
 
     @Override

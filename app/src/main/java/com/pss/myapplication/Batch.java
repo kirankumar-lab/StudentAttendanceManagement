@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class Batch extends AppCompatActivity {
+public class Batch extends AppCompatActivity implements AdapterBatch.ItemClicked {
 
     private RecyclerView dataBatch;
     RecyclerView.Adapter myAdapter;
@@ -44,9 +45,10 @@ public class Batch extends AppCompatActivity {
             data.add(new ListBatch(Integer.parseInt(r.getString(0)),r.getString(1)));
         }
 
-        myAdapter = new AdapterBatch(data);
+        myAdapter = new AdapterBatch(this,data);
         dataBatch.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
+
     }
 
     @Override
@@ -78,5 +80,13 @@ public class Batch extends AppCompatActivity {
             }
         }
 
+    }
+
+    @Override
+    public void onItemClicked(int index) {
+        startActivity(new Intent(Batch.this,ManageBatch.class)
+                .putExtra("btid",data.get(index).getBtid())
+                .putExtra("batch_name",data.get(index).getBatch_name())
+                .putExtra("action","edit"));
     }
 }

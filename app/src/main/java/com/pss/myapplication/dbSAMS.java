@@ -270,4 +270,28 @@ public class dbSAMS extends SQLiteOpenHelper {
             return "Branch Added Successfully!";
         }
     }
+
+    protected String  updateBatch(int btid,String batchName) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("batch_name", batchName);
+
+        if(isBatchAlready(batchName))
+        {
+            return "Batch name already exists";
+        }
+        else {
+            //String q = "UPDATE batch SET batch_name = '" + batchName + "' WHERE btid = " + btid;
+           int result = db.update("batch",cv,"btid" + "=?",new String[]{String.valueOf(btid)});
+            if (result == 0)
+            {
+                return "Not updated";
+            }
+            else
+            {
+                return "Updated";
+            }
+        }
+    }
+
 }

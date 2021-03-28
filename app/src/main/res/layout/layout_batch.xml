@@ -70,6 +70,7 @@
                 android:weightSum="2">
 
                 <TextView
+                    android:id="@+id/tvEdit"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -85,9 +86,10 @@
                     android:textSize="12sp"
                     android:textStyle="bold|italic"
                     android:drawablePadding="5dp"
-                    card_view:drawableLeftCompat="@drawable/ic_edit" />
+                    android:drawableLeft="@drawable/ic_edit" />
 
                 <TextView
+                    android:id="@+id/tvDelete"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
@@ -103,7 +105,7 @@
                     android:textColor="#FF0000"
                     android:textSize="12sp"
                     android:textStyle="bold|italic"
-                    card_view:drawableLeftCompat="@drawable/ic_delete" />
+                    android:drawableLeft="@drawable/ic_delete"/>
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
