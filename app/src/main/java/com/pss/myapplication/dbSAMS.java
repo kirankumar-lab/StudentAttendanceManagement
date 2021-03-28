@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -260,6 +261,13 @@ public class dbSAMS extends SQLiteOpenHelper {
         return flag;
     }
 
+    protected int batchCount(String batch) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT  batch_name FROM batch WHERE batch_name='"+batch+"'";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor.getCount();
+    }
+
     protected String  updateBatch(int btid,String batchName) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -316,7 +324,6 @@ public class dbSAMS extends SQLiteOpenHelper {
         }
     }
 
-
     protected Cursor getAllBranch() {
         SQLiteDatabase db = getWritableDatabase();
         String q = "SELECT * FROM branch ORDER BY bid DESC";
@@ -324,6 +331,45 @@ public class dbSAMS extends SQLiteOpenHelper {
         return cursor;
     }
 
+    protected String getBranchID(String branchName) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String q = "SELECT * FROM branch WHERE branch_name='" + branchName + "'";
+            Cursor cursor = db.rawQuery(q, null);
+            while (cursor.moveToNext())
+            {
+                if ( cursor.getString(1).equals(branchName))
+                {
+                    q = cursor.getString(0).trim().toString();
+                    break;
+                }
+            }
+            return q;
+        }
+        catch(Exception ex){
+            return ex.getMessage();
+        }
+    }
+
+    protected String getBranchName(int branchID) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String q = "SELECT * FROM branch WHERE bid=" + branchID+"";
+            Cursor cursor = db.rawQuery(q, null);
+            while (cursor.moveToNext())
+            {
+                if ( cursor.getString(0).equals(branchID))
+                {
+                    q = cursor.getString(1).trim();
+                    break;
+                }
+            }
+            return q;
+        }
+        catch(Exception ex){
+            return ex.getMessage();
+        }
+    }
 
     protected boolean isBranchAlready(String branch) {
         SQLiteDatabase db = getWritableDatabase();
@@ -340,6 +386,13 @@ public class dbSAMS extends SQLiteOpenHelper {
             }
         }
         return flag;
+    }
+
+    protected int branchCount(String branch) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT  branch_name FROM branch WHERE subject_name='"+branch+"'";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor.getCount();
     }
 
     protected String  updateBranch(int bid,String branchName) {
@@ -376,5 +429,99 @@ public class dbSAMS extends SQLiteOpenHelper {
             {
                 return "Deleted Successfully";
             }
+    }
+
+
+    /*Subject Queries*/
+    protected String insertSubject(String subjectName,int bid,int subjectSemester) {
+        try {
+            if (!subjectName.isEmpty()) {
+                SQLiteDatabase db = getWritableDatabase();
+                ContentValues cv = new ContentValues();
+                cv.put("subject_name", subjectName);
+                cv.put("semester", subjectSemester);
+                cv.put("bid", bid);
+
+                float insert = db.insert("subject", null, cv);
+                if (insert == -1) {
+                    return "Failed to Add Subject";
+                } else {
+                    return "Subject Added Successfully!";
+                }
+            } else {
+                return "Not Inserted!";
+            }
+        }catch(Exception ex){
+            return ex.getMessage();
+        }
+    }
+
+    protected Cursor getAllSubject() {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM subject ORDER BY bid DESC";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
+    protected boolean isSubjectAlready(String subject) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT  subject_name FROM subject";
+        Cursor cursor = db.rawQuery(q, null);
+
+        boolean flag = false;
+        while (cursor.moveToNext())
+        {
+            if ( cursor.getString(0).equals(subject))
+            {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    protected int subjectCount(String subject) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT  subject_name FROM subject WHERE subject_name='"+subject+"'";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor.getCount();
+    }
+
+    protected String  updateSubject(int sbid,String subjectName,int bid,int subjectSemester) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("subject_name", subjectName);
+        cv.put("semester", subjectSemester);
+        cv.put("bid", bid);
+
+        if(subjectCount(subjectName)>1)
+        {
+            return "Subject name already exists";
+        }
+        else {
+            int result = db.update("subject",cv,"sbid" + "=?",new String[]{String.valueOf(sbid)});
+            if (result == 0)
+            {
+                return "Failed to Update";
+            }
+            else
+            {
+                return "Updated Successfully";
+            }
+        }
+    }
+
+    protected String deleteSubject(int sbid) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        int result = db.delete("subject","sbid=?",new String[]{String.valueOf(sbid)});
+        if (result == 0)
+        {
+            return "Failed to Delete";
+        }
+        else
+        {
+            return "Deleted Successfully";
+        }
     }
 }

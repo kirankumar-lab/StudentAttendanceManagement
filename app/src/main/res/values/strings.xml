@@ -40,7 +40,7 @@
     <string name="branch_name">Branch Name</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
-    <string name="ex_computer_engineering">Ex. Computer Engineering</string>
+    <string name="ex_computer_engineering">Ex. ComputerEngineering</string>
     <string name="delete_branch">Delete Branch</string>
     <string name="cancle">Cancle</string>
     <string name="yes">Yes</string>
@@ -50,4 +50,6 @@
     <string name="a" />
     <string name="select_semester">Select Semester</string>
     <string name="subject_name">Subject Name</string>
+    <string name="subject_sem">Subject Sem.</string>
+    <string name="subject_branch">Subject BranchID</string>
 </resources>

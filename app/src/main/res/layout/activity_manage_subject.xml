@@ -77,7 +77,8 @@
             app:boxCornerRadiusTopEnd="10dp"
             app:boxCornerRadiusTopStart="10dp"
 
-            app:boxStrokeWidth="2dp">
+            app:boxStrokeWidth="2dp"
+            >
 
             <AutoCompleteTextView
                 android:id="@+id/actvSelectBranch"
@@ -85,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:textSize="15sp"
-                android:textIsSelectable="true"
+                android:editable="false"
                 android:fontFamily="@font/eagle_lake"
                 />
 
@@ -114,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:textSize="15sp"
-                android:textIsSelectable="true"
+                android:editable="false"
                 android:fontFamily="@font/eagle_lake"
                 />
 
