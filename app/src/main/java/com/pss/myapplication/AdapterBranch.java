@@ -62,7 +62,7 @@ public class AdapterBranch extends RecyclerView.Adapter<AdapterBranch.ViewHolder
         });
 
         holder.tvDelete.setOnClickListener(v -> {
-            activity.onItemClicked(data.indexOf((ListBranch) data.get(position)),"edit");
+            activity.onItemClicked(data.indexOf((ListBranch) data.get(position)),"delete");
         });
     }
 

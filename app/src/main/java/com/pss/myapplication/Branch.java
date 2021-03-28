@@ -13,6 +13,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class Branch extends AppCompatActivity implements AdapterBranch.ItemClick
     private dbSAMS db;
     private Dialog dialog;
     private Button btnCancle,btnYes;
+    private TextView tvDeleteBranchName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,10 +101,14 @@ public class Branch extends AppCompatActivity implements AdapterBranch.ItemClick
             dialog.setContentView(R.layout.layout_delete_branch);
             dialog.setCanceledOnTouchOutside(false);
             dialog.setCancelable(false);
-            dialog.show();
 
             btnCancle = dialog.findViewById(R.id.btnCancle);
             btnYes = dialog.findViewById(R.id.btnYes);
+            tvDeleteBranchName = dialog.findViewById(R.id.tvDeleteBranchName);
+            tvDeleteBranchName.setText("Are You Sure to Delete "+data.get(index).getBid()+" Branch?");
+
+            dialog.show();
+
 
             btnCancle.setOnClickListener(v -> {
                 dialog.dismiss();
@@ -112,6 +118,8 @@ public class Branch extends AppCompatActivity implements AdapterBranch.ItemClick
                 String delete = db.deleteBranch(data.get(index).getBid());
                 Toast.makeText(this,delete,Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
+                myAdapter.notifyDataSetChanged();
+                this.dataBranch.setAdapter(myAdapter);
                     });
 
 
