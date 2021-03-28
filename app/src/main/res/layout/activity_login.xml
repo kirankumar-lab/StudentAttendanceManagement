@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dp"
-    tools:context=".Login">
+    tools:context=".Login"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/tvUser"
@@ -25,8 +26,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="3dp">
-
+        android:padding="15dp">
 
         <EditText
             android:id="@+id/user_id"
@@ -34,14 +34,16 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginVertical="5dp"
-            android:drawableStart="@drawable/ic_user_id_24"
-            android:drawableLeft="@drawable/ic_user_id_24"
+            android:drawableStart="@drawable/ic_user_id"
+            android:drawableLeft="@drawable/ic_user_id"
             android:drawablePadding="5dp"
             android:fontFamily="@font/amarante"
             android:hint="@string/enter_user_id"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             android:textSize="16sp" />
+
+
 
         <EditText
             android:id="@+id/password"

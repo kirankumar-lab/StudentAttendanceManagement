@@ -44,5 +44,7 @@
     <string name="delete_branch">Delete Branch</string>
     <string name="cancle">Cancle</string>
     <string name="yes">Yes</string>
-    <string name="delete_batch">Delete Batch</string>
+    <string name="ex_fundamentals_of_c_programming">Ex Fundamentals of C Programming</string>
+    <string name="insert">Insert</string>
+    <string name="select_semester">Select Semester</string>
 </resources>

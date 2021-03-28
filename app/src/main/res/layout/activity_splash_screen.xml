@@ -10,10 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_margin="16dp"
-        android:layout_centerInParent="true"
-        app:srcCompat="@drawable/logo"
-        android:contentDescription="@string/logo" />
+        android:layout_centerVertical="true"
+        android:layout_marginTop="199dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/logo"
+        app:srcCompat="@drawable/logo" />
 
     <TextView
         android:layout_width="match_parent"
