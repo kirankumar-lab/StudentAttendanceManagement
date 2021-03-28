@@ -15,7 +15,7 @@ import java.util.List;
 public class AdapterBranch extends RecyclerView.Adapter<AdapterBranch.ViewHolder> {
 
     private ArrayList<ListBranch> data;
-    AdapterBranch.ItemClicked activity;
+    ItemClicked activity;
 
     public interface ItemClicked{
         void onItemClicked(int index);
@@ -24,7 +24,7 @@ public class AdapterBranch extends RecyclerView.Adapter<AdapterBranch.ViewHolder
     public AdapterBranch (Context context, ArrayList<ListBranch> list)
     {
         data = list;
-        activity  = (AdapterBranch.ItemClicked) context;
+        activity  = (ItemClicked) context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -48,7 +48,7 @@ public class AdapterBranch extends RecyclerView.Adapter<AdapterBranch.ViewHolder
     @Override
     public AdapterBranch.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_branch,parent,
-                false);
+                    false);
         return new AdapterBranch.ViewHolder(v);
     }
 

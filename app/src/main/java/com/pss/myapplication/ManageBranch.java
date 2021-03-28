@@ -20,7 +20,7 @@ public class ManageBranch extends AppCompatActivity {
     private TextView tvAction;
     private Button btnBranch;
     private String branchName;
-    private int btid;
+    private int bid;
     private String branch_name;
 
 
@@ -38,14 +38,13 @@ public class ManageBranch extends AppCompatActivity {
         String action = getIntent().getStringExtra("action");
 
 
-
         if (action.equals("add")) {
             tvAction.setText("Add Branch");
             btnBranch.setText("Insert");
         }
         if (action.equals("edit")) {
 
-            btid = getIntent().getIntExtra("btid",0);
+            bid = getIntent().getIntExtra("bid", 0);
             branch_name = getIntent().getStringExtra("branch_name");
             edtBranchName.setText(branch_name);
 
@@ -60,22 +59,26 @@ public class ManageBranch extends AppCompatActivity {
         btnBranch.setOnClickListener(v -> {
 
             branchName = edtBranchName.getText().toString().trim();
-            Pattern p = Pattern.compile("[2][0][0-9]{2}[-][2][0][0-9]{2}");
+            Pattern p = Pattern.compile("[a-zA-Z]{5,}");
             Matcher m = p.matcher(branchName);
             boolean match = m.matches();
-
             if (action.equals("add")) {
-                if (!branchName.isEmpty() && match) {
-                    if (db.isBranchAlready(branchName)) {
-                        Toast.makeText(this, "Branch already exists !", Toast.LENGTH_SHORT).show();
-                    } else {
-                        String insert = db.insertBranch(branchName.toString().trim());
+                if (!branchName.isEmpty()) {
+                    if (match) {
+                        if (db.isBranchAlready(branchName)) {
+                            Toast.makeText(this, "Branch already exists !", Toast.LENGTH_SHORT).show();
+                        } else {
+                            String insert = db.insertBranch(branchName.toString().trim());
 
-                        Toast.makeText(this, insert, Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(ManageBranch.this, Branch.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
-                        finish();
+                            Toast.makeText(this, insert, Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(ManageBranch.this, Branch.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+                            finish();
+                        }
+                    } else {
+                        Toast.makeText(this, "Enter Branch Name minimum 5 Characters Length",
+                                Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(this, "Enter Valid Branch Name", Toast.LENGTH_SHORT).show();
@@ -84,23 +87,27 @@ public class ManageBranch extends AppCompatActivity {
             }
 
             if (action.equals("edit")) {
-                if (!branchName.isEmpty() && match) {
-                    if (db.isBranchAlready(branchName)) {
-                        Toast.makeText(this, "Branch already exists !", Toast.LENGTH_SHORT).show();
+                if (!branchName.isEmpty()) {
+                    if (match) {
+                        if (db.isBranchAlready(branchName)) {
+                            Toast.makeText(this, "Branch already exists !", Toast.LENGTH_SHORT).show();
+                        } else {
+                            String result = db.updateBranch(bid, branchName);
+                            Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(ManageBranch.this, Branch.class);
+                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(i);
+                            finish();
+                        }
                     } else {
-                        String result = db.updateBranch(btid,branchName);
-
-                        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-                        Intent i = new Intent(ManageBranch.this, Branch.class);
-                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(i);
-                        finish();
+                        Toast.makeText(this, "Enter Branch Name minimum 5 Characters Length",
+                                Toast.LENGTH_SHORT).show();
                     }
                 } else {
                     Toast.makeText(this, "Enter Valid Branch Name", Toast.LENGTH_SHORT).show();
                 }
             }
-//
+
 //            if (action.equals("delete")) {
 //                if (!branchName.isEmpty()) {
 //                    String delete = new dbSAMS(this).deleteBranch(branchName);

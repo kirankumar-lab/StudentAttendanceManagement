@@ -282,6 +282,20 @@ public class dbSAMS extends SQLiteOpenHelper {
         }
     }
 
+    protected String deleteBatch(int btid) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        int result = db.delete("batch","btid=?",new String[]{String.valueOf(btid)});
+        if (result == 0)
+        {
+            return "Failed to Delete";
+        }
+        else
+        {
+            return "Deleted Successfully";
+        }
+    }
+
 
     /*Branch Queries*/
     protected String insertBranch(String branchName) {
@@ -350,4 +364,17 @@ public class dbSAMS extends SQLiteOpenHelper {
         }
     }
 
+    protected String deleteBranch(int bid) {
+        SQLiteDatabase db = getWritableDatabase();
+
+            int result = db.delete("branch","bid=?",new String[]{String.valueOf(bid)});
+            if (result == 0)
+            {
+                return "Failed to Delete";
+            }
+            else
+            {
+                return "Deleted Successfully";
+            }
+    }
 }
