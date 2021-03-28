@@ -118,15 +118,9 @@ public class Branch extends AppCompatActivity implements AdapterBranch.ItemClick
                 String delete = db.deleteBranch(data.get(index).getBid());
                 Toast.makeText(this,delete,Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
+                data.remove(index);
                 myAdapter.notifyDataSetChanged();
-                this.dataBranch.setAdapter(myAdapter);
                     });
-
-
-//            startActivity(new Intent(Branch.this,ManageBranch.class)
-//                    .putExtra("bid",data.get(index).getBid())
-//                    .putExtra("branch_name",data.get(index).getBranch_name())
-//                    .putExtra("action",action));
         }
     }
 }

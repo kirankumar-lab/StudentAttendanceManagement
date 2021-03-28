@@ -40,7 +40,7 @@
             android:fontFamily="@font/amarante"
             android:hint="@string/enter_user_id"
             android:importantForAutofill="no"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:textSize="16sp" />
 
         <EditText

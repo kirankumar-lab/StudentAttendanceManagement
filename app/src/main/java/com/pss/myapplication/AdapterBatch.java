@@ -15,32 +15,30 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class AdapterBatch extends RecyclerView.Adapter<AdapterBatch.ViewHolder>{
+public class AdapterBatch extends RecyclerView.Adapter<AdapterBatch.ViewHolder> {
 
     private ArrayList<ListBatch> data;
     ItemClicked activity;
 
-    public interface ItemClicked{
-        void onItemClicked(int index);
+    public interface ItemClicked {
+        void onItemClicked(int index, String action);
     }
 
-    public AdapterBatch (Context context,ArrayList<ListBatch> list)
-    {
+    public AdapterBatch(Context context, ArrayList<ListBatch> list) {
         data = list;
-        activity  = (ItemClicked) context;
+        activity = (ItemClicked) context;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView dataBatchName,tvEdit,tvDelete;
+        TextView dataBatchName, tvEdit, tvDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             dataBatchName = itemView.findViewById(R.id.dataBatchName);
             tvEdit = itemView.findViewById(R.id.tvEdit);
-            //tvDelete = itemView.findViewById(R.id.tvDelete);
-
+            tvDelete = itemView.findViewById(R.id.tvDelete);
 
 
         }
@@ -50,7 +48,7 @@ public class AdapterBatch extends RecyclerView.Adapter<AdapterBatch.ViewHolder>{
     @NonNull
     @Override
     public AdapterBatch.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_batch,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_batch, parent, false);
         return new ViewHolder(v);
     }
 
@@ -61,7 +59,11 @@ public class AdapterBatch extends RecyclerView.Adapter<AdapterBatch.ViewHolder>{
         holder.dataBatchName.setText(data.get(position).getBatch_name());
 
         holder.tvEdit.setOnClickListener(v -> {
-            activity.onItemClicked(data.indexOf((ListBatch) data.get(position)));
+            activity.onItemClicked(data.indexOf((ListBatch) data.get(position)), "edit");
+        });
+
+        holder.tvDelete.setOnClickListener(v -> {
+            activity.onItemClicked(data.indexOf((ListBatch) data.get(position)), "delete");
         });
 
 

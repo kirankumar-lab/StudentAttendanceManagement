@@ -1,5 +1,6 @@
 package com.pss.myapplication;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -23,6 +26,9 @@ public class Batch extends AppCompatActivity implements AdapterBatch.ItemClicked
     private RecyclerView.LayoutManager manager;
     private ArrayList<ListBatch> data;
     private dbSAMS db;
+    private Dialog dialog;
+    private Button btnCancle,btnYes;
+    private TextView tvDeleteBatchName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +89,40 @@ public class Batch extends AppCompatActivity implements AdapterBatch.ItemClicked
     }
 
     @Override
-    public void onItemClicked(int index) {
-        startActivity(new Intent(Batch.this,ManageBatch.class)
-                .putExtra("btid",data.get(index).getBtid())
-                .putExtra("batch_name",data.get(index).getBatch_name())
-                .putExtra("action","edit"));
+    public void onItemClicked(int index,String action) {
+        if (action.equals("edit")) {
+            startActivity(new Intent(Batch.this, ManageBatch.class)
+                    .putExtra("btid", data.get(index).getBtid())
+                    .putExtra("batch_name", data.get(index).getBatch_name())
+                    .putExtra("action", action));
+        }
+        if (action.equals("delete")) {
+            dialog = new Dialog(this);
+            dialog.setContentView(R.layout.layout_delete_batch);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(true);
+
+            btnCancle = dialog.findViewById(R.id.btnCancle);
+            btnYes = dialog.findViewById(R.id.btnYes);
+            tvDeleteBatchName = dialog.findViewById(R.id.tvDeleteBatchName);
+            tvDeleteBatchName.setText("Are You Sure to Delete \"" + data.get(index).getBatch_name() +
+                    "\" Batch?");
+
+            dialog.show();
+
+
+            btnCancle.setOnClickListener(v -> {
+                dialog.dismiss();
+            });
+
+            btnYes.setOnClickListener(v -> {
+                String delete = db.deleteBatch(data.get(index).getBtid());
+                Toast.makeText(this, delete, Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                data.remove(index);
+                myAdapter.notifyDataSetChanged();
+            });
+
+        }
     }
 }

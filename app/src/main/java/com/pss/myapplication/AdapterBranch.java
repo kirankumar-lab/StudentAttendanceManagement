@@ -17,19 +17,18 @@ public class AdapterBranch extends RecyclerView.Adapter<AdapterBranch.ViewHolder
     private ArrayList<ListBranch> data;
     ItemClicked activity;
 
-    public interface ItemClicked{
-        void onItemClicked(int index,String action);
+    public interface ItemClicked {
+        void onItemClicked(int index, String action);
     }
 
-    public AdapterBranch (Context context, ArrayList<ListBranch> list)
-    {
+    public AdapterBranch(Context context, ArrayList<ListBranch> list) {
         data = list;
-        activity  = (ItemClicked) context;
+        activity = (ItemClicked) context;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView dataBranchName,tvEdit,tvDelete;
+        TextView dataBranchName, tvEdit, tvDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -46,8 +45,8 @@ public class AdapterBranch extends RecyclerView.Adapter<AdapterBranch.ViewHolder
     @NonNull
     @Override
     public AdapterBranch.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_branch,parent,
-                    false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_branch, parent,
+                false);
         return new AdapterBranch.ViewHolder(v);
     }
 
@@ -58,11 +57,11 @@ public class AdapterBranch extends RecyclerView.Adapter<AdapterBranch.ViewHolder
         holder.dataBranchName.setText(data.get(position).getBranch_name());
 
         holder.tvEdit.setOnClickListener(v -> {
-            activity.onItemClicked(data.indexOf((ListBranch) data.get(position)),"edit");
+            activity.onItemClicked(data.indexOf((ListBranch) data.get(position)), "edit");
         });
 
         holder.tvDelete.setOnClickListener(v -> {
-            activity.onItemClicked(data.indexOf((ListBranch) data.get(position)),"delete");
+            activity.onItemClicked(data.indexOf((ListBranch) data.get(position)), "delete");
         });
     }
 

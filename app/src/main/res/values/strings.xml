@@ -44,4 +44,5 @@
     <string name="delete_branch">Delete Branch</string>
     <string name="cancle">Cancle</string>
     <string name="yes">Yes</string>
+    <string name="delete_batch">Delete Batch</string>
 </resources>
