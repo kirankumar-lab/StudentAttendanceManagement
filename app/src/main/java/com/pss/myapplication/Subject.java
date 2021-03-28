@@ -13,4 +13,9 @@ public class Subject extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject);
     }
+
+
+    public void addSubject(View view) {
+        startActivity(new Intent(Subject.this,ManageSubject.class));
+    }
 }

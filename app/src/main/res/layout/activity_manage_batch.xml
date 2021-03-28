@@ -49,7 +49,6 @@
             android:fontFamily="@font/amarante"
             android:hint="@string/ex_batch_2017_2021"
             android:importantForAutofill="no"
-            android:digits="0123456789-"
             android:inputType="numberSigned"
             android:textStyle="italic"
             android:digits="0123456789-" />
