@@ -105,7 +105,8 @@ public class Branch extends AppCompatActivity implements AdapterBranch.ItemClick
             btnCancle = dialog.findViewById(R.id.btnCancle);
             btnYes = dialog.findViewById(R.id.btnYes);
             tvDeleteBranchName = dialog.findViewById(R.id.tvDeleteBranchName);
-            tvDeleteBranchName.setText("Are You Sure to Delete "+data.get(index).getBid()+" Branch?");
+            tvDeleteBranchName.setText("Are You Sure to Delete "+data.get(index).getBranch_name()+" " +
+                    "Branch?");
 
             dialog.show();
 
