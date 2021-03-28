@@ -40,7 +40,5 @@
     <string name="branch_name">Branch Name</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
-    <string name="enter_branch_name">Enter Branch Name</string>
     <string name="ex_computer_engineering">Ex. Computer Engineering</string>
-    <string name="add_branch">Add Branch</string>
 </resources>

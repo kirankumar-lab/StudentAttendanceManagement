@@ -156,7 +156,7 @@ public class dbSAMS extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS attendance");
         onCreate(db);
     }
-
+/*Change Password Queries*/
     public Boolean check(String username, String password, String userType) {
         SQLiteDatabase db = getWritableDatabase();
         String q = null;
@@ -215,6 +215,7 @@ public class dbSAMS extends SQLiteOpenHelper {
         return false;
     }
 
+    /*Batch  Queries*/
     protected String insertBatch(String batchName) {
         if(!batchName.isEmpty()) {
             SQLiteDatabase db = getWritableDatabase();
@@ -269,15 +270,82 @@ public class dbSAMS extends SQLiteOpenHelper {
             return "Batch name already exists";
         }
         else {
-            //String q = "UPDATE batch SET batch_name = '" + batchName + "' WHERE btid = " + btid;
            int result = db.update("batch",cv,"btid" + "=?",new String[]{String.valueOf(btid)});
             if (result == 0)
             {
-                return "Not updated";
+                return "Failed to Update";
             }
             else
             {
-                return "Updated";
+                return "Updated Successfully";
+            }
+        }
+    }
+
+
+    /*Branch Queries*/
+    protected String insertBranch(String branchName) {
+        if(!branchName.isEmpty()) {
+            SQLiteDatabase db = getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put("branch_name", branchName);
+            float insert = db.insert("branch", null, cv);
+            if (insert == -1) {
+                return "Failed to Add Branch";
+            } else {
+                return "Branch Added Successfully!";
+            }
+        }
+        else
+        {
+            return "Not Inserted!";
+        }
+    }
+
+
+    protected Cursor getAllBranch() {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM branch ORDER BY bid DESC";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
+
+    protected boolean isBranchAlready(String branch) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT  branch_name FROM branch";
+        Cursor cursor = db.rawQuery(q, null);
+
+        boolean flag = false;
+        while (cursor.moveToNext())
+        {
+            if ( cursor.getString(0).equals(branch))
+            {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    protected String  updateBranch(int bid,String branchName) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("branch_name", branchName);
+
+        if(isBatchAlready(branchName))
+        {
+            return "Batch name already exists";
+        }
+        else {
+            int result = db.update("branch",cv,"bid" + "=?",new String[]{String.valueOf(bid)});
+            if (result == 0)
+            {
+                return "Failed to Update";
+            }
+            else
+            {
+                return "Updated Successfully";
             }
         }
     }

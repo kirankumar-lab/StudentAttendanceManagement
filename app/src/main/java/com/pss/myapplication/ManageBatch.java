@@ -17,11 +17,9 @@ public class ManageBatch extends AppCompatActivity {
 
     private dbSAMS db = new dbSAMS(this);
     private EditText edtBatchName;
-
     private TextView tvAction;
     private Button btnBatch;
     private String batchName;
-
     private int btid;
     private String batch_name;
 
