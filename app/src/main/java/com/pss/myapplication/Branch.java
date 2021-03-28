@@ -1,6 +1,8 @@
 package com.pss.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -19,6 +21,7 @@ public class Branch extends AppCompatActivity {
 
     public void addBranch(View view)
     {
-        //startActivity(new Intent(Branch.this,AddBranch.class));
+            Intent i = new Intent(Branch.this, ManageBranch.class).putExtra("action","add");
+            startActivityForResult(i,1);
     }
 }

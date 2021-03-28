@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ManageBranch">
+
+
+    <TextView
+        android:id="@+id/textAction"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/purple_700"
+        android:fontFamily="@font/eagle_lake"
+        android:gravity="center"
+        android:padding="30dp"
+        android:text="@string/add_batch"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="italic|bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textAction"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:paddingTop="60dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:fontFamily="@font/amarante"
+            android:text="@string/enter_branch_name"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="italic"/>
+
+        <EditText
+            android:id="@+id/branchName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:fontFamily="@font/amarante"
+            android:hint="@string/ex_computer_engineering"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:textStyle="italic" />
+
+        <Button
+            android:id="@+id/btnBranch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="5dp"
+            android:background="@color/teal_700"
+            android:drawablePadding="5dp"
+            android:fontFamily="@font/amita"
+            android:text="@string/add_branch"
+            android:textColor="@color/ic_launcher_background"
+            android:textStyle="bold|italic" />
+    </LinearLayout>
+
+</RelativeLayout>

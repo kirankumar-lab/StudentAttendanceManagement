@@ -259,18 +259,6 @@ public class dbSAMS extends SQLiteOpenHelper {
         return flag;
     }
 
-    protected String insertBranch(String branchName) {
-        SQLiteDatabase db = getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("branch_name", branchName);
-        float insert = db.insert("branch", null, cv);
-        if (insert == -1) {
-            return "Failed to Add Branch";
-        } else {
-            return "Branch Added Successfully!";
-        }
-    }
-
     protected String  updateBatch(int btid,String batchName) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();

@@ -10,6 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+        <activity android:name=".ManageBranch"></activity>
         <activity
             android:name=".ManageBatch"
             android:screenOrientation="portrait"
