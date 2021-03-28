@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Subject">
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -19,15 +20,25 @@
         android:textSize="24sp"
         android:textStyle="italic|bold" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dataSubject"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="20dp"
         android:contentDescription="@string/add_subject"
-        android:src="@drawable/ic_add"
         android:onClick="addSubject"
-        android:layout_alignParentEnd="true" />
+        android:src="@drawable/ic_add" />
 </RelativeLayout>

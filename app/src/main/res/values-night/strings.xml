@@ -47,4 +47,5 @@
     <string name="select_branch">Select Branch</string>
     <string name="enter_subject_name">Enter Subject Name</string>
     <string name="select_semester">Select Semester</string>
+    <string name="subject_name">Subject Name</string>
 </resources>
