@@ -105,8 +105,7 @@ public class Branch extends AppCompatActivity implements AdapterBranch.ItemClick
             btnCancle = dialog.findViewById(R.id.btnCancle);
             btnYes = dialog.findViewById(R.id.btnYes);
             tvDeleteBranchName = dialog.findViewById(R.id.tvDeleteBranchName);
-            tvDeleteBranchName.setText("Are You Sure to Delete \""+data.get(index).getBranch_name()+"\" " +
-                    "Branch?");
+            tvDeleteBranchName.setText("Are You Sure to Delete \""+ data.get(index).getBranch_name() +"\" Branch?");
 
             dialog.show();
 
@@ -119,10 +118,9 @@ public class Branch extends AppCompatActivity implements AdapterBranch.ItemClick
                 String delete = db.deleteBranch(data.get(index).getBid());
                 Toast.makeText(this,delete,Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
+                data.remove(index);
                 myAdapter.notifyDataSetChanged();
-                this.dataBranch.setAdapter(myAdapter);
                     });
-
 
 //            startActivity(new Intent(Branch.this,ManageBranch.class)
 //                    .putExtra("bid",data.get(index).getBid())
@@ -130,4 +128,5 @@ public class Branch extends AppCompatActivity implements AdapterBranch.ItemClick
 //                    .putExtra("action",action));
         }
     }
+
 }
