@@ -62,7 +62,7 @@ public class ManageBranch extends AppCompatActivity {
         btnBranch.setOnClickListener(v -> {
 
             branchName = edtBranchName.getText().toString().trim();
-            Pattern p = Pattern.compile("[a-zA-Z]{5,}");
+            Pattern p = Pattern.compile("[a-zA-Z\\s]{5,}");
             Matcher m = p.matcher(branchName);
             boolean match = m.matches();
             if (action.equals("add")) {
