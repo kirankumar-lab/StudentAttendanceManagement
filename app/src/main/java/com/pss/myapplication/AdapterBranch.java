@@ -18,7 +18,7 @@ public class AdapterBranch extends RecyclerView.Adapter<AdapterBranch.ViewHolder
     ItemClicked activity;
 
     public interface ItemClicked{
-        void onItemClicked(int index);
+        void onItemClicked(int index,String action);
     }
 
     public AdapterBranch (Context context, ArrayList<ListBranch> list)
@@ -36,8 +36,7 @@ public class AdapterBranch extends RecyclerView.Adapter<AdapterBranch.ViewHolder
 
             dataBranchName = itemView.findViewById(R.id.dataBranchName);
             tvEdit = itemView.findViewById(R.id.tvEdit);
-            //tvDelete = itemView.findViewById(R.id.tvDelete);
-
+            tvDelete = itemView.findViewById(R.id.tvDelete);
 
 
         }
@@ -59,10 +58,12 @@ public class AdapterBranch extends RecyclerView.Adapter<AdapterBranch.ViewHolder
         holder.dataBranchName.setText(data.get(position).getBranch_name());
 
         holder.tvEdit.setOnClickListener(v -> {
-            activity.onItemClicked(data.indexOf((ListBranch) data.get(position)));
+            activity.onItemClicked(data.indexOf((ListBranch) data.get(position)),"edit");
         });
 
-
+        holder.tvDelete.setOnClickListener(v -> {
+            activity.onItemClicked(data.indexOf((ListBranch) data.get(position)),"edit");
+        });
     }
 
     @Override

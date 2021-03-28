@@ -1,14 +1,19 @@
 package com.pss.myapplication;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -19,6 +24,8 @@ public class Branch extends AppCompatActivity implements AdapterBranch.ItemClick
     private RecyclerView.LayoutManager manager;
     private ArrayList<ListBranch> data;
     private dbSAMS db;
+    private Dialog dialog;
+    private Button btnCancle,btnYes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,14 +82,43 @@ public class Branch extends AppCompatActivity implements AdapterBranch.ItemClick
                 myAdapter.notifyDataSetChanged();
             }
         }
-
     }
 
+    private boolean isYes;
+
     @Override
-    public void onItemClicked(int index) {
-        startActivity(new Intent(Branch.this,ManageBranch.class)
-                .putExtra("bid",data.get(index).getBid())
-                .putExtra("branch_name",data.get(index).getBranch_name())
-                .putExtra("action","edit"));
+    public void onItemClicked(int index,String action) {
+        if (action.equals("edit")){
+            startActivity(new Intent(Branch.this,ManageBranch.class)
+                    .putExtra("bid",data.get(index).getBid())
+                    .putExtra("branch_name",data.get(index).getBranch_name())
+                    .putExtra("action",action));
+        }
+        if (action.equals("delete")){
+            dialog = new Dialog(this);
+            dialog.setContentView(R.layout.layout_delete_branch);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(false);
+            dialog.show();
+
+            btnCancle = dialog.findViewById(R.id.btnCancle);
+            btnYes = dialog.findViewById(R.id.btnYes);
+
+            btnCancle.setOnClickListener(v -> {
+                dialog.dismiss();
+            });
+
+            btnYes.setOnClickListener(v -> {
+                String delete = db.deleteBranch(data.get(index).getBid());
+                Toast.makeText(this,delete,Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                    });
+
+
+//            startActivity(new Intent(Branch.this,ManageBranch.class)
+//                    .putExtra("bid",data.get(index).getBid())
+//                    .putExtra("branch_name",data.get(index).getBranch_name())
+//                    .putExtra("action",action));
+        }
     }
 }

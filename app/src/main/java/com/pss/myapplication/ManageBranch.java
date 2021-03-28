@@ -52,6 +52,9 @@ public class ManageBranch extends AppCompatActivity {
             btnBranch.setText("Update");
         }
         if (action.equals("delete")) {
+            bid = getIntent().getIntExtra("bid", 0);
+            branch_name = getIntent().getStringExtra("branch_name");
+
             tvAction.setText("Delete Branch");
             btnBranch.setText("Delete");
         }
@@ -108,13 +111,14 @@ public class ManageBranch extends AppCompatActivity {
                 }
             }
 
-//            if (action.equals("delete")) {
-//                if (!branchName.isEmpty()) {
-//                    String delete = new dbSAMS(this).deleteBranch(branchName);
-//                    Toast.makeText(this, delete, Toast.LENGTH_SHORT).show();
-//                    finish();
-//                }
-//            }
+            if (action.equals("delete")) {
+                    String result = db.deleteBranch(bid);
+                    Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(ManageBranch.this, Branch.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
+                    finish();
+                }
         });
     }
 }
