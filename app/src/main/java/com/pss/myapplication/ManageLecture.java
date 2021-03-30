@@ -10,13 +10,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ManageLecture extends AppCompatActivity {
 
     private dbSAMS db = new dbSAMS(this);
-    private EditText edtLectureType;
+    private TextInputEditText edtLectureType;
     private TextView tvAction;
     private Button btnLecture;
     private String lectureType;
@@ -30,7 +32,7 @@ public class ManageLecture extends AppCompatActivity {
         setContentView(R.layout.activity_manage_lecture);
 
 
-        edtLectureType = findViewById(R.id.lectureType);
+        edtLectureType = findViewById(R.id.tietLectureType);
         tvAction = findViewById(R.id.textAction);
         btnLecture = findViewById(R.id.btnLecture);
 
