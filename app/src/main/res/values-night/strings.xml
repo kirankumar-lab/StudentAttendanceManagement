@@ -52,4 +52,9 @@
     <string name="subject_name">Subject Name</string>
     <string name="subject_sem">Subject Sem.</string>
     <string name="subject_branch">Subject BranchID</string>
+    <string name="manage_lecture">Lecture Type</string>
+    <string name="add_lecture_type">Add Lecture Type</string>
+    <string name="ex_lecture">Ex. Lecture</string>
+    <string name="enter_lecture_type">Enter Lecture Type</string>
+    <string name="lecture_type">Lecture Type</string>
 </resources>

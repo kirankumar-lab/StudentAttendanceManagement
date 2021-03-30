@@ -10,9 +10,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".ManageSubject"
+        <activity android:name=".Lecture"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.NoAction"/>
+            android:theme="@style/Theme.NoAction"
+            />
+        <activity
+            android:name=".ManageLecture"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoAction" />
+        <activity
+            android:name=".ManageSubject"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoAction" />
         <activity
             android:name=".ManageBranch"
             android:screenOrientation="portrait"

@@ -2,7 +2,9 @@ package com.pss.myapplication;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -63,6 +65,10 @@ public class AdminPanel extends AppCompatActivity {
 
     public void subject(View v) {
         startActivity(new Intent(AdminPanel.this, Subject.class));
+    }
+
+    public void lecture(View v) {
+        startActivity(new Intent(AdminPanel.this, Lecture.class));
     }
 
     public void professor(View v) {

@@ -132,6 +132,33 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/admin_manage_lecture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginBottom="0dp"
+                android:drawableStart="@drawable/ic_subject"
+                android:drawableLeft="@drawable/ic_subject"
+                android:fontFamily="@font/eagle_lake"
+                android:gravity="center"
+                android:onClick="lecture"
+                android:padding="10dp"
+                android:text="@string/manage_lecture"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold|italic" />
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/admin_manage_staff"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

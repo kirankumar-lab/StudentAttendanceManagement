@@ -99,7 +99,7 @@ public class ManageSubject extends AppCompatActivity {
             subjectBranch = actvSelectBranch.getText().toString().trim();
             subjectSemester = actvSelectSemester.getText().toString().trim();
 
-            Pattern p = Pattern.compile("[a-zA-Z]{3,}");
+            Pattern p = Pattern.compile("[a-zA-Z\\s]{3,}");
             Matcher m = p.matcher(subjectName);
             boolean match = m.matches();
 

@@ -157,7 +157,8 @@ public class dbSAMS extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS attendance");
         onCreate(db);
     }
-/*Change Password Queries*/
+
+    /*Change Password Queries*/
     public Boolean check(String username, String password, String userType) {
         SQLiteDatabase db = getWritableDatabase();
         String q = null;
@@ -218,7 +219,7 @@ public class dbSAMS extends SQLiteOpenHelper {
 
     /*Batch  Queries*/
     protected String insertBatch(String batchName) {
-        if(!batchName.isEmpty()) {
+        if (!batchName.isEmpty()) {
             SQLiteDatabase db = getWritableDatabase();
             ContentValues cv = new ContentValues();
             cv.put("batch_name", batchName);
@@ -228,13 +229,10 @@ public class dbSAMS extends SQLiteOpenHelper {
             } else {
                 return "Batch Added Successfully!";
             }
-        }
-        else
-        {
+        } else {
             return "Not Inserted!";
         }
     }
-
 
     protected Cursor getAllBatch() {
         SQLiteDatabase db = getWritableDatabase();
@@ -243,17 +241,14 @@ public class dbSAMS extends SQLiteOpenHelper {
         return cursor;
     }
 
-
     protected boolean isBatchAlready(String batch) {
         SQLiteDatabase db = getWritableDatabase();
         String q = "SELECT  batch_name FROM batch";
         Cursor cursor = db.rawQuery(q, null);
 
         boolean flag = false;
-        while (cursor.moveToNext())
-        {
-            if ( cursor.getString(0).equals(batch))
-            {
+        while (cursor.moveToNext()) {
+            if (cursor.getString(0).equals(batch)) {
                 flag = true;
                 break;
             }
@@ -263,28 +258,23 @@ public class dbSAMS extends SQLiteOpenHelper {
 
     protected int batchCount(String batch) {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT  batch_name FROM batch WHERE batch_name='"+batch+"'";
+        String q = "SELECT  batch_name FROM batch WHERE batch_name='" + batch + "'";
         Cursor cursor = db.rawQuery(q, null);
         return cursor.getCount();
     }
 
-    protected String  updateBatch(int btid,String batchName) {
+    protected String updateBatch(int btid, String batchName) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("batch_name", batchName);
 
-        if(isBatchAlready(batchName))
-        {
+        if (isBatchAlready(batchName)) {
             return "Batch name already exists";
-        }
-        else {
-           int result = db.update("batch",cv,"btid" + "=?",new String[]{String.valueOf(btid)});
-            if (result == 0)
-            {
+        } else {
+            int result = db.update("batch", cv, "btid" + "=?", new String[]{String.valueOf(btid)});
+            if (result == 0) {
                 return "Failed to Update";
-            }
-            else
-            {
+            } else {
                 return "Updated Successfully";
             }
         }
@@ -293,13 +283,10 @@ public class dbSAMS extends SQLiteOpenHelper {
     protected String deleteBatch(int btid) {
         SQLiteDatabase db = getWritableDatabase();
 
-        int result = db.delete("batch","btid=?",new String[]{String.valueOf(btid)});
-        if (result == 0)
-        {
+        int result = db.delete("batch", "btid=?", new String[]{String.valueOf(btid)});
+        if (result == 0) {
             return "Failed to Delete";
-        }
-        else
-        {
+        } else {
             return "Deleted Successfully";
         }
     }
@@ -307,7 +294,7 @@ public class dbSAMS extends SQLiteOpenHelper {
 
     /*Branch Queries*/
     protected String insertBranch(String branchName) {
-        if(!branchName.isEmpty()) {
+        if (!branchName.isEmpty()) {
             SQLiteDatabase db = getWritableDatabase();
             ContentValues cv = new ContentValues();
             cv.put("branch_name", branchName);
@@ -317,9 +304,7 @@ public class dbSAMS extends SQLiteOpenHelper {
             } else {
                 return "Branch Added Successfully!";
             }
-        }
-        else
-        {
+        } else {
             return "Not Inserted!";
         }
     }
@@ -336,17 +321,14 @@ public class dbSAMS extends SQLiteOpenHelper {
         try {
             String q = "SELECT * FROM branch WHERE branch_name='" + branchName + "'";
             Cursor cursor = db.rawQuery(q, null);
-            while (cursor.moveToNext())
-            {
-                if ( cursor.getString(1).equals(branchName))
-                {
+            while (cursor.moveToNext()) {
+                if (cursor.getString(1).equals(branchName)) {
                     q = cursor.getString(0).trim().toString();
                     break;
                 }
             }
             return q;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return ex.getMessage();
         }
     }
@@ -354,19 +336,16 @@ public class dbSAMS extends SQLiteOpenHelper {
     protected String getBranchName(int branchID) {
         SQLiteDatabase db = getWritableDatabase();
         try {
-            String q = "SELECT * FROM branch WHERE bid=" + branchID+"";
+            String q = "SELECT * FROM branch WHERE bid=" + branchID + "";
             Cursor cursor = db.rawQuery(q, null);
-            while (cursor.moveToNext())
-            {
-                if ( cursor.getString(0).equals(branchID))
-                {
+            while (cursor.moveToNext()) {
+                if (cursor.getString(0).equals(branchID)) {
                     q = cursor.getString(1).trim();
                     break;
                 }
             }
             return q;
-        }
-        catch(Exception ex){
+        } catch (Exception ex) {
             return ex.getMessage();
         }
     }
@@ -377,10 +356,8 @@ public class dbSAMS extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(q, null);
 
         boolean flag = false;
-        while (cursor.moveToNext())
-        {
-            if ( cursor.getString(0).equals(branch))
-            {
+        while (cursor.moveToNext()) {
+            if (cursor.getString(0).equals(branch)) {
                 flag = true;
                 break;
             }
@@ -390,28 +367,23 @@ public class dbSAMS extends SQLiteOpenHelper {
 
     protected int branchCount(String branch) {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT  branch_name FROM branch WHERE subject_name='"+branch+"'";
+        String q = "SELECT  branch_name FROM branch WHERE branch_name='" + branch + "'";
         Cursor cursor = db.rawQuery(q, null);
         return cursor.getCount();
     }
 
-    protected String  updateBranch(int bid,String branchName) {
+    protected String updateBranch(int bid, String branchName) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("branch_name", branchName);
 
-        if(isBatchAlready(branchName))
-        {
-            return "Batch name already exists";
-        }
-        else {
-            int result = db.update("branch",cv,"bid" + "=?",new String[]{String.valueOf(bid)});
-            if (result == 0)
-            {
+        if (isBatchAlready(branchName)) {
+            return "Branch name already exists";
+        } else {
+            int result = db.update("branch", cv, "bid" + "=?", new String[]{String.valueOf(bid)});
+            if (result == 0) {
                 return "Failed to Update";
-            }
-            else
-            {
+            } else {
                 return "Updated Successfully";
             }
         }
@@ -420,20 +392,17 @@ public class dbSAMS extends SQLiteOpenHelper {
     protected String deleteBranch(int bid) {
         SQLiteDatabase db = getWritableDatabase();
 
-            int result = db.delete("branch","bid=?",new String[]{String.valueOf(bid)});
-            if (result == 0)
-            {
-                return "Failed to Delete";
-            }
-            else
-            {
-                return "Deleted Successfully";
-            }
+        int result = db.delete("branch", "bid=?", new String[]{String.valueOf(bid)});
+        if (result == 0) {
+            return "Failed to Delete";
+        } else {
+            return "Deleted Successfully";
+        }
     }
 
 
     /*Subject Queries*/
-    protected String insertSubject(String subjectName,int bid,int subjectSemester) {
+    protected String insertSubject(String subjectName, int bid, int subjectSemester) {
         try {
             if (!subjectName.isEmpty()) {
                 SQLiteDatabase db = getWritableDatabase();
@@ -451,7 +420,7 @@ public class dbSAMS extends SQLiteOpenHelper {
             } else {
                 return "Not Inserted!";
             }
-        }catch(Exception ex){
+        } catch (Exception ex) {
             return ex.getMessage();
         }
     }
@@ -469,10 +438,8 @@ public class dbSAMS extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(q, null);
 
         boolean flag = false;
-        while (cursor.moveToNext())
-        {
-            if ( cursor.getString(0).equals(subject))
-            {
+        while (cursor.moveToNext()) {
+            if (cursor.getString(0).equals(subject)) {
                 flag = true;
                 break;
             }
@@ -482,30 +449,25 @@ public class dbSAMS extends SQLiteOpenHelper {
 
     protected int subjectCount(String subject) {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT  subject_name FROM subject WHERE subject_name='"+subject+"'";
+        String q = "SELECT  subject_name FROM subject WHERE subject_name='" + subject + "'";
         Cursor cursor = db.rawQuery(q, null);
         return cursor.getCount();
     }
 
-    protected String  updateSubject(int sbid,String subjectName,int bid,int subjectSemester) {
+    protected String updateSubject(int sbid, String subjectName, int bid, int subjectSemester) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("subject_name", subjectName);
         cv.put("semester", subjectSemester);
         cv.put("bid", bid);
 
-        if(subjectCount(subjectName)>1)
-        {
+        if (subjectCount(subjectName) > 1) {
             return "Subject name already exists";
-        }
-        else {
-            int result = db.update("subject",cv,"sbid" + "=?",new String[]{String.valueOf(sbid)});
-            if (result == 0)
-            {
+        } else {
+            int result = db.update("subject", cv, "sbid" + "=?", new String[]{String.valueOf(sbid)});
+            if (result == 0) {
                 return "Failed to Update";
-            }
-            else
-            {
+            } else {
                 return "Updated Successfully";
             }
         }
@@ -514,13 +476,118 @@ public class dbSAMS extends SQLiteOpenHelper {
     protected String deleteSubject(int sbid) {
         SQLiteDatabase db = getWritableDatabase();
 
-        int result = db.delete("subject","sbid=?",new String[]{String.valueOf(sbid)});
-        if (result == 0)
-        {
+        int result = db.delete("subject", "sbid=?", new String[]{String.valueOf(sbid)});
+        if (result == 0) {
             return "Failed to Delete";
+        } else {
+            return "Deleted Successfully";
         }
-        else
-        {
+    }
+
+    /*Lecture Queries*/
+    protected String insertLecture(String lectureType) {
+        if (!lectureType.isEmpty()) {
+            SQLiteDatabase db = getWritableDatabase();
+            ContentValues cv = new ContentValues();
+            cv.put("lecture_type", lectureType);
+            float insert = db.insert("lecture", null, cv);
+            if (insert == -1) {
+                return "Failed to Add Lecture";
+            } else {
+                return "Lecture Added Successfully!";
+            }
+        } else {
+            return "Not Inserted!";
+        }
+    }
+
+    protected Cursor getAllLecture() {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM lecture";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
+    protected String getLectureID(String lectureType) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String q = "SELECT * FROM lecture WHERE lecture_type='" + lectureType + "'";
+            Cursor cursor = db.rawQuery(q, null);
+            while (cursor.moveToNext()) {
+                if (cursor.getString(1).equals(lectureType)) {
+                    q = cursor.getString(0).trim().toString();
+                    break;
+                }
+            }
+            return q;
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+
+    protected String getLecturetype(int lectureID) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String q = "SELECT * FROM lecture WHERE lid=" + lectureID + "";
+            Cursor cursor = db.rawQuery(q, null);
+            while (cursor.moveToNext()) {
+                if (cursor.getString(0).equals(lectureID)) {
+                    q = cursor.getString(1).trim();
+                    break;
+                }
+            }
+            return q;
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+
+    protected boolean isLectureAlready(String lecture) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT  lecture_type FROM lecture";
+        Cursor cursor = db.rawQuery(q, null);
+
+        boolean flag = false;
+        while (cursor.moveToNext()) {
+            if (cursor.getString(0).equals(lecture)) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
+    protected int lectureCount(String lecture) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT  lecture_type FROM lecture WHERE lecture_type='" + lecture + "'";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor.getCount();
+    }
+
+    protected String updateLecture(int lid, String lectureType) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("lecture_type", lectureType);
+
+        if (isBatchAlready(lectureType)) {
+            return "Lecture type already exists";
+        } else {
+            int result = db.update("lecture", cv, "lid" + "=?", new String[]{String.valueOf(lid)});
+            if (result == 0) {
+                return "Failed to Update";
+            } else {
+                return "Updated Successfully";
+            }
+        }
+    }
+
+    protected String deleteLecture(int lid) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        int result = db.delete("lecture", "lid=?", new String[]{String.valueOf(lid)});
+        if (result == 0) {
+            return "Failed to Delete";
+        } else {
             return "Deleted Successfully";
         }
     }
