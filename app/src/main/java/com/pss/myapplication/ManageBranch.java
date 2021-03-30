@@ -10,13 +10,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ManageBranch extends AppCompatActivity {
 
     private dbSAMS db = new dbSAMS(this);
-    private EditText edtBranchName;
+    private TextInputEditText edtBranchName;
     private TextView tvAction;
     private Button btnBranch;
     private String branchName;
@@ -30,7 +32,7 @@ public class ManageBranch extends AppCompatActivity {
         setContentView(R.layout.activity_manage_branch);
 
 
-        edtBranchName = findViewById(R.id.branchName);
+        edtBranchName = findViewById(R.id.tietBranchName);
         tvAction = findViewById(R.id.textAction);
         btnBranch = findViewById(R.id.btnBranch);
 

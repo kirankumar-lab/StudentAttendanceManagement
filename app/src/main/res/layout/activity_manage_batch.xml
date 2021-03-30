@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/Theme.Style"
     tools:context=".ManageBatch">
 
 
@@ -30,28 +32,36 @@
         android:layout_marginVertical="10dp"
         android:paddingTop="60dp"
         android:orientation="vertical">
-
-        <TextView
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilBatchName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:fontFamily="@font/amarante"
-            android:text="@string/enter_batch_name"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="italic"/>
 
-        <EditText
-            android:id="@+id/batchName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:fontFamily="@font/amarante"
-            android:hint="@string/ex_batch_2017_2021"
-            android:importantForAutofill="no"
-            android:inputType="numberSigned"
-            android:textStyle="italic"
-            android:digits="0123456789-" />
+            android:hint="@string/enter_batch_name"
+            app:boxBackgroundColor="@color/white"
+            app:boxBackgroundMode="outline"
+
+            app:boxCornerRadiusBottomEnd="10dp"
+            app:boxCornerRadiusBottomStart="10dp"
+            app:boxCornerRadiusTopEnd="10dp"
+            app:boxCornerRadiusTopStart="10dp"
+
+            app:boxStrokeColor="@color/blue"
+            app:boxStrokeWidth="2dp"
+            app:hintAnimationEnabled="true"
+            app:hintEnabled="true"
+            app:hintTextColor="@color/blue">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tietBatchName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:fontFamily="@font/eagle_lake"
+                android:digits="0123456789-"
+                android:inputType="numberSigned"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnBatch"

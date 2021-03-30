@@ -10,13 +10,15 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ManageBatch extends AppCompatActivity {
 
     private dbSAMS db = new dbSAMS(this);
-    private EditText edtBatchName;
+    private TextInputEditText edtBatchName;
     private TextView tvAction;
     private Button btnBatch;
     private String batchName;
@@ -30,7 +32,7 @@ public class ManageBatch extends AppCompatActivity {
         setContentView(R.layout.activity_manage_batch);
 
 
-        edtBatchName = findViewById(R.id.batchName);
+        edtBatchName = findViewById(R.id.tietBatchName);
         tvAction = findViewById(R.id.textAction);
         btnBatch = findViewById(R.id.btnBatch);
 
