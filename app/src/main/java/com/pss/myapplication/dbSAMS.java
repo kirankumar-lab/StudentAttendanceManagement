@@ -427,7 +427,7 @@ public class dbSAMS extends SQLiteOpenHelper {
 
     protected Cursor getAllSubject() {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT * FROM subject ORDER BY bid DESC";
+        String q = "SELECT * FROM subject ORDER BY sbid DESC";
         Cursor cursor = db.rawQuery(q, null);
         return cursor;
     }
@@ -585,6 +585,88 @@ public class dbSAMS extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         int result = db.delete("lecture", "lid=?", new String[]{String.valueOf(lid)});
+        if (result == 0) {
+            return "Failed to Delete";
+        } else {
+            return "Deleted Successfully";
+        }
+    }
+    /*Subject Queries*/
+//    protected String insertSubject(String subjectName, int bid, int subjectSemester) {
+//        try {
+//            if (!subjectName.isEmpty()) {
+//                SQLiteDatabase db = getWritableDatabase();
+//                ContentValues cv = new ContentValues();
+//                cv.put("subject_name", subjectName);
+//                cv.put("semester", subjectSemester);
+//                cv.put("bid", bid);
+//
+//                float insert = db.insert("subject", null, cv);
+//                if (insert == -1) {
+//                    return "Failed to Add Subject";
+//                } else {
+//                    return "Subject Added Successfully!";
+//                }
+//            } else {
+//                return "Not Inserted!";
+//            }
+//        } catch (Exception ex) {
+//            return ex.getMessage();
+//        }
+//    }
+
+    protected Cursor getAllProfessor() {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM staff ORDER BY sid DESC";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
+//    protected boolean isSubjectAlready(String subject) {
+//        SQLiteDatabase db = getWritableDatabase();
+//        String q = "SELECT  subject_name FROM subject";
+//        Cursor cursor = db.rawQuery(q, null);
+//
+//        boolean flag = false;
+//        while (cursor.moveToNext()) {
+//            if (cursor.getString(0).equals(subject)) {
+//                flag = true;
+//                break;
+//            }
+//        }
+//        return flag;
+//    }
+
+//    protected int subjectCount(String subject) {
+//        SQLiteDatabase db = getWritableDatabase();
+//        String q = "SELECT  subject_name FROM subject WHERE subject_name='" + subject + "'";
+//        Cursor cursor = db.rawQuery(q, null);
+//        return cursor.getCount();
+//    }
+
+//    protected String updateSubject(int sbid, String subjectName, int bid, int subjectSemester) {
+//        SQLiteDatabase db = getWritableDatabase();
+//        ContentValues cv = new ContentValues();
+//        cv.put("subject_name", subjectName);
+//        cv.put("semester", subjectSemester);
+//        cv.put("bid", bid);
+//
+//        if (subjectCount(subjectName) > 1) {
+//            return "Subject name already exists";
+//        } else {
+//            int result = db.update("subject", cv, "sbid" + "=?", new String[]{String.valueOf(sbid)});
+//            if (result == 0) {
+//                return "Failed to Update";
+//            } else {
+//                return "Updated Successfully";
+//            }
+//        }
+//    }
+
+    protected String deleteProfessor(int sid) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        int result = db.delete("staff", "sid=?", new String[]{String.valueOf(sid)});
         if (result == 0) {
             return "Failed to Delete";
         } else {

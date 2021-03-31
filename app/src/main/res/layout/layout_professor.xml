@@ -40,12 +40,92 @@
                     android:fontFamily="@font/eagle_lake"
                     android:gravity="start"
                     android:padding="10dp"
-                    android:text="@string/subject_name"
+                    android:text="@string/professor_name"
                     android:textSize="12sp"
                     android:textStyle="bold|italic" />
 
                 <TextView
-                    android:id="@+id/dataSubjectName"
+                    android:id="@+id/dataProfessorName"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/eagle_lake"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="@string/manage_subject"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold|italic" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/eagle_lake"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="@string/mobile_no"
+                    android:textSize="12sp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/dataProfessorMobileNo"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/eagle_lake"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="@string/manage_subject"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold|italic" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/eagle_lake"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="@string/email"
+                    android:textSize="12sp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/dataProfessorEmail"
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
@@ -85,46 +165,7 @@
                     android:textStyle="bold|italic" />
 
                 <TextView
-                    android:id="@+id/dataSubjectBranch"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginBottom="0dp"
-                    android:fontFamily="@font/eagle_lake"
-                    android:gravity="start"
-                    android:padding="10dp"
-                    android:text="@string/manage_subject"
-                    android:textColor="@color/black"
-                    android:textSize="12sp"
-                    android:textStyle="bold|italic" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="3">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layout_marginEnd="0dp"
-                    android:layout_marginRight="0dp"
-                    android:layout_marginBottom="0dp"
-                    android:fontFamily="@font/eagle_lake"
-                    android:gravity="start"
-                    android:padding="10dp"
-                    android:text="@string/subject_sem"
-                    android:textSize="12sp"
-                    android:textStyle="bold|italic" />
-
-                <TextView
-                    android:id="@+id/dataSubjectSemester"
+                    android:id="@+id/dataProfessorBranch"
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"

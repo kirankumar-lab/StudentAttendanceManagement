@@ -87,7 +87,7 @@ public class Subject extends AppCompatActivity implements AdapterSubject.ItemCli
         }
     }
 
-    private boolean isYes;
+//    private boolean isYes;
 
     @Override
     public void onItemClicked(int index,String action) {
