@@ -90,14 +90,16 @@ public class Professor extends AppCompatActivity implements AdapterProfessor.Ite
             startActivity(new Intent(Professor.this, ManageProfessor.class)
                     .putExtra("sid", data.get(index).getSid())
                     .putExtra("professor_name", data.get(index).getProfessor_name())
-                    .putExtra("professor_mobileno", data.get(index).getProfessor_mobileno())
+                    .putExtra("professor_mobileno",
+                            String.valueOf(data.get(index).getProfessor_mobileno()))
                     .putExtra("professor_email", data.get(index).getProfessor_email())
+                    .putExtra("professor_password", data.get(index).getProfessor_password())
                     .putExtra("bid", data.get(index).getBid())
                     .putExtra("action", action));
         }
         if (action.equals("delete")) {
             dialog = new Dialog(this);
-            dialog.setContentView(R.layout.layout_delete_subject);
+            dialog.setContentView(R.layout.layout_delete_professor);
             dialog.setCanceledOnTouchOutside(false);
             dialog.setCancelable(true);
 
@@ -122,4 +124,6 @@ public class Professor extends AppCompatActivity implements AdapterProfessor.Ite
             });
         }
     }
+
+
 }

@@ -11,17 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class AdapterProfessor extends RecyclerView.Adapter<AdapterProfessor.ViewHolder> {
+public class AdapterStudent extends RecyclerView.Adapter<AdapterStudent.ViewHolder> {
     private ArrayList<ListProfessor> data;
-    AdapterProfessor.ItemClicked activity;
+    AdapterStudent.ItemClicked activity;
 
     public interface ItemClicked {
         void onItemClicked(int index, String action);
     }
 
-    public AdapterProfessor(Context context, ArrayList<ListProfessor> list) {
+    public AdapterStudent(Context context, ArrayList<ListProfessor> list) {
         data = list;
-        activity = (AdapterProfessor.ItemClicked) context;
+        activity = (AdapterStudent.ItemClicked) context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -45,14 +45,14 @@ public class AdapterProfessor extends RecyclerView.Adapter<AdapterProfessor.View
 
     @NonNull
     @Override
-    public AdapterProfessor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AdapterStudent.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_professor, parent,
                 false);
-        return new AdapterProfessor.ViewHolder(v);
+        return new AdapterStudent.ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AdapterProfessor.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterStudent.ViewHolder holder, int position) {
         holder.itemView.setTag(data.get(position));
 
         holder.dataProfessorName.setText(data.get(position).getProfessor_name());

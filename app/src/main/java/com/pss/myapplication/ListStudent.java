@@ -1,8 +1,6 @@
 package com.pss.myapplication;
 
-import java.util.List;
-
-public class ListProfessor {
+public class ListStudent {
     private int sid;
     private String professor_name;
     private String professor_email;
@@ -10,7 +8,7 @@ public class ListProfessor {
     private int professor_mobileno;
     private int bid; //Branch ID
 
-    public ListProfessor(int sid, String professor_name, String professor_email, String professor_password, int professor_mobileno, int bid) {
+    public ListStudent(int sid, String professor_name, String professor_email, String professor_password, int professor_mobileno, int bid) {
         this.sid = sid;
         this.professor_name = professor_name;
         this.professor_email = professor_email;

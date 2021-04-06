@@ -10,10 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".ManageProfessor"
+        <activity android:name=".SelectProfessorData"></activity>
+        <activity android:name=".SelectStudentData" />
+        <activity android:name=".ManageStudent" />
+        <activity
+            android:name=".ManageProfessor"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.NoAction"
-            />
+            android:theme="@style/Theme.NoAction" />
         <activity
             android:name=".Lecture"
             android:screenOrientation="portrait"

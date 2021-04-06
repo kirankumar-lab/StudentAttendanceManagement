@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     tools:context=".Professor">
     <TextView
         android:id="@+id/textView"
@@ -21,9 +22,9 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/dataProfesor"
+        android:layout_below="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/textView"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
 
@@ -40,4 +41,5 @@
         android:contentDescription="@string/add_professor"
         android:onClick="addProfessor"
         android:src="@drawable/ic_add" />
+
 </RelativeLayout>

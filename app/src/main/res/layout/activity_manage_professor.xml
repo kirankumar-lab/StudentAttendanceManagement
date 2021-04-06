@@ -84,12 +84,12 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/tietProfessorMobileno"
-                android:inputType="numberSigned"
                 android:layout_width="match_parent"
+                android:inputType="phone"
+                android:digits="1234567890"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
                 android:fontFamily="@font/eagle_lake"
-                android:digits="1234567890"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 

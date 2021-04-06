@@ -10,7 +10,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class dbSAMS extends SQLiteOpenHelper {
+public class
+dbSAMS extends SQLiteOpenHelper {
 
     //database
     private final static String DATABASE_NAME = "db_sams";
@@ -63,7 +64,7 @@ public class dbSAMS extends SQLiteOpenHelper {
             "name TEXT NOT NULL," +
             "email TEXT NOT NULL," +
             "password TEXT NOT NULL," +
-            "mobileno NUMERIC NOT NULL," +
+            "mobileno INTEGER NOT NULL," +
             "bid INTEGER NOT NULL," +
             "FOREIGN KEY(bid) REFERENCES branch(bid)" +
             ");";
@@ -91,9 +92,9 @@ public class dbSAMS extends SQLiteOpenHelper {
             "name TEXT NOT NULL," +
             "email TEXT NOT NULL," +
             "password TEXT NOT NULL," +
-            "mobileno NUMERIC NOT NULL," +
+            "mobileno INTEGER NOT NULL," +
             "parent_email TEXT NOT NULL," +
-            "parent_mobileno NUMERIC NOT NULL," +
+            "parent_mobileno INTEGER NOT NULL," +
             "semester INTEGER NOT NULL," +
             "bid INTEGER NOT NULL," +
             "btid INTEGER NOT NULL," +
@@ -591,29 +592,33 @@ public class dbSAMS extends SQLiteOpenHelper {
             return "Deleted Successfully";
         }
     }
-    /*Subject Queries*/
-//    protected String insertSubject(String subjectName, int bid, int subjectSemester) {
-//        try {
-//            if (!subjectName.isEmpty()) {
-//                SQLiteDatabase db = getWritableDatabase();
-//                ContentValues cv = new ContentValues();
-//                cv.put("subject_name", subjectName);
-//                cv.put("semester", subjectSemester);
-//                cv.put("bid", bid);
-//
-//                float insert = db.insert("subject", null, cv);
-//                if (insert == -1) {
-//                    return "Failed to Add Subject";
-//                } else {
-//                    return "Subject Added Successfully!";
-//                }
-//            } else {
-//                return "Not Inserted!";
-//            }
-//        } catch (Exception ex) {
-//            return ex.getMessage();
-//        }
-//    }
+
+    /*Staff Queries*/
+    protected String insertProfessor(String professorName,String professorEmail,
+                                     String professorPassword,int professorMobile,int bid) {
+        try {
+            if (!professorName.isEmpty() && !professorEmail.isEmpty() && !professorPassword.isEmpty()) {
+                SQLiteDatabase db = getWritableDatabase();
+                ContentValues cv = new ContentValues();
+                cv.put("name", professorName);
+                cv.put("email", professorEmail);
+                cv.put("password", professorPassword);
+                cv.put("mobileno", professorMobile);
+                cv.put("bid", bid);
+
+                float insert = db.insert("staff", null, cv);
+                if (insert == -1) {
+                    return "Failed to Add Professor";
+                } else {
+                    return "Professor Added Successfully!";
+                }
+            } else {
+                return "Not Inserted!";
+            }
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
 
     protected Cursor getAllProfessor() {
         SQLiteDatabase db = getWritableDatabase();
@@ -622,46 +627,50 @@ public class dbSAMS extends SQLiteOpenHelper {
         return cursor;
     }
 
-//    protected boolean isSubjectAlready(String subject) {
-//        SQLiteDatabase db = getWritableDatabase();
-//        String q = "SELECT  subject_name FROM subject";
-//        Cursor cursor = db.rawQuery(q, null);
-//
-//        boolean flag = false;
-//        while (cursor.moveToNext()) {
-//            if (cursor.getString(0).equals(subject)) {
-//                flag = true;
-//                break;
-//            }
-//        }
-//        return flag;
-//    }
+    protected boolean isProfessorAlready(String professorEmail) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT  email FROM staff";
+        Cursor cursor = db.rawQuery(q, null);
 
-//    protected int subjectCount(String subject) {
-//        SQLiteDatabase db = getWritableDatabase();
-//        String q = "SELECT  subject_name FROM subject WHERE subject_name='" + subject + "'";
-//        Cursor cursor = db.rawQuery(q, null);
-//        return cursor.getCount();
-//    }
+        boolean flag = false;
+        while (cursor.moveToNext()) {
+            if (cursor.getString(0).equals(professorEmail)) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
 
-//    protected String updateSubject(int sbid, String subjectName, int bid, int subjectSemester) {
-//        SQLiteDatabase db = getWritableDatabase();
-//        ContentValues cv = new ContentValues();
-//        cv.put("subject_name", subjectName);
-//        cv.put("semester", subjectSemester);
-//        cv.put("bid", bid);
-//
-//        if (subjectCount(subjectName) > 1) {
-//            return "Subject name already exists";
-//        } else {
-//            int result = db.update("subject", cv, "sbid" + "=?", new String[]{String.valueOf(sbid)});
-//            if (result == 0) {
-//                return "Failed to Update";
-//            } else {
-//                return "Updated Successfully";
-//            }
-//        }
-//    }
+
+    protected int professorCount(String email) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT  email FROM staff WHERE email='" + email + "'";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor.getCount();
+    }
+
+    protected String updateProfessor(int sid,String professorName,String professorEmail,
+                                     String professorPassword,int professorMobile,int bid) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("name", professorName);
+        cv.put("email", professorEmail);
+        cv.put("password", professorPassword);
+        cv.put("mobileno", professorMobile);
+        cv.put("bid", bid);
+
+        if (professorCount(professorEmail) > 1) {
+            return "Professor already exists";
+        } else {
+            int result = db.update("staff", cv, "sid" + "=?", new String[]{String.valueOf(sid)});
+            if (result == 0) {
+                return "Failed to Update";
+            } else {
+                return "Updated Successfully";
+            }
+        }
+    }
 
     protected String deleteProfessor(int sid) {
         SQLiteDatabase db = getWritableDatabase();
@@ -673,4 +682,95 @@ public class dbSAMS extends SQLiteOpenHelper {
             return "Deleted Successfully";
         }
     }
+
+    /*Student Queries*/
+    protected String insertStudent(String professorName,String professorEmail,
+                                     String professorPassword,int professorMobile,int bid) {
+        try {
+            if (!professorName.isEmpty() && !professorEmail.isEmpty() && !professorPassword.isEmpty()) {
+                SQLiteDatabase db = getWritableDatabase();
+                ContentValues cv = new ContentValues();
+                cv.put("name", professorName);
+                cv.put("email", professorEmail);
+                cv.put("password", professorPassword);
+                cv.put("mobileno", professorMobile);
+                cv.put("bid", bid);
+
+                float insert = db.insert("staff", null, cv);
+                if (insert == -1) {
+                    return "Failed to Add Professor";
+                } else {
+                    return "Professor Added Successfully!";
+                }
+            } else {
+                return "Not Inserted!";
+            }
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+
+    protected Cursor getAllStudent() {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM staff ORDER BY sid DESC";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
+    protected boolean isStudentAlready(String professorEmail) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT  email FROM staff";
+        Cursor cursor = db.rawQuery(q, null);
+
+        boolean flag = false;
+        while (cursor.moveToNext()) {
+            if (cursor.getString(0).equals(professorEmail)) {
+                flag = true;
+                break;
+            }
+        }
+        return flag;
+    }
+
+
+    protected int studentCount(String email) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT  email FROM staff WHERE email='" + email + "'";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor.getCount();
+    }
+
+    protected String updateStudent(int sid,String professorName,String professorEmail,
+                                     String professorPassword,int professorMobile,int bid) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("name", professorName);
+        cv.put("email", professorEmail);
+        cv.put("password", professorPassword);
+        cv.put("mobileno", professorMobile);
+        cv.put("bid", bid);
+
+        if (studentCount(professorEmail) > 1) {
+            return "Professor already exists";
+        } else {
+            int result = db.update("staff", cv, "sid" + "=?", new String[]{String.valueOf(sid)});
+            if (result == 0) {
+                return "Failed to Update";
+            } else {
+                return "Updated Successfully";
+            }
+        }
+    }
+
+    protected String deleteStudent(int sid) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        int result = db.delete("staff", "sid=?", new String[]{String.valueOf(sid)});
+        if (result == 0) {
+            return "Failed to Delete";
+        } else {
+            return "Deleted Successfully";
+        }
+    }
+
 }
