@@ -12,30 +12,33 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class AdapterStudent extends RecyclerView.Adapter<AdapterStudent.ViewHolder> {
-    private ArrayList<ListProfessor> data;
+    private ArrayList<ListStudent> data;
     AdapterStudent.ItemClicked activity;
 
     public interface ItemClicked {
         void onItemClicked(int index, String action);
     }
 
-    public AdapterStudent(Context context, ArrayList<ListProfessor> list) {
+    public AdapterStudent(Context context, ArrayList<ListStudent> list) {
         data = list;
         activity = (AdapterStudent.ItemClicked) context;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView dataProfessorName, dataProfessorMobileNo, dataProfessorEmail, dataProfessorBranch,
+        TextView dataStudentName, dataStudentMobileNo, dataStudentEmail,dataStudentPMobileNo,
+                dataStudentPEmail, dataStudentBranch,
                 tvEdit, tvDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            dataProfessorName = itemView.findViewById(R.id.dataProfessorName);
-            dataProfessorMobileNo = itemView.findViewById(R.id.dataProfessorMobileNo);
-            dataProfessorEmail = itemView.findViewById(R.id.dataProfessorEmail);
-            dataProfessorBranch = itemView.findViewById(R.id.dataProfessorBranch);
+            dataStudentName = itemView.findViewById(R.id.dataStudentName);
+            dataStudentMobileNo = itemView.findViewById(R.id.dataStudentMobileNo);
+            dataStudentEmail = itemView.findViewById(R.id.dataStudentEmail);
+            dataStudentPMobileNo = itemView.findViewById(R.id.dataStudentPMobileNo);
+            dataStudentPEmail = itemView.findViewById(R.id.dataStudentPEmail);
+            dataStudentBranch = itemView.findViewById(R.id.dataStudentBranch);
             tvEdit = itemView.findViewById(R.id.tvEdit);
             tvDelete = itemView.findViewById(R.id.tvDelete);
 
@@ -46,7 +49,7 @@ public class AdapterStudent extends RecyclerView.Adapter<AdapterStudent.ViewHold
     @NonNull
     @Override
     public AdapterStudent.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_professor, parent,
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_student, parent,
                 false);
         return new AdapterStudent.ViewHolder(v);
     }
@@ -55,17 +58,19 @@ public class AdapterStudent extends RecyclerView.Adapter<AdapterStudent.ViewHold
     public void onBindViewHolder(@NonNull AdapterStudent.ViewHolder holder, int position) {
         holder.itemView.setTag(data.get(position));
 
-        holder.dataProfessorName.setText(data.get(position).getProfessor_name());
-        holder.dataProfessorMobileNo.setText(String.valueOf(data.get(position).getProfessor_mobileno()));
-        holder.dataProfessorEmail.setText(data.get(position).getProfessor_email());
-        holder.dataProfessorBranch.setText(String.valueOf(data.get(position).getBid()));
+        holder.dataStudentName.setText(data.get(position).getStudent_name());
+        holder.dataStudentMobileNo.setText(String.valueOf(data.get(position).getStudent_mobileno()));
+        holder.dataStudentEmail.setText(data.get(position).getStudent_email());
+        holder.dataStudentPMobileNo.setText(String.valueOf(data.get(position).getStudent_p_mobileno()));
+        holder.dataStudentPEmail.setText(data.get(position).getStudent_p_email());
+        holder.dataStudentBranch.setText(String.valueOf(data.get(position).getBid()));
 
         holder.tvEdit.setOnClickListener(v -> {
-            activity.onItemClicked(data.indexOf((ListProfessor) data.get(position)), "edit");
+            activity.onItemClicked(data.indexOf((ListStudent) data.get(position)), "edit");
         });
 
         holder.tvDelete.setOnClickListener(v -> {
-            activity.onItemClicked(data.indexOf((ListProfessor) data.get(position)), "delete");
+            activity.onItemClicked(data.indexOf((ListStudent) data.get(position)), "delete");
         });
     }
 

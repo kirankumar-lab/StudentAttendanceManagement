@@ -40,12 +40,12 @@
                     android:fontFamily="@font/eagle_lake"
                     android:gravity="start"
                     android:padding="10dp"
-                    android:text="@string/professor_name"
+                    android:text="@string/student_name"
                     android:textSize="12sp"
                     android:textStyle="bold|italic" />
 
                 <TextView
-                    android:id="@+id/dataProfessorName"
+                    android:id="@+id/dataStudentName"
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
                     android:textStyle="bold|italic" />
 
                 <TextView
-                    android:id="@+id/dataProfessorMobileNo"
+                    android:id="@+id/dataStudentMobileNo"
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
@@ -125,7 +125,87 @@
                     android:textStyle="bold|italic" />
 
                 <TextView
-                    android:id="@+id/dataProfessorEmail"
+                    android:id="@+id/dataStudentEmail"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/eagle_lake"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="@string/manage_subject"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold|italic" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/eagle_lake"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="Parent Mobile No."
+                    android:textSize="12sp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/dataStudentPMobileNo"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/eagle_lake"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="@string/manage_subject"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
+                    android:textStyle="bold|italic" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:fontFamily="@font/eagle_lake"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="Parent Email"
+                    android:textSize="12sp"
+                    android:textStyle="bold|italic" />
+
+                <TextView
+                    android:id="@+id/dataStudentPEmail"
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"
@@ -165,7 +245,7 @@
                     android:textStyle="bold|italic" />
 
                 <TextView
-                    android:id="@+id/dataProfessorBranch"
+                    android:id="@+id/dataStudentBranch"
                     android:layout_width="0dp"
                     android:layout_weight="2"
                     android:layout_height="wrap_content"

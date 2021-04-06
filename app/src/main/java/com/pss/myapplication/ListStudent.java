@@ -1,60 +1,92 @@
 package com.pss.myapplication;
 
 public class ListStudent {
-    private int sid;
-    private String professor_name;
-    private String professor_email;
-    private String professor_password;
-    private int professor_mobileno;
+    private int stid;
+    private String student_name;
+    private String student_email;
+    private String student_password;
+    private String student_mobileno;
+    private String student_p_email;
+    private String student_p_mobileno;
+    private int btid; //Batch ID
     private int bid; //Branch ID
+    private int semester;
 
-    public ListStudent(int sid, String professor_name, String professor_email, String professor_password, int professor_mobileno, int bid) {
-        this.sid = sid;
-        this.professor_name = professor_name;
-        this.professor_email = professor_email;
-        this.professor_password = professor_password;
-        this.professor_mobileno = professor_mobileno;
+    public ListStudent(int stid, String student_name, String student_email, String student_password, String student_mobileno, String student_p_email, String student_p_mobileno, int btid, int bid, int semester) {
+        this.stid = stid;
+        this.student_name = student_name;
+        this.student_email = student_email;
+        this.student_password = student_password;
+        this.student_mobileno = student_mobileno;
+        this.student_p_email = student_p_email;
+        this.student_p_mobileno = student_p_mobileno;
+        this.btid = btid;
         this.bid = bid;
+        this.semester = semester;
     }
 
     public int getSid() {
-        return sid;
+        return stid;
     }
 
-    public void setSid(int sid) {
-        this.sid = sid;
+    public void setSid(int stid) {
+        this.stid = stid;
     }
 
-    public String getProfessor_name() {
-        return professor_name;
+    public String getStudent_name() {
+        return student_name;
     }
 
-    public void setProfessor_name(String professor_name) {
-        this.professor_name = professor_name;
+    public void setStudent_name(String student_name) {
+        this.student_name = student_name;
     }
 
-    public String getProfessor_email() {
-        return professor_email;
+    public String getStudent_email() {
+        return student_email;
     }
 
-    public void setProfessor_email(String professor_email) {
-        this.professor_email = professor_email;
+    public void setStudent_email(String student_email) {
+        this.student_email = student_email;
     }
 
-    public String getProfessor_password() {
-        return professor_password;
+    public String getStudent_password() {
+        return student_password;
     }
 
-    public void setProfessor_password(String professor_password) {
-        this.professor_password = professor_password;
+    public void setStudent_password(String student_password) {
+        this.student_password = student_password;
     }
 
-    public int getProfessor_mobileno() {
-        return professor_mobileno;
+    public String getStudent_mobileno() {
+        return student_mobileno;
     }
 
-    public void setProfessor_mobileno(int professor_mobileno) {
-        this.professor_mobileno = professor_mobileno;
+    public void setStudent_mobileno(String student_mobileno) {
+        this.student_mobileno = student_mobileno;
+    }
+
+    public String getStudent_p_email() {
+        return student_p_email;
+    }
+
+    public void setStudent_p_email(String student_p_email) {
+        this.student_p_email = student_p_email;
+    }
+
+    public String getStudent_p_mobileno() {
+        return student_p_mobileno;
+    }
+
+    public void setStudent_p_mobileno(String student_p_mobileno) {
+        this.student_p_mobileno = student_p_mobileno;
+    }
+
+    public int getBtid() {
+        return btid;
+    }
+
+    public void setBtid(int btid) {
+        this.btid = btid;
     }
 
     public int getBid() {
@@ -65,5 +97,11 @@ public class ListStudent {
         this.bid = bid;
     }
 
+    public int getSemester() {
+        return semester;
+    }
 
+    public void setSemester(int semester) {
+        this.semester = semester;
+    }
 }

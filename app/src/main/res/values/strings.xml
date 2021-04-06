@@ -60,4 +60,6 @@
     <string name="staff_dashboard">Staff Dashboard</string>
     <string name="professor_dashboard">Professor Dashboard</string>
     <string name="tack_subject">Tack Subject</string>
+    <string name="student_name">Student Name</string>
+    <string name="select_student_list">Select Student List</string>
 </resources>
