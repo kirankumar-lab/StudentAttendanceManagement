@@ -64,7 +64,7 @@ dbSAMS extends SQLiteOpenHelper {
             "name TEXT NOT NULL," +
             "email TEXT NOT NULL," +
             "password TEXT NOT NULL," +
-            "mobileno INTEGER NOT NULL," +
+            "mobileno TEXT NOT NULL," +
             "bid INTEGER NOT NULL," +
             "FOREIGN KEY(bid) REFERENCES branch(bid)" +
             ");";
@@ -199,14 +199,10 @@ dbSAMS extends SQLiteOpenHelper {
                 q = "UPDATE admin SET password='" + password + "' WHERE email='" + username + "'";
             }
             if (userType.equals("staff")) {
-                q = "SELECT email,password FROM staff WHERE email=" + "'" + username + "'" + " " +
-                        "AND " +
-                        "password='" + password + "'";
+                q = "UPDATE staff SET password='" + password + "' WHERE email='" + username + "'";
             }
             if (userType.equals("student")) {
-                q = "SELECT email,password FROM student WHERE email=" + "'" + username + "'" + " " +
-                        "AND " +
-                        "password='" + password + "'";
+                q = "UPDATE student SET password='" + password + "' WHERE email='" + username + "'";
             }
             try {
                 db.execSQL(q);
@@ -595,7 +591,7 @@ dbSAMS extends SQLiteOpenHelper {
 
     /*Staff Queries*/
     protected String insertProfessor(String professorName,String professorEmail,
-                                     String professorPassword,int professorMobile,int bid) {
+                                     String professorPassword,String professorMobile,int bid) {
         try {
             if (!professorName.isEmpty() && !professorEmail.isEmpty() && !professorPassword.isEmpty()) {
                 SQLiteDatabase db = getWritableDatabase();
@@ -651,7 +647,7 @@ dbSAMS extends SQLiteOpenHelper {
     }
 
     protected String updateProfessor(int sid,String professorName,String professorEmail,
-                                     String professorPassword,int professorMobile,int bid) {
+                                     String professorPassword,String professorMobile,int bid) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("name", professorName);

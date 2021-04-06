@@ -30,7 +30,7 @@ public class ManageProfessor extends AppCompatActivity {
     private TextView tvAction;
     private Button btnProfessor;
     private String professorName;
-    private int professorMobileno;
+    private String professorMobileno;
     private String professorEmail;
     private String professorPassword;
     private String professorConfirmPassword;
@@ -103,7 +103,7 @@ public class ManageProfessor extends AppCompatActivity {
 
         btnProfessor.setOnClickListener(v -> {
             professorName = tietProfessorName.getText().toString().trim();
-            professorMobileno = Integer.parseInt(tietProfessorMobileno.getText().toString().trim());
+            professorMobileno = tietProfessorMobileno.getText().toString().trim();
             professorEmail = tietProfessorEmail.getText().toString().trim();
             professorConfirmPassword = tietProfessorConfirmPassword.getText().toString().trim();
             professorPassword = tietProfessorPassword.getText().toString().trim();
@@ -113,11 +113,11 @@ public class ManageProfessor extends AppCompatActivity {
             Matcher m = p.matcher(professorName);
             boolean matchName = m.matches();
 
-            if (!professorName.isEmpty() && !professorBranch.isEmpty() && !professorPassword.isEmpty() && !professorConfirmPassword.isEmpty() && !professorEmail.isEmpty() && !tietProfessorMobileno.toString().trim().isEmpty()) {
+            if (!professorName.isEmpty() && !professorBranch.isEmpty() && !professorPassword.isEmpty() && !professorConfirmPassword.isEmpty() && !professorEmail.isEmpty() && !professorMobileno.isEmpty()) {
                 if (!matchName) {
                     Toast.makeText(this, "Enter Professor Name minimum 5 Characters Length",
                             Toast.LENGTH_SHORT).show();
-                } else if (tietProfessorMobileno.getText().toString().trim().length() != 10) {
+                } else if (professorMobileno.length() != 10) {
                     Toast.makeText(this, "Enter 10 Digit Mobile Number!",
                             Toast.LENGTH_SHORT).show();
                 } else if (!Patterns.EMAIL_ADDRESS.matcher(professorEmail).matches()) {

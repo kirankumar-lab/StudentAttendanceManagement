@@ -56,4 +56,7 @@
     <string name="enter_confirm_password">Enter Confirm Password</string>
     <string name="email">Email</string>
     <string name="professor_name">Professor Name</string>
+    <string name="staff_dashboard">Staff Dashboard</string>
+    <string name="professor_dashboard">Professor Dashboard</string>
+    <string name="tack_subject">Tack Subject</string>
 </resources>

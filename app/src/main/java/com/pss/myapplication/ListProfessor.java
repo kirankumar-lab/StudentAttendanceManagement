@@ -7,10 +7,10 @@ public class ListProfessor {
     private String professor_name;
     private String professor_email;
     private String professor_password;
-    private int professor_mobileno;
+    private String professor_mobileno;
     private int bid; //Branch ID
 
-    public ListProfessor(int sid, String professor_name, String professor_email, String professor_password, int professor_mobileno, int bid) {
+    public ListProfessor(int sid, String professor_name, String professor_email, String professor_password, String professor_mobileno, int bid) {
         this.sid = sid;
         this.professor_name = professor_name;
         this.professor_email = professor_email;
@@ -51,11 +51,11 @@ public class ListProfessor {
         this.professor_password = professor_password;
     }
 
-    public int getProfessor_mobileno() {
+    public String getProfessor_mobileno() {
         return professor_mobileno;
     }
 
-    public void setProfessor_mobileno(int professor_mobileno) {
+    public void setProfessor_mobileno(String professor_mobileno) {
         this.professor_mobileno = professor_mobileno;
     }
 

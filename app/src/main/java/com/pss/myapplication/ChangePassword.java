@@ -31,7 +31,11 @@ public class ChangePassword extends AppCompatActivity {
         Boolean login = prefs.getBoolean("isLoggedIn", false);
 
         if (login) {
-            if (!prefs.getString("userType", "").equals("admin")) {
+            if (prefs.getString("userType", "").equals("admin") || prefs.getString("userType",
+                    "").equals("staff") || prefs.getString("userType", "").equals("student")) {
+            }
+            else
+            {
                 Toast.makeText(ChangePassword.this, "Login Out Successfully", Toast.LENGTH_SHORT).show();
                 SharedPreferences.Editor editor =
                         getSharedPreferences(LOGGED_KEY, MODE_PRIVATE).edit();

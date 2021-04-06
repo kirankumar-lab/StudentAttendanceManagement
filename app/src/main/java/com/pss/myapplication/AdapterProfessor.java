@@ -56,7 +56,7 @@ public class AdapterProfessor extends RecyclerView.Adapter<AdapterProfessor.View
         holder.itemView.setTag(data.get(position));
 
         holder.dataProfessorName.setText(data.get(position).getProfessor_name());
-        holder.dataProfessorMobileNo.setText(String.valueOf(data.get(position).getProfessor_mobileno()));
+        holder.dataProfessorMobileNo.setText(data.get(position).getProfessor_mobileno());
         holder.dataProfessorEmail.setText(data.get(position).getProfessor_email());
         holder.dataProfessorBranch.setText(String.valueOf(data.get(position).getBid()));
 

@@ -46,7 +46,7 @@ public class Professor extends AppCompatActivity implements AdapterProfessor.Ite
         while (r.moveToNext()) {
             data.add(new ListProfessor(Integer.parseInt(r.getString(0)), r.getString(1),
                     r.getString(2), r.getString(3),
-                    Integer.parseInt(r.getString(4)),
+                    r.getString(4),
                     Integer.parseInt(r.getString(5))));
         }
 
@@ -91,7 +91,7 @@ public class Professor extends AppCompatActivity implements AdapterProfessor.Ite
                     .putExtra("sid", data.get(index).getSid())
                     .putExtra("professor_name", data.get(index).getProfessor_name())
                     .putExtra("professor_mobileno",
-                            String.valueOf(data.get(index).getProfessor_mobileno()))
+                            data.get(index).getProfessor_mobileno())
                     .putExtra("professor_email", data.get(index).getProfessor_email())
                     .putExtra("professor_password", data.get(index).getProfessor_password())
                     .putExtra("bid", data.get(index).getBid())

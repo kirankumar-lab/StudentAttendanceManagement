@@ -26,7 +26,7 @@ public class AdminPanel extends AppCompatActivity {
             user_id.setText("User ID : " + prefs.getString("userID", ""));
 
             if (!prefs.getString("userType", "").equals("admin")) {
-                Toast.makeText(AdminPanel.this, "Login Out Successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdminPanel.this, "LogOut Successfully", Toast.LENGTH_SHORT).show();
                 SharedPreferences.Editor editor =
                         getSharedPreferences(LOGGED_KEY, MODE_PRIVATE).edit();
                 editor.putBoolean("isLoggedIn", false);
@@ -40,7 +40,7 @@ public class AdminPanel extends AppCompatActivity {
     }
 
     public void logOut(View v) {
-        Toast.makeText(AdminPanel.this, "Login Out Successfully", Toast.LENGTH_SHORT).show();
+        Toast.makeText(AdminPanel.this, "LogOut Successfully", Toast.LENGTH_SHORT).show();
         SharedPreferences.Editor editor =
                 getSharedPreferences(LOGGED_KEY, MODE_PRIVATE).edit();
         editor.putBoolean("isLoggedIn", false);
