@@ -58,7 +58,8 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
     }
 
     public void addStudent(View view) {
-
+        Intent i = new Intent(Student.this, ManageStudent.class).putExtra("action", "add");
+        startActivityForResult(i, 1);
     }
 
 

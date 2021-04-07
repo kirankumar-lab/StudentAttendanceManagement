@@ -708,7 +708,7 @@ dbSAMS extends SQLiteOpenHelper {
 
     protected Cursor getAllStudent() {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT * FROM student ORDER BY sid DESC";
+        String q = "SELECT * FROM student ORDER BY stid DESC";
         Cursor cursor = db.rawQuery(q, null);
         return cursor;
     }

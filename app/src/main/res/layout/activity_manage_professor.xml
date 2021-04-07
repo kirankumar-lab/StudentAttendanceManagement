@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:theme="@style/Theme.Style"
-    tools:context=".ManageSubject">
+    tools:context=".ManageProfessor">
 
     <TextView
         android:id="@+id/textAction"
@@ -218,7 +218,7 @@
             android:textStyle="italic|bold"
             android:layout_marginTop="10dp"
             android:padding="15dp"
-            android:text="@string/add_subject"
+            android:text="@string/add_professor"
             />
     </LinearLayout>
 </ScrollView>

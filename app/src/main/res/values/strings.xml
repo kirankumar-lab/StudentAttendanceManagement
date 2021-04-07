@@ -26,7 +26,6 @@
     <string name="re_enter_new_password">Re-Enter New Password</string>
     <string name="add_batch">Add Batch</string>
     <string name="add_subject">Add Subject</string>
-    <string name="add_student">Add Student</string>
     <string name="add_branch">Add Branch</string>
     <string name="add_professor">Add Professor</string>
     <string name="enter_batch_name">Enter Batch Name</string>
@@ -41,7 +40,6 @@
     <string name="delete_batch">Delete Batch</string>
     <string name="enter_subject_name">Enter Subject Name</string>
     <string name="select_branch">Select Branch</string>
-    <string name="select_semester">Select Semester</string>
     <string name="subject_name">Subject Name</string>
     <string name="subject_sem">Subject Sem.</string>
     <string name="manage_lecture">Lecture Type</string>
@@ -62,4 +60,9 @@
     <string name="tack_subject">Tack Subject</string>
     <string name="student_name">Student Name</string>
     <string name="select_student_list">Select Student List</string>
+    <string name="add_student">Add Student</string>
+    <string name="enter_student_name">Enter Student Name</string>
+    <string name="enter_parent_email">Enter Parent Email</string>
+    <string name="select_batch">Select Batch</string>
+    <string name="select_semester">Select Semester</string>
 </resources>
