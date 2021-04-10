@@ -6,6 +6,8 @@ import android.database.SQLException;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,7 +21,7 @@ public class Login extends AppCompatActivity {
     private static final String LOGGED_KEY = "com.pss.myapplication.logged";
 
     //create variables
-    private TextView tvUser;
+    private TextView tvUser,tvForgetPassword;
     private EditText edtUserID, edtPassword;
     private Button btnLogin;
     protected String user;
@@ -37,6 +39,7 @@ public class Login extends AppCompatActivity {
 
         //set variables
         tvUser = findViewById(R.id.tvUser);
+        tvForgetPassword = findViewById(R.id.tvForgetPassword);
         edtUserID = findViewById(R.id.user_id);
         edtPassword = findViewById(R.id.password);
         btnLogin = findViewById(R.id.btnLogin);
@@ -44,6 +47,7 @@ public class Login extends AppCompatActivity {
         //admin login
         if (user.equals("admin")) {
             tvUser.setText(R.string.admin_login);
+            tvForgetPassword.setVisibility(View.GONE);
             Drawable drawable = tvUser.getContext().getResources().getDrawable(R.drawable.ic_admin);
             tvUser.setCompoundDrawablesRelativeWithIntrinsicBounds(null, drawable, null, null);
         }
@@ -51,6 +55,7 @@ public class Login extends AppCompatActivity {
         //staff login
         if (user.equals("staff")) {
             tvUser.setText(R.string.staff_login);
+            tvForgetPassword.setVisibility(View.VISIBLE);
             Drawable drawable = tvUser.getContext().getResources().getDrawable(R.drawable.ic_staff);
             tvUser.setCompoundDrawablesRelativeWithIntrinsicBounds(null, drawable, null, null);
         }
@@ -58,6 +63,7 @@ public class Login extends AppCompatActivity {
         //student login
         if (user.equals("student")) {
             tvUser.setText(R.string.student_login);
+            tvForgetPassword.setVisibility(View.VISIBLE);
             Drawable drawable =
                     tvUser.getContext().getResources().getDrawable(R.drawable.ic_student);
             tvUser.setCompoundDrawablesRelativeWithIntrinsicBounds(null, drawable, null, null);
@@ -112,5 +118,13 @@ public class Login extends AppCompatActivity {
         editor.putString("userType", userType);
         editor.putString("userID", userID);
         editor.apply();
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    public void forgotPassword(View v)
+    {
+        Intent i = new Intent(Login.this,ForgotPassword.class);
+        i.putExtra("user",user);
+        startActivity(i);
     }
 }

@@ -90,7 +90,7 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
     public void onItemClicked(int index, String action) {
         if (action.equals("edit")) {
             startActivity(new Intent(Student.this, ManageStudent.class)
-                    .putExtra("stid", data.get(index).getStid())
+                    .putExtra("stid", data.get(index).getSid())
                     .putExtra("student_name", data.get(index).getStudent_name())
                     .putExtra("student_mobileno",
                             data.get(index).getStudent_mobileno())

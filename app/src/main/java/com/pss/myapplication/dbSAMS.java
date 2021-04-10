@@ -159,6 +159,13 @@ dbSAMS extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    protected Cursor getAllAdmin() {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM admin ORDER BY sid DESC";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
     /*Change Password Queries*/
     public Boolean check(String username, String password, String userType) {
         SQLiteDatabase db = getWritableDatabase();
@@ -767,6 +774,48 @@ dbSAMS extends SQLiteOpenHelper {
         } else {
             return "Deleted Successfully";
         }
+    }
+
+    // get password for admin method
+    protected String getPasswordForAdmin(String email) {
+        String password = "" ;
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM admin WHERE email ='" + email + "'";
+
+        Cursor r = db.rawQuery(q, null);
+        while (r.moveToNext()) {
+            password = r.getString(3);
+        }
+
+        return password;
+    }
+
+    // get password for Professor method
+    protected String getPasswordForProfessor(String email) {
+        String password = "" ;
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM staff WHERE email ='" + email + "'";
+
+        Cursor r = db.rawQuery(q, null);
+        while (r.moveToNext()) {
+            password = r.getString(3);
+        }
+
+        return password;
+    }
+
+    // get password for Professor method
+    protected String getPasswordForStudent(String email) {
+        String password = "" ;
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM student WHERE email ='" + email + "'";
+
+        Cursor r = db.rawQuery(q, null);
+        while (r.moveToNext()) {
+            password = r.getString(3);
+        }
+
+        return password;
     }
 
 }
