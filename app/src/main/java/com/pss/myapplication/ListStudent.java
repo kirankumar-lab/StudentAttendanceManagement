@@ -25,11 +25,11 @@ public class ListStudent {
         this.semester = semester;
     }
 
-    public int getSid() {
+    public int getStid() {
         return stid;
     }
 
-    public void setSid(int stid) {
+    public void setStid(int stid) {
         this.stid = stid;
     }
 

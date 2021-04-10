@@ -124,7 +124,7 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
 
             btnYes.setOnClickListener(v -> {
                 /*---------------------------------------------------Change this Line---------------------------------------------------------------*/
-                String delete = db.deleteStudent(data.get(index).getSid());
+                String delete = db.deleteStudent(data.get(index).getStid());
                 Toast.makeText(this, delete, Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 data.remove(index);

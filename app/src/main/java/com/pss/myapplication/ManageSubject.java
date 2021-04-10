@@ -106,7 +106,7 @@ public class ManageSubject extends AppCompatActivity {
             if (action.equals("add")) {
                 if (!subjectName.isEmpty() && !subjectBranch.isEmpty() && !subjectSemester.isEmpty()) {
                     if (match) {
-                        if (db.isSubjectAlready(subjectName)) {
+                        if (db.isSubjectAlready(subjectName,subjectBranch)) {
                             Toast.makeText(this, "Subject already exists !", Toast.LENGTH_SHORT).show();
                         } else {
                             semester = Integer.parseInt(subjectSemester);
@@ -131,7 +131,7 @@ public class ManageSubject extends AppCompatActivity {
             if (action.equals("edit")) {
                 if (!subjectName.isEmpty() && !subjectBranch.isEmpty() && !subjectSemester.isEmpty()) {
                     if (match) {
-                        if (db.subjectCount(subjectName) >1) {
+                        if (db.subjectCount(subjectName,subjectBranch) >1) {
                             Toast.makeText(this, "Subject already exists !", Toast.LENGTH_SHORT).show();
                         } else {
                             semester = Integer.parseInt(subjectSemester);

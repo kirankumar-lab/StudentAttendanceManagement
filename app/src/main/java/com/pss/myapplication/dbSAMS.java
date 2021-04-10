@@ -288,6 +288,41 @@ dbSAMS extends SQLiteOpenHelper {
         }
     }
 
+    protected String getBatchID(String batchName) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String q = "SELECT * FROM batch WHERE batch_name='" + batchName + "'";
+            Cursor cursor = db.rawQuery(q, null);
+            while (cursor.moveToNext()) {
+                if (cursor.getString(1).equals(batchName)) {
+                    q = cursor.getString(0).trim().toString();
+                    break;
+                }
+            }
+            return q;
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+
+    protected String getBatchName(int batchID)  {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String q = "SELECT * FROM batch WHERE btid=" + batchID + "";
+            Cursor cursor = db.rawQuery(q, null);
+            while (cursor.moveToNext()) {
+                if (cursor.getString(0).equals(batchID)) {
+                    q = cursor.getString(1).trim();
+                    break;
+                }
+            }
+            return q;
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+    /*Batch End Queries*/
+
 
     /*Branch Queries*/
     protected String insertBranch(String branchName) {
@@ -311,40 +346,6 @@ dbSAMS extends SQLiteOpenHelper {
         String q = "SELECT * FROM branch ORDER BY bid DESC";
         Cursor cursor = db.rawQuery(q, null);
         return cursor;
-    }
-
-    protected String getBranchID(String branchName) {
-        SQLiteDatabase db = getWritableDatabase();
-        try {
-            String q = "SELECT * FROM branch WHERE branch_name='" + branchName + "'";
-            Cursor cursor = db.rawQuery(q, null);
-            while (cursor.moveToNext()) {
-                if (cursor.getString(1).equals(branchName)) {
-                    q = cursor.getString(0).trim().toString();
-                    break;
-                }
-            }
-            return q;
-        } catch (Exception ex) {
-            return ex.getMessage();
-        }
-    }
-
-    protected String getBranchName(int branchID) {
-        SQLiteDatabase db = getWritableDatabase();
-        try {
-            String q = "SELECT * FROM branch WHERE bid=" + branchID + "";
-            Cursor cursor = db.rawQuery(q, null);
-            while (cursor.moveToNext()) {
-                if (cursor.getString(0).equals(branchID)) {
-                    q = cursor.getString(1).trim();
-                    break;
-                }
-            }
-            return q;
-        } catch (Exception ex) {
-            return ex.getMessage();
-        }
     }
 
     protected boolean isBranchAlready(String branch) {
@@ -397,6 +398,41 @@ dbSAMS extends SQLiteOpenHelper {
         }
     }
 
+    protected String getBranchID(String branchName) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String q = "SELECT * FROM branch WHERE branch_name='" + branchName + "'";
+            Cursor cursor = db.rawQuery(q, null);
+            while (cursor.moveToNext()) {
+                if (cursor.getString(1).equals(branchName)) {
+                    q = cursor.getString(0).trim().toString();
+                    break;
+                }
+            }
+            return q;
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+
+    protected String getBranchName(int branchID) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String q = "SELECT * FROM branch WHERE bid=" + branchID + "";
+            Cursor cursor = db.rawQuery(q, null);
+            while (cursor.moveToNext()) {
+                if (cursor.getString(0).equals(String.valueOf(branchID))) {
+                    q = cursor.getString(1).trim();
+                    break;
+                }
+            }
+            return q;
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+    /*Branch End Queries*/
+
 
     /*Subject Queries*/
     protected String insertSubject(String subjectName, int bid, int subjectSemester) {
@@ -429,14 +465,14 @@ dbSAMS extends SQLiteOpenHelper {
         return cursor;
     }
 
-    protected boolean isSubjectAlready(String subject) {
+    protected boolean isSubjectAlready(String subject,String bid) {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT  subject_name FROM subject";
+        String q = "SELECT  subject_name,bid FROM subject";
         Cursor cursor = db.rawQuery(q, null);
 
         boolean flag = false;
         while (cursor.moveToNext()) {
-            if (cursor.getString(0).equals(subject)) {
+            if (cursor.getString(0).equals(subject) && cursor.getString(1).equals(getBranchID(bid))) {
                 flag = true;
                 break;
             }
@@ -444,9 +480,10 @@ dbSAMS extends SQLiteOpenHelper {
         return flag;
     }
 
-    protected int subjectCount(String subject) {
+    protected int subjectCount(String subject,String subjectBranch) {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT  subject_name FROM subject WHERE subject_name='" + subject + "'";
+        String q =
+                "SELECT  subject_name FROM subject WHERE subject_name='" + subject + "' AND bid="+getBranchID(subjectBranch);
         Cursor cursor = db.rawQuery(q, null);
         return cursor.getCount();
     }
@@ -458,10 +495,11 @@ dbSAMS extends SQLiteOpenHelper {
         cv.put("semester", subjectSemester);
         cv.put("bid", bid);
 
-        if (subjectCount(subjectName) > 1) {
+        if (isSubjectAlready(subjectName,getBranchName(bid))) {
             return "Subject name already exists";
         } else {
-            int result = db.update("subject", cv, "sbid" + "=?", new String[]{String.valueOf(sbid)});
+            int result = db.update("subject", cv, "sbid" + "=? and bid"+"=?",
+                    new String[]{String.valueOf(sbid),String.valueOf(bid)});
             if (result == 0) {
                 return "Failed to Update";
             } else {
@@ -480,6 +518,7 @@ dbSAMS extends SQLiteOpenHelper {
             return "Deleted Successfully";
         }
     }
+    /*Subject End Queries*/
 
     /*Lecture Queries*/
     protected String insertLecture(String lectureType) {
@@ -588,8 +627,10 @@ dbSAMS extends SQLiteOpenHelper {
             return "Deleted Successfully";
         }
     }
+    /*Lecture End Queries*/
 
-    /*Staff Queries*/
+
+    /*Professor Queries*/
     protected String insertProfessor(String professorName,String professorEmail,
                                      String professorPassword,String professorMobile,int bid) {
         try {
@@ -678,6 +719,8 @@ dbSAMS extends SQLiteOpenHelper {
             return "Deleted Successfully";
         }
     }
+    /*Professor  Queries*/
+
 
     /*Student Queries*/
     protected String insertStudent(String professorName,String professorEmail,
@@ -713,14 +756,14 @@ dbSAMS extends SQLiteOpenHelper {
         return cursor;
     }
 
-    protected boolean isStudentAlready(String professorEmail) {
+    protected boolean isStudentAlready(String professorEmail,String Phone) {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT  email FROM staff";
+        String q = "SELECT  email,mobileno FROM staff";
         Cursor cursor = db.rawQuery(q, null);
 
         boolean flag = false;
         while (cursor.moveToNext()) {
-            if (cursor.getString(0).equals(professorEmail)) {
+            if (cursor.getString(0).equals(professorEmail) || cursor.getString(1).equals(Phone)) {
                 flag = true;
                 break;
             }
@@ -758,10 +801,10 @@ dbSAMS extends SQLiteOpenHelper {
         }
     }
 
-    protected String deleteStudent(int sid) {
+    protected String deleteStudent(int stid) {
         SQLiteDatabase db = getWritableDatabase();
 
-        int result = db.delete("staff", "sid=?", new String[]{String.valueOf(sid)});
+        int result = db.delete("student", "sid=?", new String[]{String.valueOf(stid)});
         if (result == 0) {
             return "Failed to Delete";
         } else {
