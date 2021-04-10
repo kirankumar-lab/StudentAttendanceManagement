@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:theme="@style/Theme.Style"
     tools:context=".Student">
 
     <TextView
@@ -32,6 +31,7 @@
         android:layout_below="@+id/admin_panel_title"
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="5dp"
+        android:theme="@style/Theme.Style"
         >
         <LinearLayout
             android:layout_width="match_parent"

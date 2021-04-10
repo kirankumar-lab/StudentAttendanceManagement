@@ -26,9 +26,7 @@ public class AdapterStudent extends RecyclerView.Adapter<AdapterStudent.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView dataStudentName, dataStudentMobileNo, dataStudentEmail,dataStudentPMobileNo,
-                dataStudentPEmail, dataStudentBranch,
-                tvEdit, tvDelete;
+        TextView dataStudentName, dataStudentMobileNo, dataStudentEmail,tvEdit, tvDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -36,9 +34,6 @@ public class AdapterStudent extends RecyclerView.Adapter<AdapterStudent.ViewHold
             dataStudentName = itemView.findViewById(R.id.dataStudentName);
             dataStudentMobileNo = itemView.findViewById(R.id.dataStudentMobileNo);
             dataStudentEmail = itemView.findViewById(R.id.dataStudentEmail);
-            dataStudentPMobileNo = itemView.findViewById(R.id.dataStudentPMobileNo);
-            dataStudentPEmail = itemView.findViewById(R.id.dataStudentPEmail);
-            dataStudentBranch = itemView.findViewById(R.id.dataStudentBranch);
             tvEdit = itemView.findViewById(R.id.tvEdit);
             tvDelete = itemView.findViewById(R.id.tvDelete);
 
@@ -61,9 +56,6 @@ public class AdapterStudent extends RecyclerView.Adapter<AdapterStudent.ViewHold
         holder.dataStudentName.setText(data.get(position).getStudent_name());
         holder.dataStudentMobileNo.setText(String.valueOf(data.get(position).getStudent_mobileno()));
         holder.dataStudentEmail.setText(data.get(position).getStudent_email());
-        holder.dataStudentPMobileNo.setText(String.valueOf(data.get(position).getStudent_p_mobileno()));
-        holder.dataStudentPEmail.setText(data.get(position).getStudent_p_email());
-        holder.dataStudentBranch.setText(String.valueOf(data.get(position).getBid()));
 
         holder.tvEdit.setOnClickListener(v -> {
             activity.onItemClicked(data.indexOf((ListStudent) data.get(position)), "edit");
