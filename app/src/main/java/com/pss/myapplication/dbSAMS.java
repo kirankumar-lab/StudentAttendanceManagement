@@ -92,9 +92,9 @@ dbSAMS extends SQLiteOpenHelper {
             "name TEXT NOT NULL," +
             "email TEXT NOT NULL," +
             "password TEXT NOT NULL," +
-            "mobileno INTEGER NOT NULL," +
+            "mobileno TEXT NOT NULL," +
             "parent_email TEXT NOT NULL," +
-            "parent_mobileno INTEGER NOT NULL," +
+            "parent_mobileno TEXT NOT NULL," +
             "semester INTEGER NOT NULL," +
             "bid INTEGER NOT NULL," +
             "btid INTEGER NOT NULL," +
@@ -723,23 +723,27 @@ dbSAMS extends SQLiteOpenHelper {
 
 
     /*Student Queries*/
-    protected String insertStudent(String professorName,String professorEmail,
-                                     String professorPassword,int professorMobile,int bid) {
+    protected String insertStudent(String name,String email,String mobileno,String emailp,
+                                   String mobilenop,String password,int btid,int bid,int semester) {
         try {
-            if (!professorName.isEmpty() && !professorEmail.isEmpty() && !professorPassword.isEmpty()) {
+            if (!name.isEmpty() && !email.isEmpty() && !mobileno.isEmpty() && !emailp.isEmpty() && !mobilenop.isEmpty() && !password.isEmpty()) {
                 SQLiteDatabase db = getWritableDatabase();
                 ContentValues cv = new ContentValues();
-                cv.put("name", professorName);
-                cv.put("email", professorEmail);
-                cv.put("password", professorPassword);
-                cv.put("mobileno", professorMobile);
+                cv.put("name", name);
+                cv.put("email", email);
+                cv.put("mobileno", mobileno);
+                cv.put("parent_email", emailp);
+                cv.put("parent_mobileno", mobilenop);
+                cv.put("password", password);
                 cv.put("bid", bid);
+                cv.put("btid", btid);
+                cv.put("semester", semester);
 
-                float insert = db.insert("staff", null, cv);
+                float insert = db.insert("student", null, cv);
                 if (insert == -1) {
-                    return "Failed to Add Professor";
+                    return "Failed to Add Student";
                 } else {
-                    return "Professor Added Successfully!";
+                    return "Student Added Successfully!";
                 }
             } else {
                 return "Not Inserted!";
@@ -756,14 +760,14 @@ dbSAMS extends SQLiteOpenHelper {
         return cursor;
     }
 
-    protected boolean isStudentAlready(String professorEmail,String Phone) {
+    protected boolean isStudentAlready(String email,String mobileno) {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT  email,mobileno FROM staff";
+        String q = "SELECT  email,mobileno FROM student";
         Cursor cursor = db.rawQuery(q, null);
 
         boolean flag = false;
         while (cursor.moveToNext()) {
-            if (cursor.getString(0).equals(professorEmail) || cursor.getString(1).equals(Phone)) {
+            if (cursor.getString(0).equals(email) || cursor.getString(1).equals(mobileno)) {
                 flag = true;
                 break;
             }

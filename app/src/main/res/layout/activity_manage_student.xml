@@ -83,7 +83,7 @@
                 app:hintTextColor="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tietstudentMobileno"
+                    android:id="@+id/tietStudentMobileno"
                     android:layout_width="match_parent"
                     android:inputType="phone"
                     android:digits="1234567890"
@@ -200,7 +200,7 @@
                 app:hintTextColor="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tietProfessorPassword"
+                    android:id="@+id/tietStudentPassword"
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -228,7 +228,7 @@
                 app:hintTextColor="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tietProfessorConfirmPassword"
+                    android:id="@+id/tietStudentConfirmPassword"
                     android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -326,7 +326,7 @@
 
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnProfessor"
+                android:id="@+id/btnStudent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/teal_700"
