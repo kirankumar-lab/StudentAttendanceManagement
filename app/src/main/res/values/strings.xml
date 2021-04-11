@@ -68,4 +68,5 @@
     <string name="take_subject">Take Subject</string>
     <string name="select_subject">Select Subject</string>
     <string name="select_lecture_type">Select Lecture Type</string>
+    <string name="forgot_your_password"><u>Forgot your password ?</u></string>
 </resources>

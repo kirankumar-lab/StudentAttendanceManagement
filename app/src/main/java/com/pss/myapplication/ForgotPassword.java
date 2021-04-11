@@ -10,11 +10,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 import java.util.ArrayList;
 
 public class ForgotPassword extends AppCompatActivity {
 
-    private EditText etEmail;
+    private TextInputEditText etEmail;
     private dbSAMS db;
     private String user;
     private String email;

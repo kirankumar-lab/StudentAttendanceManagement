@@ -16,13 +16,15 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 public class Login extends AppCompatActivity {
 
     private static final String LOGGED_KEY = "com.pss.myapplication.logged";
 
     //create variables
     private TextView tvUser,tvForgetPassword;
-    private EditText edtUserID, edtPassword;
+    private TextInputEditText edtUserID, edtPassword;
     private Button btnLogin;
     protected String user;
     protected dbSAMS db;

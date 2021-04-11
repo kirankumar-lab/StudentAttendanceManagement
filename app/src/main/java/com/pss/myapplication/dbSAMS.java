@@ -240,7 +240,7 @@ dbSAMS extends SQLiteOpenHelper {
 
     protected Cursor getAllBatch() {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT * FROM batch ORDER BY btid ASC";
+        String q = "SELECT * FROM batch ORDER BY btid";//remove ASC
         Cursor cursor = db.rawQuery(q, null);
         return cursor;
     }
@@ -333,7 +333,7 @@ dbSAMS extends SQLiteOpenHelper {
     protected String getBatchName(int batchID) {
         SQLiteDatabase db = getWritableDatabase();
         try {
-            String q = "SELECT * FROM batch WHERE btid =" + batchID + "";
+            String q = "SELECT * FROM batch WHERE btid=" + batchID;
             Cursor cursor = db.rawQuery(q, null);
             while (cursor.moveToNext()) {
                 if (cursor.getString(0).equals(String.valueOf(batchID))) {
@@ -368,7 +368,7 @@ dbSAMS extends SQLiteOpenHelper {
 
     protected Cursor getAllBranch() {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT * FROM branch ORDER BY bid DESC";
+        String q = "SELECT * FROM branch ORDER BY bid";//remove DESC
         Cursor cursor = db.rawQuery(q, null);
         return cursor;
     }
