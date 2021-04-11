@@ -115,7 +115,7 @@ public class ManageStudent extends AppCompatActivity {
                 student_email = getIntent().getStringExtra("student_email");
                 student_p_mobileno = getIntent().getStringExtra("student_mobileno");
                 student_p_email = getIntent().getStringExtra("student_p_email");
-                student_password = getIntent().getStringExtra("student_p_password");
+                student_password = getIntent().getStringExtra("student_password");
                 student_confirmPassword = getIntent().getStringExtra("student_password");
 
                 tietStudentName.setText(student_name);
@@ -187,16 +187,19 @@ public class ManageStudent extends AppCompatActivity {
                             startActivity(i);
                             finish();
                         }
-                    }/*
+                    }
                     if (action.equals("edit")) {
-                        if (db.studentCount(studentEmail) > 1) {
+                        if (db.studentCount(studentEmail, studentMobileno) > 1) {
                             Toast.makeText(this, "Student already exists !",
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             bid = Integer.parseInt(db.getBranchID(studentBranch));
+                            btid = Integer.parseInt(db.getBatchID(studentBatch));
+                            semester = Integer.parseInt(studentSemester);
                             String update = db.updateStudent(stid, studentName,
-                                    studentEmail, studentPassword, studentMobileno,
-                                    bid);
+                                    studentEmail, studentMobileno,studentPEmail, studentPMobileno,
+                                    studentPassword,
+                                    btid,bid,semester);
                             Toast.makeText(this, update,
                                     Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(ManageStudent.this, Student.class);
@@ -204,7 +207,7 @@ public class ManageStudent extends AppCompatActivity {
                             startActivity(i);
                             finish();
                         }
-                    }*/
+                    }
                 }
             } else {
                 Toast.makeText(this, "Fill All The Blanks", Toast.LENGTH_SHORT).show();
