@@ -47,6 +47,7 @@ public class ManageStudent extends AppCompatActivity {
     private int bid;
     private int btid;
     private int semester;
+    private String user;
 
     private AutoCompleteTextView actvSelectBranch;
     private AutoCompleteTextView actvSelectBatch;
@@ -102,6 +103,7 @@ public class ManageStudent extends AppCompatActivity {
 
 
         String action = getIntent().getStringExtra("action");
+        user = getIntent().getStringExtra("user");
 
         if (action.equals("add")) {
             tvAction.setText("Add Student");
@@ -182,7 +184,8 @@ public class ManageStudent extends AppCompatActivity {
                                     studentPassword, btid, bid, semester);
 
                             Toast.makeText(this, insert, Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(ManageStudent.this, Student.class);
+                            Intent i = new Intent(ManageStudent.this, Student.class).putExtra(
+                                    "UserType",user);
                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
                             finish();
@@ -202,7 +205,8 @@ public class ManageStudent extends AppCompatActivity {
                                     btid,bid,semester);
                             Toast.makeText(this, update,
                                     Toast.LENGTH_SHORT).show();
-                            Intent i = new Intent(ManageStudent.this, Student.class);
+                            Intent i = new Intent(ManageStudent.this, Student.class).putExtra(
+                                    "UserType",user);
                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(i);
                             finish();

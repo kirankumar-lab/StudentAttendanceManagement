@@ -132,7 +132,9 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
 
 
     public void addStudent(View view) {
-        Intent i = new Intent(Student.this, ManageStudent.class).putExtra("action", "add");
+        Intent i =
+                new Intent(Student.this, ManageStudent.class).putExtra("action", "add").putExtra(
+                        "user",userType);
         startActivityForResult(i, 1);
     }
 
@@ -145,7 +147,9 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
     @Override
     protected void onPause() {
         super.onPause();
-        myAdapter.notifyDataSetChanged();
+        if(userType.equals("admin")) {
+            myAdapter.notifyDataSetChanged();
+        }
     }
 
     @Override
@@ -176,7 +180,8 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
                     .putExtra("btid", data.get(index).getBtid())
                     .putExtra("bid", data.get(index).getBid())
                     .putExtra("semester", data.get(index).getSemester())
-                    .putExtra("action", action));
+                    .putExtra("action", action)
+            .putExtra("user",userType));
         }
         if (action.equals("delete")) {
             dialog = new Dialog(this);
