@@ -28,12 +28,12 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
     private Dialog dialog;
     private Button btnCancle, btnYes;
     private TextView tvDeleteStudentName;
+    private String userType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
-
 
         db = new dbSAMS(this);
 
@@ -44,18 +44,23 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
 
         data = new ArrayList<>();
 
-        Cursor r = db.getAllStudent();
+        userType = getIntent().getStringExtra("UserType");
 
-        while (r.moveToNext()) {
-            data.add(new ListStudent(Integer.parseInt(r.getString(0)),r.getString(1),
-                    r.getString(2),r.getString(3),r.getString(4),r.getString(5),r.getString(6),
-                    Integer.parseInt(r.getString(7)),Integer.parseInt(r.getString(8)),
-                    Integer.parseInt(r.getString(9))));
+        if(userType.equals("admin") && userType != null) {
+
+            Cursor r = db.getAllStudent();
+
+            while (r.moveToNext()) {
+                data.add(new ListStudent(Integer.parseInt(r.getString(0)), r.getString(1),
+                        r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6),
+                        Integer.parseInt(r.getString(7)), Integer.parseInt(r.getString(8)),
+                        Integer.parseInt(r.getString(9))));
+            }
+
+            myAdapter = new AdapterStudent(this, data);
+            dataStudent.setAdapter(myAdapter);
+            myAdapter.notifyDataSetChanged();
         }
-
-        myAdapter = new AdapterStudent(this, data);
-        dataStudent.setAdapter(myAdapter);
-        myAdapter.notifyDataSetChanged();
     }
 
     public void addStudent(View view) {

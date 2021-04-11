@@ -76,7 +76,7 @@ public class AdminPanel extends AppCompatActivity {
     }
 
     public void student(View v) {
-        startActivity(new Intent(AdminPanel.this, Student.class));
+        startActivity(new Intent(AdminPanel.this, Student.class).putExtra("UserType","admin"));
     }
 
     public void attendance(View v) {

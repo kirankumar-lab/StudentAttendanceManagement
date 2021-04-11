@@ -57,6 +57,6 @@ public class StaffPanel extends AppCompatActivity {
 
 
     public void ManageStudent(View view) {
-        startActivity(new Intent(StaffPanel.this, Student.class));
+        startActivity(new Intent(StaffPanel.this, Student.class).putExtra("UserType","professor"));
     }
 }
