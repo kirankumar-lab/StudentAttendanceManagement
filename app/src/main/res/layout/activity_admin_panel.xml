@@ -32,7 +32,7 @@
         android:layout_marginHorizontal="20dp"
         android:paddingVertical="10dp"
         android:clickable="false"
-        android:fontFamily="@font/eagle_lake"
+        android:fontFamily="@font/doppio_one"
         android:isScrollContainer="false"
         android:text="@string/admin_panel"
         android:textColor="@color/black"

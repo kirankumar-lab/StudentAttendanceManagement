@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="30dp"
                 android:background="@color/purple_500"
-                android:fontFamily="@font/amita"
+                android:fontFamily="@font/doppio_one"
                 android:text="@string/tack_subject"
                 android:textColor="@color/white"
                 android:textSize="16sp"
