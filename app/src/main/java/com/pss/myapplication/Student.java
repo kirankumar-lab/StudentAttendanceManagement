@@ -92,8 +92,8 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
             while (r.moveToNext()) {
                 data.add(new ListStudent(Integer.parseInt(r.getString(0)), r.getString(1),
                         r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6),
-                        Integer.parseInt(r.getString(7)), Integer.parseInt(r.getString(8)),
-                        Integer.parseInt(r.getString(9))));
+                        Integer.parseInt(r.getString(9)), Integer.parseInt(r.getString(8)),
+                        Integer.parseInt(r.getString(7))));
             }
             r.close();
 
@@ -121,8 +121,8 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
         while (r1.moveToNext()) {
             data.add(new ListStudent(Integer.parseInt(r1.getString(0)),r1.getString(1),
                     r1.getString(2),r1.getString(3),r1.getString(4),r1.getString(5),r1.getString(6),
-                    Integer.parseInt(r1.getString(7)),Integer.parseInt(r1.getString(8)),
-                    Integer.parseInt(r1.getString(9))));
+                    Integer.parseInt(r1.getString(9)),Integer.parseInt(r1.getString(8)),
+                    Integer.parseInt(r1.getString(7))));
         }
         r1.close();
 

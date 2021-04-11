@@ -312,14 +312,31 @@ dbSAMS extends SQLiteOpenHelper {
         }
     }
 
-    protected String getBatchName(int batchID)  {
+//    protected String getBatchName(int batchID)  {
+//        SQLiteDatabase db = getWritableDatabase();
+//        try {
+//            String q = "SELECT * FROM batch WHERE btid =" + batchID + "";
+//            Cursor cursor = db.rawQuery(q, null);
+//
+//            while (cursor.moveToNext()) {
+//                if (cursor.getString(0).equals(batchID)) {
+//                    q = cursor.getString(1).trim();
+//                    break;
+//                }
+//            }
+//            return q;
+//        } catch (Exception ex) {
+//            return ex.getMessage();
+//        }
+//    }
+
+    protected String getBatchName(int batchID) {
         SQLiteDatabase db = getWritableDatabase();
         try {
             String q = "SELECT * FROM batch WHERE btid =" + batchID + "";
             Cursor cursor = db.rawQuery(q, null);
-
             while (cursor.moveToNext()) {
-                if (cursor.getString(0).equals(batchID)) {
+                if (cursor.getString(0).equals(String.valueOf(batchID))) {
                     q = cursor.getString(1).trim();
                     break;
                 }
