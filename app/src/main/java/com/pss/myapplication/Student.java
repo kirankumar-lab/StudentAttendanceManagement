@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +28,6 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
     private Dialog dialog;
     private Button btnCancle, btnYes;
     private TextView tvDeleteStudentName;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,7 +124,6 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
             });
 
             btnYes.setOnClickListener(v -> {
-                /*---------------------------------------------------Change this Line---------------------------------------------------------------*/
                 String delete = db.deleteStudent(data.get(index).getStid());
                 Toast.makeText(this, delete, Toast.LENGTH_SHORT).show();
                 dialog.dismiss();

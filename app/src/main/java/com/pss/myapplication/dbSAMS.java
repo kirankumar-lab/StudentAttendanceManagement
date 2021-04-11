@@ -71,7 +71,7 @@ dbSAMS extends SQLiteOpenHelper {
     //end table
 
     //tack_subject table
-    private final String tackSubjectTable = "CREATE TABLE tack_subject(" +
+    private final String tackSubjectTable = "CREATE TABLE take_subject(" +
             "tsid INTEGER PRIMARY KEY AUTOINCREMENT," +
             "bid INTEGER NOT NULL," +
             "btid INTEGER NOT NULL," +
@@ -726,12 +726,11 @@ dbSAMS extends SQLiteOpenHelper {
             return "Deleted Successfully";
         }
     }
-    /*Professor  Queries*/
+    /*Professor End Queries*/
 
 
     /*Student Queries*/
-    protected String insertStudent(String name,String email,String mobileno,String emailp,
-                                   String mobilenop,String password,int btid,int bid,int semester) {
+    protected String insertStudent(String name,String email,String mobileno,String emailp,String mobilenop,String password,int btid,int bid,int semester) {
         try {
             if (!name.isEmpty() && !email.isEmpty() && !mobileno.isEmpty() && !emailp.isEmpty() && !mobilenop.isEmpty() && !password.isEmpty()) {
                 SQLiteDatabase db = getWritableDatabase();
@@ -782,28 +781,32 @@ dbSAMS extends SQLiteOpenHelper {
         return flag;
     }
 
-
-    protected int studentCount(String email) {
+    protected int studentCount(String email,String mobileno) {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT  email FROM staff WHERE email='" + email + "'";
+        String q = "SELECT  email FROM staff WHERE email='" + email + "' OR mobileno='"+mobileno+
+                "'";
         Cursor cursor = db.rawQuery(q, null);
         return cursor.getCount();
     }
 
-    protected String updateStudent(int sid,String professorName,String professorEmail,
-                                     String professorPassword,int professorMobile,int bid) {
+    protected String updateStudent(int stid,String name,String email,String mobileno,String emailp,String mobilenop,String password,int btid,int bid,int semester) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("name", professorName);
-        cv.put("email", professorEmail);
-        cv.put("password", professorPassword);
-        cv.put("mobileno", professorMobile);
+        cv.put("name", name);
+        cv.put("email", email);
+        cv.put("mobileno", mobileno);
+        cv.put("parent_email", emailp);
+        cv.put("parent_mobileno", mobilenop);
+        cv.put("password", password);
         cv.put("bid", bid);
+        cv.put("btid", btid);
+        cv.put("semester", semester);
 
-        if (studentCount(professorEmail) > 1) {
-            return "Professor already exists";
+        if (studentCount(email,mobileno) > 1) {
+            return "Student already exists";
         } else {
-            int result = db.update("staff", cv, "sid" + "=?", new String[]{String.valueOf(sid)});
+            int result = db.update("student", cv, "stid" + "=?",
+                    new String[]{String.valueOf(stid)});
             if (result == 0) {
                 return "Failed to Update";
             } else {
@@ -815,7 +818,7 @@ dbSAMS extends SQLiteOpenHelper {
     protected String deleteStudent(int stid) {
         SQLiteDatabase db = getWritableDatabase();
 
-        int result = db.delete("student", "sid=?", new String[]{String.valueOf(stid)});
+        int result = db.delete("student", "stid=?", new String[]{String.valueOf(stid)});
         if (result == 0) {
             return "Failed to Delete";
         } else {
@@ -823,6 +826,16 @@ dbSAMS extends SQLiteOpenHelper {
         }
     }
 
+    public Cursor getAllStudentList(String bid, String btid) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM student WHERE bid="+bid+" AND btid="+btid+" ORDER BY stid";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+    /*Student End Queries*/
+
+
+/*Forgot Password Methods*/
     // get password for admin method
     protected String getPasswordForAdmin(String email) {
         String password = "" ;
@@ -851,7 +864,7 @@ dbSAMS extends SQLiteOpenHelper {
         return password;
     }
 
-    // get password for Professor method
+    // get password for Student method
     protected String getPasswordForStudent(String email) {
         String password = "" ;
         SQLiteDatabase db = getWritableDatabase();
@@ -864,5 +877,5 @@ dbSAMS extends SQLiteOpenHelper {
 
         return password;
     }
-
+    /*Forgot Password Methods Ends*/
 }

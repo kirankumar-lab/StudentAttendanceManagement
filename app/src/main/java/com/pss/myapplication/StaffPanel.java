@@ -54,4 +54,9 @@ public class StaffPanel extends AppCompatActivity {
     public void changePassword(View v) {
         startActivity(new Intent(StaffPanel.this, ChangePassword.class));
     }
+
+
+    public void ManageStudent(View view) {
+        startActivity(new Intent(StaffPanel.this, Student.class));
+    }
 }
