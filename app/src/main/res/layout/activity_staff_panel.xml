@@ -39,11 +39,27 @@
         android:textColor="@color/black"
         android:textSize="12sp"
         android:textStyle="italic|bold" />
+
+    <TextView
+        android:id="@+id/branch_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_id"
+        android:layout_marginHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:clickable="false"
+        android:fontFamily="@font/eagle_lake"
+        android:isScrollContainer="false"
+        android:text="@string/professor_dashboard"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="italic|bold" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/user_id"
+        android:layout_below="@+id/branch_id"
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="5dp"
         >
@@ -55,7 +71,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp">
+                android:layout_margin="5dp"
+                android:onClick="takeSubject">
 
                 <TextView
                     android:layout_width="match_parent"

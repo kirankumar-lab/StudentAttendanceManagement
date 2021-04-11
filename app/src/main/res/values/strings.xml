@@ -65,4 +65,7 @@
     <string name="enter_parent_email">Enter Parent Email</string>
     <string name="select_batch">Select Batch</string>
     <string name="select_semester">Select Semester</string>
+    <string name="take_subject">Take Subject</string>
+    <string name="select_subject">Select Subject</string>
+    <string name="select_lecture_type">Select Lecture Type</string>
 </resources>

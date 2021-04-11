@@ -3,7 +3,7 @@
     package="com.pss.myapplication">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +11,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".ForgotPassword"></activity>
+
+        <activity android:name=".ManageTakeSubject"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoAction"/>
+        <activity android:name=".TakeSubject"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoAction"/>
+        <activity android:name=".ForgotPassword"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoAction"/>
         <activity
             android:name=".SelectProfessorData"
             android:screenOrientation="portrait"

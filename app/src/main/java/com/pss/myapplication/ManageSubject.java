@@ -4,6 +4,8 @@ package com.pss.myapplication;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -49,6 +51,7 @@ public class ManageSubject extends AppCompatActivity {
 
         while (cursor.moveToNext()) {
             listBranch.add(cursor.getString(cursor.getColumnIndex("branch_name")));
+
         }
         cursor.close();
 
@@ -63,6 +66,17 @@ public class ManageSubject extends AppCompatActivity {
         actvSelectBranch.setAdapter(autoBranch);
         actvSelectSemester = findViewById(R.id.actvSelectSemester);
         actvSelectSemester.setAdapter(autoSelect);
+        actvSelectBranch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         edtSubjectName = findViewById(R.id.tietSubjectName);
         tvAction = findViewById(R.id.textAction);

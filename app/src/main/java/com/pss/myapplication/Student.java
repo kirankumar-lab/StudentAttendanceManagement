@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -22,18 +23,33 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
 
     private RecyclerView dataStudent;
     RecyclerView.Adapter myAdapter;
+    RecyclerView.Adapter myAdapter2;
     private RecyclerView.LayoutManager manager;
     private ArrayList<ListStudent> data;
+    private ArrayList<ListStudent> data2;
     private dbSAMS db;
     private Dialog dialog;
     private Button btnCancle, btnYes;
     private TextView tvDeleteStudentName;
-    private String userType;
+    private String selectedBranch,selectedBatch;
+    private int btid,bid;
+
+    private AutoCompleteTextView actvBatch,actvBranch;
+
+    private ArrayList<String> fetchedBatch = new ArrayList<>();
+    private ArrayList<String> fetchedBranch = new ArrayList<>();
+
+    private ArrayAdapter<String> fetchedBatchAdap,fetchedBranchAdap;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
+
+        actvBatch = findViewById(R.id.actvBatch);
+        actvBranch = findViewById(R.id.actvBranch);
+
 
         db = new dbSAMS(this);
 
@@ -42,26 +58,75 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
         manager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         dataStudent.setLayoutManager(manager);
 
+        // for batch dropdown //////////////////////////////////////////////////////////////////////
+        Cursor cursor = db.getAllBatch();
+        while (cursor.moveToNext()) {
+            fetchedBatch.add(cursor.getString(cursor.getColumnIndex("batch_name")));
+        }
+        cursor.close();
+
+        fetchedBatchAdap = new ArrayAdapter<>(this, R.layout.dropdown_menu, fetchedBatch);
+        actvBatch.setAdapter(fetchedBatchAdap);
+
+
+        // for branch dropdown //////////////////////////////////////////////////////////////////////
+        Cursor cursor1 = db.getAllBranch();
+        while (cursor1.moveToNext()) {
+            fetchedBranch.add(cursor1.getString(cursor1.getColumnIndex("branch_name")));
+        }
+        cursor1.close();
+
+        fetchedBranchAdap = new ArrayAdapter<>(this, R.layout.dropdown_menu, fetchedBranch);
+        actvBranch.setAdapter(fetchedBranchAdap);
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        
         data = new ArrayList<>();
 
-        userType = getIntent().getStringExtra("UserType");
+        Cursor r = db.getAllStudent();
 
-        if(userType.equals("admin") && userType != null) {
-
-            Cursor r = db.getAllStudent();
-
-            while (r.moveToNext()) {
-                data.add(new ListStudent(Integer.parseInt(r.getString(0)), r.getString(1),
-                        r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6),
-                        Integer.parseInt(r.getString(7)), Integer.parseInt(r.getString(8)),
-                        Integer.parseInt(r.getString(9))));
-            }
-
-            myAdapter = new AdapterStudent(this, data);
-            dataStudent.setAdapter(myAdapter);
-            myAdapter.notifyDataSetChanged();
+        while (r.moveToNext()) {
+            data.add(new ListStudent(Integer.parseInt(r.getString(0)),r.getString(1),
+                    r.getString(2),r.getString(3),r.getString(4),r.getString(5),r.getString(6),
+                    Integer.parseInt(r.getString(7)),Integer.parseInt(r.getString(8)),
+                    Integer.parseInt(r.getString(9))));
         }
+        r.close();
+
+        myAdapter = new AdapterStudent(this, data);
+        dataStudent.setAdapter(myAdapter);
+        myAdapter.notifyDataSetChanged();
     }
+
+    // get student data by filter
+    public void showList(View view) {
+        data.clear();
+
+        selectedBatch = actvBatch.getText().toString();
+        btid = Integer.parseInt(db.getBatchID(selectedBatch));
+
+        selectedBranch = actvBranch.getText().toString();
+        bid = Integer.parseInt(db.getBranchID(selectedBranch));
+
+        Toast.makeText(this, selectedBatch + selectedBranch, Toast.LENGTH_SHORT).show();
+        data = new ArrayList<>();
+
+        Cursor r1 = db.getAllStudentByBranchIdAndBatchId(btid,bid);
+        while (r1.moveToNext()) {
+            data.add(new ListStudent(Integer.parseInt(r1.getString(0)),r1.getString(1),
+                    r1.getString(2),r1.getString(3),r1.getString(4),r1.getString(5),r1.getString(6),
+                    Integer.parseInt(r1.getString(7)),Integer.parseInt(r1.getString(8)),
+                    Integer.parseInt(r1.getString(9))));
+        }
+        r1.close();
+
+        myAdapter = new AdapterStudent(this, data);
+        dataStudent.setAdapter(myAdapter);
+        myAdapter.notifyDataSetChanged();
+    }
+
+
 
     public void addStudent(View view) {
         Intent i = new Intent(Student.this, ManageStudent.class).putExtra("action", "add");
@@ -129,6 +194,7 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
             });
 
             btnYes.setOnClickListener(v -> {
+                /*---------------------------------------------------Change this Line---------------------------------------------------------------*/
                 String delete = db.deleteStudent(data.get(index).getStid());
                 Toast.makeText(this, delete, Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
