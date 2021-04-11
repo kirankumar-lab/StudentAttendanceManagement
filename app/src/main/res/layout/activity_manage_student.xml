@@ -197,6 +197,7 @@
                 app:boxStrokeWidth="2dp"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
+                app:passwordToggleEnabled="true"
                 app:hintTextColor="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -225,6 +226,7 @@
                 app:boxStrokeWidth="2dp"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
+                app:passwordToggleEnabled="true"
                 app:hintTextColor="@color/blue">
 
                 <com.google.android.material.textfield.TextInputEditText
