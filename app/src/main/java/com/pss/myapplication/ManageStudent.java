@@ -1,11 +1,14 @@
 package com.pss.myapplication;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -57,6 +60,7 @@ public class ManageStudent extends AppCompatActivity {
     private ArrayList<String> listBatch = new ArrayList<>();
     private ArrayList<Integer> listSelect = new ArrayList<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +73,7 @@ public class ManageStudent extends AppCompatActivity {
             listBranch.add(cursor.getString(cursor.getColumnIndex("branch_name")));
         }
         cursor.close();
+
         cursor = db.getAllBatch();
 
         while (cursor.moveToNext()) {
@@ -127,6 +132,10 @@ public class ManageStudent extends AppCompatActivity {
                 tietStudentPEmail.setText(student_p_email);
                 tietStudentPassword.setText(student_password);
                 tietStudentConfirmPassword.setText(student_confirmPassword);
+
+                actvSelectBatch.setText(db.getBatchName(getIntent().getIntExtra("btid",0)),false);
+                actvSelectBranch.setText(db.getBranchName(getIntent().getIntExtra("bid",0)),false);
+                actvSelectSemester.setText(String.valueOf(getIntent().getIntExtra("semester",0)),false);
 
                 tvAction.setText("Edit Student");
                 btnStudent.setText("Update");
