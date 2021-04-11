@@ -70,8 +70,8 @@ dbSAMS extends SQLiteOpenHelper {
             ");";
     //end table
 
-    //tack_subject table
-    private final String tackSubjectTable = "CREATE TABLE tack_subject(" +
+    //take_subject table
+    private final String takeSubjectTable = "CREATE TABLE take_subject(" +
             "tsid INTEGER PRIMARY KEY AUTOINCREMENT," +
             "bid INTEGER NOT NULL," +
             "btid INTEGER NOT NULL," +
@@ -84,7 +84,7 @@ dbSAMS extends SQLiteOpenHelper {
             "FOREIGN KEY(sbid) REFERENCES subject(sbid)," +
             "FOREIGN KEY(lid) REFERENCES lecture(lid)" +
             ");";
-    //end tack_subject table
+    //end take_subject table
 
     //student table
     private final String studentTable = "CREATE TABLE student(" +
@@ -138,7 +138,7 @@ dbSAMS extends SQLiteOpenHelper {
         db.execSQL(subjectTable);
         db.execSQL(lectureTable);
         db.execSQL(staffTable);
-        db.execSQL(tackSubjectTable);
+        db.execSQL(takeSubjectTable);
         db.execSQL(studentTable);
         db.execSQL(attendanceTable);
         db.execSQL("INSERT INTO admin(name,email,password,mobileno) VALUES('admin','admin@admin" +
@@ -153,7 +153,7 @@ dbSAMS extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS subject");
         db.execSQL("DROP TABLE IF EXISTS lecture");
         db.execSQL("DROP TABLE IF EXISTS staff");
-        db.execSQL("DROP TABLE IF EXISTS tack_subject");
+        db.execSQL("DROP TABLE IF EXISTS take_subject");
         db.execSQL("DROP TABLE IF EXISTS student");
         db.execSQL("DROP TABLE IF EXISTS attendance");
         onCreate(db);
@@ -240,7 +240,7 @@ dbSAMS extends SQLiteOpenHelper {
 
     protected Cursor getAllBatch() {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT * FROM batch ORDER BY btid DESC";
+        String q = "SELECT * FROM batch ORDER BY btid ASC";
         Cursor cursor = db.rawQuery(q, null);
         return cursor;
     }
@@ -472,6 +472,30 @@ dbSAMS extends SQLiteOpenHelper {
         return cursor;
     }
 
+    protected Cursor getAllSubjectOfBranch(String prof_branch_id) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM subject WHERE bid = '" + prof_branch_id + "'";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
+    protected String getSubjectID(String subject_name) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String q = "SELECT * FROM subject WHERE subject_name ='" + subject_name + "'";
+            Cursor cursor = db.rawQuery(q, null);
+            while (cursor.moveToNext()) {
+                if (cursor.getString(1).equals(subject_name)) {
+                    q = cursor.getString(0).trim().toString();
+                    break;
+                }
+            }
+            return q;
+        } catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+
     protected boolean isSubjectAlready(String subject,String bid) {
         SQLiteDatabase db = getWritableDatabase();
         String q = "SELECT  subject_name,bid FROM subject";
@@ -671,6 +695,13 @@ dbSAMS extends SQLiteOpenHelper {
         return cursor;
     }
 
+    protected Cursor getProfDetailsById(String prof_id) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM staff WHERE email =  '" + prof_id + "'";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
     protected boolean isProfessorAlready(String professorEmail) {
         SQLiteDatabase db = getWritableDatabase();
         String q = "SELECT  email FROM staff";
@@ -763,6 +794,13 @@ dbSAMS extends SQLiteOpenHelper {
     protected Cursor getAllStudent() {
         SQLiteDatabase db = getWritableDatabase();
         String q = "SELECT * FROM student ORDER BY stid DESC";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
+    protected Cursor getAllStudentByBranchIdAndBatchId(int branch_id,int batch_id) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM student WHERE bid = " + branch_id + " AND btid = " + batch_id;
         Cursor cursor = db.rawQuery(q, null);
         return cursor;
     }
@@ -864,5 +902,24 @@ dbSAMS extends SQLiteOpenHelper {
 
         return password;
     }
+
+
+    protected String insertTakeSubject(int bid, int btid, int sid, int sbid, int lid) {
+    SQLiteDatabase db = getWritableDatabase();
+    ContentValues cv = new ContentValues();
+    cv.put("bid", bid);
+    cv.put("btid", btid);
+    cv.put("sid", sid);
+    cv.put("sbid", sbid);
+    cv.put("lid", lid);
+    float insert = db.insert("take_subject", null, cv);
+    if (insert == -1) {
+        return "Failed to Take Subject";
+    } else {
+        return "Take Subject Successfully!";
+    }
+
+    }
+
 
 }

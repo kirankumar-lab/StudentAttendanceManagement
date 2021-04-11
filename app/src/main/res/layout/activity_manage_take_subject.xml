@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Student">
+    android:theme="@style/Theme.Style"
+    tools:context=".ManageTakeSubject">
 
     <TextView
-        android:id="@+id/admin_panel_title"
+        android:id="@+id/tvTakeManageSubject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -18,7 +19,7 @@
         android:fontFamily="@font/eagle_lake"
         android:gravity="center"
         android:isScrollContainer="false"
-        android:text="@string/select_student_list"
+        android:text="Manage Take Subject"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="italic|bold"
@@ -28,10 +29,9 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/admin_panel_title"
+        android:layout_below="@+id/tvTakeManageSubject"
         android:layout_marginHorizontal="15dp"
-        android:layout_marginVertical="5dp"
-        android:theme="@style/Theme.Style"
+        android:layout_marginVertical="30dp"
         >
         <LinearLayout
             android:layout_width="match_parent"
@@ -67,22 +67,25 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilSubject"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:hint="@string/select_branch"
+                android:hint="@string/select_subject"
                 app:hintAnimationEnabled="true"
                 app:hintEnabled="true"
+
                 app:boxCornerRadiusBottomEnd="10dp"
                 app:boxCornerRadiusBottomStart="10dp"
                 app:boxCornerRadiusTopEnd="10dp"
                 app:boxCornerRadiusTopStart="10dp"
+
                 app:boxStrokeWidth="2dp"
                 >
 
                 <AutoCompleteTextView
-                    android:id="@+id/actvBranch"
+                    android:id="@+id/actvSubject"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
@@ -93,38 +96,53 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/btnShowStudentList"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLectureType"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Show List"
-                android:backgroundTint="@color/teal_700"
-                android:fontFamily="@font/eagle_lake"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="italic|bold"
-                android:padding="10dp"
-                android:onClick="showList"
-                />
+                android:layout_marginTop="10dp"
+                android:hint="@string/select_lecture_type"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true"
+                app:boxCornerRadiusBottomEnd="10dp"
+                app:boxCornerRadiusBottomStart="10dp"
+                app:boxCornerRadiusTopEnd="10dp"
+                app:boxCornerRadiusTopStart="10dp"
+                app:boxStrokeWidth="2dp"
+                >
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/dataStudent"
+                <AutoCompleteTextView
+                    android:id="@+id/actvLectureType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:textSize="15sp"
+                    android:editable="false"
+                    android:fontFamily="@font/eagle_lake"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <Button
+                android:id="@+id/btnAddSubject"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            </androidx.recyclerview.widget.RecyclerView>
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="30dp"
+                android:background="@color/purple_500"
+                android:fontFamily="@font/amita"
+                android:text="@string/tack_subject"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:onClick="takeSubject"
+                />
 
         </LinearLayout>
     </ScrollView>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_add"
-        style="@style/Theme.NoAction"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
-        android:onClick="addStudent"
-        android:contentDescription="@string/add_student" />
+
+
+
 </RelativeLayout>
