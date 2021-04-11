@@ -859,19 +859,13 @@ dbSAMS extends SQLiteOpenHelper {
 
     public Cursor getAllStudentList(String bid, String btid) {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT * FROM student WHERE bid="+bid+" AND btid="+btid+" ORDER BY stid";
+        String q =
+                "SELECT * FROM student WHERE bid="+getBranchID(bid)+" AND btid="+getBatchID(btid)+
+                        " ORDER " +
+                "BY stid";
         Cursor cursor = db.rawQuery(q, null);
         return cursor;
     }
-
-
-    protected Cursor getAllStudentByBranchIdAndBatchId(int branch_id,int batch_id) {
-        SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT * FROM student WHERE bid = " + branch_id + " AND btid = " + batch_id;
-        Cursor cursor = db.rawQuery(q, null);
-        return cursor;
-    }
-
 
     // get password for admin method
     protected String getPasswordForAdmin(String email) {

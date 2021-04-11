@@ -107,15 +107,17 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
         data.clear();
 
         selectedBatch = actvBatch.getText().toString();
-        btid = Integer.parseInt(db.getBatchID(selectedBatch));
+       // btid = Integer.parseInt(db.getBatchID(selectedBatch));
 
         selectedBranch = actvBranch.getText().toString();
-        bid = Integer.parseInt(db.getBranchID(selectedBranch));
+        //bid = Integer.parseInt(db.getBranchID(selectedBranch));
 
-        Toast.makeText(this, selectedBatch + selectedBranch, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, selectedBatch + selectedBranch, Toast.LENGTH_SHORT).show();
         data = new ArrayList<>();
 
-        Cursor r1 = db.getAllStudentByBranchIdAndBatchId(btid,bid);
+        dataStudent.swapAdapter(myAdapter,true);
+
+        Cursor r1 = db.getAllStudentList(selectedBranch,selectedBatch);
         while (r1.moveToNext()) {
             data.add(new ListStudent(Integer.parseInt(r1.getString(0)),r1.getString(1),
                     r1.getString(2),r1.getString(3),r1.getString(4),r1.getString(5),r1.getString(6),
@@ -123,6 +125,7 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
                     Integer.parseInt(r1.getString(9))));
         }
         r1.close();
+
 
         myAdapter = new AdapterStudent(this, data);
         dataStudent.setAdapter(myAdapter);
