@@ -761,8 +761,7 @@ dbSAMS extends SQLiteOpenHelper {
 
 
     /*Student Queries*/
-    protected String insertStudent(String name,String email,String mobileno,String emailp,
-                                   String mobilenop,String password,int btid,int bid,int semester) {
+    protected String insertStudent(String name,String email,String mobileno,String emailp,String mobilenop,String password,int btid,int bid,int semester) {
         try {
             if (!name.isEmpty() && !email.isEmpty() && !mobileno.isEmpty() && !emailp.isEmpty() && !mobilenop.isEmpty() && !password.isEmpty()) {
                 SQLiteDatabase db = getWritableDatabase();
@@ -798,13 +797,6 @@ dbSAMS extends SQLiteOpenHelper {
         return cursor;
     }
 
-    protected Cursor getAllStudentByBranchIdAndBatchId(int branch_id,int batch_id) {
-        SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT * FROM student WHERE bid = " + branch_id + " AND btid = " + batch_id;
-        Cursor cursor = db.rawQuery(q, null);
-        return cursor;
-    }
-
     protected boolean isStudentAlready(String email,String mobileno) {
         SQLiteDatabase db = getWritableDatabase();
         String q = "SELECT  email,mobileno FROM student";
@@ -820,28 +812,32 @@ dbSAMS extends SQLiteOpenHelper {
         return flag;
     }
 
-
-    protected int studentCount(String email) {
+    protected int studentCount(String email,String mobileno) {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT  email FROM staff WHERE email='" + email + "'";
+        String q = "SELECT  email FROM staff WHERE email='" + email + "' OR mobileno='"+mobileno+
+                "'";
         Cursor cursor = db.rawQuery(q, null);
         return cursor.getCount();
     }
 
-    protected String updateStudent(int sid,String professorName,String professorEmail,
-                                     String professorPassword,int professorMobile,int bid) {
+    protected String updateStudent(int stid,String name,String email,String mobileno,String emailp,String mobilenop,String password,int btid,int bid,int semester) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("name", professorName);
-        cv.put("email", professorEmail);
-        cv.put("password", professorPassword);
-        cv.put("mobileno", professorMobile);
+        cv.put("name", name);
+        cv.put("email", email);
+        cv.put("mobileno", mobileno);
+        cv.put("parent_email", emailp);
+        cv.put("parent_mobileno", mobilenop);
+        cv.put("password", password);
         cv.put("bid", bid);
+        cv.put("btid", btid);
+        cv.put("semester", semester);
 
-        if (studentCount(professorEmail) > 1) {
-            return "Professor already exists";
+        if (studentCount(email,mobileno) > 1) {
+            return "Student already exists";
         } else {
-            int result = db.update("staff", cv, "sid" + "=?", new String[]{String.valueOf(sid)});
+            int result = db.update("student", cv, "stid" + "=?",
+                    new String[]{String.valueOf(stid)});
             if (result == 0) {
                 return "Failed to Update";
             } else {
@@ -853,13 +849,29 @@ dbSAMS extends SQLiteOpenHelper {
     protected String deleteStudent(int stid) {
         SQLiteDatabase db = getWritableDatabase();
 
-        int result = db.delete("student", "sid=?", new String[]{String.valueOf(stid)});
+        int result = db.delete("student", "stid=?", new String[]{String.valueOf(stid)});
         if (result == 0) {
             return "Failed to Delete";
         } else {
             return "Deleted Successfully";
         }
     }
+
+    public Cursor getAllStudentList(String bid, String btid) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM student WHERE bid="+bid+" AND btid="+btid+" ORDER BY stid";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
+
+    protected Cursor getAllStudentByBranchIdAndBatchId(int branch_id,int batch_id) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT * FROM student WHERE bid = " + branch_id + " AND btid = " + batch_id;
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
 
     // get password for admin method
     protected String getPasswordForAdmin(String email) {

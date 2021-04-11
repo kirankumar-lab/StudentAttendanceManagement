@@ -33,6 +33,7 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
     private TextView tvDeleteStudentName;
     private String selectedBranch,selectedBatch;
     private int btid,bid;
+    private String userType;
 
     private AutoCompleteTextView actvBatch,actvBranch;
 
@@ -81,24 +82,26 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
 
 
         ///////////////////////////////////////////////////////////////////////////////////////////
-        
+
         data = new ArrayList<>();
+        userType = getIntent().getStringExtra("UserType");
 
-        Cursor r = db.getAllStudent();
+        if (userType.equals("admin") && userType != null) {
+            Cursor r = db.getAllStudent();
 
-        while (r.moveToNext()) {
-            data.add(new ListStudent(Integer.parseInt(r.getString(0)),r.getString(1),
-                    r.getString(2),r.getString(3),r.getString(4),r.getString(5),r.getString(6),
-                    Integer.parseInt(r.getString(7)),Integer.parseInt(r.getString(8)),
-                    Integer.parseInt(r.getString(9))));
+            while (r.moveToNext()) {
+                data.add(new ListStudent(Integer.parseInt(r.getString(0)), r.getString(1),
+                        r.getString(2), r.getString(3), r.getString(4), r.getString(5), r.getString(6),
+                        Integer.parseInt(r.getString(7)), Integer.parseInt(r.getString(8)),
+                        Integer.parseInt(r.getString(9))));
+            }
+            r.close();
+
+            myAdapter = new AdapterStudent(this, data);
+            dataStudent.setAdapter(myAdapter);
+            myAdapter.notifyDataSetChanged();
         }
-        r.close();
-
-        myAdapter = new AdapterStudent(this, data);
-        dataStudent.setAdapter(myAdapter);
-        myAdapter.notifyDataSetChanged();
     }
-
     // get student data by filter
     public void showList(View view) {
         data.clear();
