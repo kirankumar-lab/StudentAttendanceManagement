@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="@color/purple_700"
-        android:fontFamily="@font/eagle_lake"
+         android:fontFamily="@font/eagle_lake"
         android:gravity="center"
         android:padding="30dp"
         android:text="@string/add_lecture_type"
@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:fontFamily="@font/eagle_lake"
+                 android:fontFamily="@font/doppio_one"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,10 +66,10 @@
             android:id="@+id/btnLecture"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
+            android:layout_marginVertical="15dp"
             android:background="@color/teal_700"
             android:drawablePadding="5dp"
-            android:fontFamily="@font/amita"
+            android:fontFamily="@font/doppio_one"
             android:text="@string/add_lecture_type"
             android:textColor="@color/ic_launcher_background"
             android:textStyle="bold|italic" />

@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="15dp"
-                android:fontFamily="@font/eagle_lake"
+                android:fontFamily="@font/doppio_one"
                 android:digits="0123456789-"
                 android:inputType="numberSigned"
                 />
@@ -66,10 +66,10 @@
             android:id="@+id/btnBatch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
+            android:layout_marginVertical="15dp"
             android:background="@color/teal_700"
             android:drawablePadding="5dp"
-            android:fontFamily="@font/amita"
+            android:fontFamily="@font/doppio_one"
             android:text="@string/add_batch"
             android:textColor="@color/ic_launcher_background"
             android:textStyle="bold|italic" />

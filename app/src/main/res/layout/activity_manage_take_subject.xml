@@ -16,7 +16,7 @@
         android:clickable="false"
         android:paddingVertical="30dp"
         android:paddingHorizontal="25dp"
-        android:fontFamily="@font/eagle_lake"
+         android:fontFamily="@font/eagle_lake"
         android:gravity="center"
         android:isScrollContainer="false"
         android:text="Manage Take Subject"
@@ -61,7 +61,7 @@
                     android:padding="15dp"
                     android:textSize="15sp"
                     android:editable="false"
-                    android:fontFamily="@font/eagle_lake"
+                     android:fontFamily="@font/doppio_one"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -91,7 +91,7 @@
                     android:padding="15dp"
                     android:textSize="15sp"
                     android:editable="false"
-                    android:fontFamily="@font/eagle_lake"
+                     android:fontFamily="@font/doppio_one"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -119,7 +119,7 @@
                     android:padding="15dp"
                     android:textSize="15sp"
                     android:editable="false"
-                    android:fontFamily="@font/eagle_lake"
+                     android:fontFamily="@font/doppio_one"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
