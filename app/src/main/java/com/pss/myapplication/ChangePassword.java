@@ -9,11 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputEditText;
+
 public class ChangePassword extends AppCompatActivity {
     private static final String LOGGED_KEY = "com.pss.myapplication.logged";
     protected dbSAMS db;
     private Button btnChangePassword;
-    private EditText oldPassword, newPassword, confirmNewPassword;
+    private TextInputEditText oldPassword, newPassword, confirmNewPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
