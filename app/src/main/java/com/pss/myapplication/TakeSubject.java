@@ -44,7 +44,6 @@ public class TakeSubject extends AppCompatActivity implements AdapterTakeSubject
 
         data = new ArrayList<>();
 
-        /***************                 Change this line is remaining   ****************/
         Cursor r = db.getTakeSubject(prof_id);
 
         while(r.moveToNext())
