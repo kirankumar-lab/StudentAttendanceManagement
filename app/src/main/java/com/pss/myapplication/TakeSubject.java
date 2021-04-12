@@ -71,7 +71,7 @@ public class TakeSubject extends AppCompatActivity implements AdapterTakeSubject
     public void addSubject(View v) {
         Intent i  = new Intent(TakeSubject.this, ManageTakeSubject.class);
         i.putExtra("prof_id",prof_id);
-        startActivityForResult(i,1);
+        startActivity(i);
     }
 
     @Override
@@ -80,18 +80,18 @@ public class TakeSubject extends AppCompatActivity implements AdapterTakeSubject
         myAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == 1)
-        {
-            if(requestCode == RESULT_OK)
-            {
-                myAdapter.notifyDataSetChanged();
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if(requestCode == 1)
+//        {
+//            if(requestCode == RESULT_OK)
+//            {
+//                myAdapter.notifyDataSetChanged();
+//            }
+//        }
+//    }
 
 //    private boolean isYes;
 

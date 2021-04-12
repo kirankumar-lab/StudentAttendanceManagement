@@ -116,6 +116,7 @@ public class ManageTakeSubject extends AppCompatActivity  {
         String message = db.insertTakeSubject(Integer.parseInt(prof_branch_id),btid,Integer.parseInt(prof_id),sbid,lid);
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         Intent i = new Intent(ManageTakeSubject.this, TakeSubject.class);
+        i.putExtra("prof_id",prof_email_id);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
         finish();
