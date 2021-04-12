@@ -71,7 +71,7 @@ public class TakeSubject extends AppCompatActivity implements AdapterTakeSubject
     public void addSubject(View v) {
         Intent i  = new Intent(TakeSubject.this, ManageTakeSubject.class);
         i.putExtra("prof_id",prof_id);
-        startActivity(i);
+        startActivityForResult(i,1);
     }
 
     @Override

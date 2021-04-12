@@ -2,6 +2,7 @@ package com.pss.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -114,6 +115,10 @@ public class ManageTakeSubject extends AppCompatActivity  {
 
         String message = db.insertTakeSubject(Integer.parseInt(prof_branch_id),btid,Integer.parseInt(prof_id),sbid,lid);
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(ManageTakeSubject.this, TakeSubject.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+        finish();
     }
 
 }
