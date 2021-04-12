@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.ArrayList;
 
 public class Student extends AppCompatActivity implements AdapterStudent.ItemClicked {
@@ -31,16 +33,16 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
     private Dialog dialog;
     private Button btnCancle, btnYes;
     private TextView tvDeleteStudentName;
-    private String selectedBranch,selectedBatch;
-    private int btid,bid;
+    private String selectedBranch, selectedBatch;
+    private int btid, bid;
     private String userType;
 
-    private AutoCompleteTextView actvBatch,actvBranch;
+    private AutoCompleteTextView actvBatch, actvBranch;
 
     private ArrayList<String> fetchedBatch = new ArrayList<>();
     private ArrayList<String> fetchedBranch = new ArrayList<>();
 
-    private ArrayAdapter<String> fetchedBatchAdap,fetchedBranchAdap;
+    private ArrayAdapter<String> fetchedBatchAdap, fetchedBranchAdap;
 
 
     @Override
@@ -50,7 +52,6 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
 
         actvBatch = findViewById(R.id.actvBatch);
         actvBranch = findViewById(R.id.actvBranch);
-
 
         db = new dbSAMS(this);
 
@@ -102,42 +103,40 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
             myAdapter.notifyDataSetChanged();
         }
     }
+
     // get student data by filter
     public void showList(View view) {
-        data.clear();
-
-        selectedBatch = actvBatch.getText().toString();
-       // btid = Integer.parseInt(db.getBatchID(selectedBatch));
-
         selectedBranch = actvBranch.getText().toString();
-        //bid = Integer.parseInt(db.getBranchID(selectedBranch));
+        selectedBatch = actvBatch.getText().toString();
+        if (!selectedBatch.isEmpty() && !selectedBranch.isEmpty()) {
+            data.clear();
 
-        //Toast.makeText(this, selectedBatch + selectedBranch, Toast.LENGTH_SHORT).show();
-        data = new ArrayList<>();
+            data = new ArrayList<>();
 
-        dataStudent.swapAdapter(myAdapter,true);
+            dataStudent.swapAdapter(myAdapter, true);
 
-        Cursor r1 = db.getAllStudentList(selectedBranch,selectedBatch);
-        while (r1.moveToNext()) {
-            data.add(new ListStudent(Integer.parseInt(r1.getString(0)),r1.getString(1),
-                    r1.getString(2),r1.getString(3),r1.getString(4),r1.getString(5),r1.getString(6),
-                    Integer.parseInt(r1.getString(9)),Integer.parseInt(r1.getString(8)),
-                    Integer.parseInt(r1.getString(7))));
+            Cursor r1 = db.getAllStudentList(selectedBranch, selectedBatch);
+            while (r1.moveToNext()) {
+                data.add(new ListStudent(Integer.parseInt(r1.getString(0)), r1.getString(1),
+                        r1.getString(2), r1.getString(3), r1.getString(4), r1.getString(5), r1.getString(6),
+                        Integer.parseInt(r1.getString(9)), Integer.parseInt(r1.getString(8)),
+                        Integer.parseInt(r1.getString(7))));
+            }
+            r1.close();
+
+
+            myAdapter = new AdapterStudent(this, data);
+            dataStudent.setAdapter(myAdapter);
+            myAdapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(this, "Please Select Batch or Branch", Toast.LENGTH_SHORT).show();
         }
-        r1.close();
-
-
-        myAdapter = new AdapterStudent(this, data);
-        dataStudent.setAdapter(myAdapter);
-        myAdapter.notifyDataSetChanged();
     }
-
-
 
     public void addStudent(View view) {
         Intent i =
                 new Intent(Student.this, ManageStudent.class).putExtra("action", "add").putExtra(
-                        "user",userType);
+                        "user", userType);
         startActivityForResult(i, 1);
     }
 
@@ -150,7 +149,7 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
     @Override
     protected void onPause() {
         super.onPause();
-        if(userType.equals("admin")) {
+        if (userType.equals("admin")) {
             myAdapter.notifyDataSetChanged();
         }
     }
@@ -184,7 +183,7 @@ public class Student extends AppCompatActivity implements AdapterStudent.ItemCli
                     .putExtra("bid", data.get(index).getBid())
                     .putExtra("semester", data.get(index).getSemester())
                     .putExtra("action", action)
-            .putExtra("user",userType));
+                    .putExtra("user", userType));
         }
         if (action.equals("delete")) {
             dialog = new Dialog(this);
