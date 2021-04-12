@@ -69,4 +69,6 @@
     <string name="select_subject">Select Subject</string>
     <string name="select_lecture_type">Select Lecture Type</string>
     <string name="forgot_your_password"><u>Forgot your password ?</u></string>
+    <string name="batch_id">Batch ID</string>
+    <string name="delete_take_subject">Delete Take Subject</string>
 </resources>
