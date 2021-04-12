@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class TakeSubject extends AppCompatActivity implements AdapterSubject.ItemClicked{
+public class TakeSubject extends AppCompatActivity implements AdapterTakeSubject.ItemClicked{
 
     private RecyclerView dataTakeSubject;
     RecyclerView.Adapter myAdapter;
