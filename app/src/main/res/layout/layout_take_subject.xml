@@ -79,7 +79,7 @@
                     android:fontFamily="@font/eagle_lake"
                     android:gravity="start"
                     android:padding="10dp"
-                    android:text="@string/batch_id"
+                    android:text="@string/batch_name"
                     android:textSize="12sp"
                     android:textStyle="bold|italic" />
 

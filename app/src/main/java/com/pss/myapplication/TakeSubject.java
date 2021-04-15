@@ -52,7 +52,7 @@ public class TakeSubject extends AppCompatActivity implements AdapterTakeSubject
                     String.valueOf(db.getTakeSubjectName(r.getString(4))),
                             Integer.parseInt(db.getTakeSubjectSemester(r.getString(4))),
                     Integer.parseInt(r.getString(1)),
-                                    Integer.parseInt(r.getString(2)),
+                                    db.getBatchName(Integer.parseInt((r.getString(2)))),
                                             Integer.parseInt(r.getString(3)),
                                                     Integer.parseInt(r.getString(5))));
         }

@@ -56,7 +56,7 @@ public class AdapterTakeSubject extends RecyclerView.Adapter<AdapterTakeSubject.
 
         holder.dataTakeSubjectName.setText(data.get(position).getSubject_name());
         holder.dataTakeSubjectSemester.setText(String.valueOf(data.get(position).getSemester()));
-        holder.dataTakeSubjectBatch.setText(String.valueOf(data.get(position).getBtid()));
+        holder.dataTakeSubjectBatch.setText(String.valueOf(data.get(position).getBatch_name()));
 
         holder.tvDelete.setOnClickListener(v -> {
             activity.onItemClicked(data.indexOf((ListTakeSubject) data.get(position)), "delete");

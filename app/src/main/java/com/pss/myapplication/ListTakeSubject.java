@@ -8,15 +8,26 @@ public class ListTakeSubject {
     private int btid;  //get for batch id
     private int sid;  //get for staff id
     private int lid;  //get for lecture id
+    private String batch_name; //get for batch name
 
-    public ListTakeSubject(int tsid, String subject_name, int semester, int bid, int btid, int sid, int lid) {
+    public ListTakeSubject(int tsid, String subject_name, int semester, int bid, String batch_name, int sid,
+                           int lid) {
         this.tsid = tsid;
         this.subject_name = subject_name;
         this.semester = semester;
         this.bid = bid;
-        this.btid = btid;
+        //this.btid = btid;
+        this.batch_name = batch_name;
         this.sid = sid;
         this.lid = lid;
+    }
+
+    public String getBatch_name() {
+        return batch_name;
+    }
+
+    public void setBatch_name(String batch_name) {
+        this.batch_name = batch_name;
     }
 
     public int getTsid() {
