@@ -6,12 +6,21 @@ public class ListSubject {
     private String subject_name;
     private int semester;
     private int bid;  //get for branch id
+    private String branch_name; //get for branch name
 
-    public ListSubject(int sbid, String subject_name, int semester, int bid) {
+    public ListSubject(int sbid, String subject_name, int semester, String branch_name) {
         this.sbid = sbid;
         this.subject_name = subject_name;
         this.semester = semester;
-        this.bid = bid;
+        this.branch_name = branch_name;
+    }
+
+    public String getBranch_name() {
+        return branch_name;
+    }
+
+    public void setBranch_name(String branch_name) {
+        this.branch_name = branch_name;
     }
 
     public int getSbid() {

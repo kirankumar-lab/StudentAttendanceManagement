@@ -48,7 +48,8 @@ public class Subject extends AppCompatActivity implements AdapterSubject.ItemCli
         while(r.moveToNext())
         {
             data.add(new ListSubject(Integer.parseInt(r.getString(0)),r.getString(1),
-                    Integer.parseInt(r.getString(2)),Integer.parseInt(r.getString(3))));
+                    Integer.parseInt(r.getString(2)),
+                    db.getBranchName(Integer.parseInt(r.getString(3)))));
         }
 
         myAdapter = new AdapterSubject(this,data);

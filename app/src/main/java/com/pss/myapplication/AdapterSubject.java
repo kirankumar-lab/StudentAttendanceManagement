@@ -59,7 +59,7 @@ public class AdapterSubject extends RecyclerView.Adapter<AdapterSubject.ViewHold
 
         holder.dataSubjectName.setText(data.get(position).getSubject_name());
         holder.dataSubjectSemester.setText(String.valueOf(data.get(position).getSemester()));
-        holder.dataSubjectBranch.setText(String.valueOf(data.get(position).getBid()));
+        holder.dataSubjectBranch.setText(data.get(position).getBranch_name());
 
         holder.tvEdit.setOnClickListener(v -> {
             activity.onItemClicked(data.indexOf((ListSubject) data.get(position)), "edit");
