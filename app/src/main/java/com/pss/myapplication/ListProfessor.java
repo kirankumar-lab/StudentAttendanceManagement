@@ -9,14 +9,24 @@ public class ListProfessor {
     private String professor_password;
     private String professor_mobileno;
     private int bid; //Branch ID
+    private String branch_name;
 
-    public ListProfessor(int sid, String professor_name, String professor_email, String professor_password, String professor_mobileno, int bid) {
+    public ListProfessor(int sid, String professor_name, String professor_email,
+                         String professor_password, String professor_mobileno, String branch_name) {
         this.sid = sid;
         this.professor_name = professor_name;
         this.professor_email = professor_email;
         this.professor_password = professor_password;
         this.professor_mobileno = professor_mobileno;
-        this.bid = bid;
+        this.branch_name = branch_name;
+    }
+
+    public String getBranch_name() {
+        return branch_name;
+    }
+
+    public void setBranch_name(String branch_name) {
+        this.branch_name = branch_name;
     }
 
     public int getSid() {

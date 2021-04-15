@@ -47,7 +47,7 @@ public class Professor extends AppCompatActivity implements AdapterProfessor.Ite
             data.add(new ListProfessor(Integer.parseInt(r.getString(0)), r.getString(1),
                     r.getString(2), r.getString(3),
                     r.getString(4),
-                    Integer.parseInt(r.getString(5))));
+                    db.getBranchName(Integer.parseInt(r.getString(5)))));
         }
 
         myAdapter = new AdapterProfessor(this, data);

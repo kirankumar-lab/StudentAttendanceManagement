@@ -58,7 +58,7 @@ public class AdapterProfessor extends RecyclerView.Adapter<AdapterProfessor.View
         holder.dataProfessorName.setText(data.get(position).getProfessor_name());
         holder.dataProfessorMobileNo.setText(data.get(position).getProfessor_mobileno());
         holder.dataProfessorEmail.setText(data.get(position).getProfessor_email());
-        holder.dataProfessorBranch.setText(String.valueOf(data.get(position).getBid()));
+        holder.dataProfessorBranch.setText(data.get(position).getBranch_name());
 
         holder.tvEdit.setOnClickListener(v -> {
             activity.onItemClicked(data.indexOf((ListProfessor) data.get(position)), "edit");
