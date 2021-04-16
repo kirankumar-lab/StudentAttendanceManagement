@@ -732,6 +732,17 @@ dbSAMS extends SQLiteOpenHelper {
         return sid;
     }
 
+    protected String getProfessorName(int sid) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q = "SELECT name FROM staff WHERE sid="+sid;
+        Cursor cursor = db.rawQuery(q, null);
+        String name = null;
+        while (cursor.moveToNext()) {
+            name = cursor.getString(0);
+        }
+        return name;
+    }
+
     protected boolean isProfessorAlready(String professorEmail) {
         SQLiteDatabase db = getWritableDatabase();
         String q = "SELECT  email FROM staff";
@@ -1008,6 +1019,15 @@ dbSAMS extends SQLiteOpenHelper {
         String q =
                 "SELECT * FROM take_subject WHERE sid=" + getProfessorId(sid) +
                         " ORDER " +
+                        "BY tsid DESC";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
+    protected Cursor getTakeSubjectAll() {
+        SQLiteDatabase db = getWritableDatabase();
+        String q =
+                "SELECT * FROM take_subject ORDER " +
                         "BY tsid DESC";
         Cursor cursor = db.rawQuery(q, null);
         return cursor;

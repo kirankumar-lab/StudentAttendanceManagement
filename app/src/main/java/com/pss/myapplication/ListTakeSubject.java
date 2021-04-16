@@ -9,8 +9,10 @@ public class ListTakeSubject {
     private int sid;  //get for staff id
     private int lid;  //get for lecture id
     private String batch_name; //get for batch name
+    private String professor_name; //get for professor name
 
-    public ListTakeSubject(int tsid, String subject_name, int semester, int bid, String batch_name, int sid,
+    public ListTakeSubject(int tsid, String subject_name, int semester, int bid,
+                           String batch_name, String professor_name,
                            int lid) {
         this.tsid = tsid;
         this.subject_name = subject_name;
@@ -18,8 +20,16 @@ public class ListTakeSubject {
         this.bid = bid;
         //this.btid = btid;
         this.batch_name = batch_name;
-        this.sid = sid;
+        this.professor_name = professor_name;
         this.lid = lid;
+    }
+
+    public String getProfessor_name() {
+        return professor_name;
+    }
+
+    public void setProfessor_name(String professor_name) {
+        this.professor_name = professor_name;
     }
 
     public String getBatch_name() {

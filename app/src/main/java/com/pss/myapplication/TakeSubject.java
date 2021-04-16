@@ -1,5 +1,6 @@
 package com.pss.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,17 +8,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 public class TakeSubject extends AppCompatActivity implements AdapterTakeSubject.ItemClicked{
-
+    private static final String LOGGED_KEY = "com.pss.myapplication.logged";
     private RecyclerView dataTakeSubject;
     RecyclerView.Adapter myAdapter;
     private RecyclerView.LayoutManager manager;
@@ -25,7 +31,10 @@ public class TakeSubject extends AppCompatActivity implements AdapterTakeSubject
     private dbSAMS db;
     private Dialog dialog;
     private Button btnCancle,btnYes;
-    private TextView tvDeleteSubjectName;
+    private TextView tvDeleteSubjectName,takeSubjectView,tackSubjectProfessor;
+    private boolean isAdmin = false;
+
+
 
     private String prof_id;
     @Override
@@ -33,7 +42,16 @@ public class TakeSubject extends AppCompatActivity implements AdapterTakeSubject
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_subject);
 
-        prof_id = getIntent().getStringExtra("prof_id");
+        SharedPreferences prefs = getSharedPreferences(LOGGED_KEY, MODE_PRIVATE);
+
+        if (prefs.getString("userType", "").equals("admin")) {
+            try {
+                isAdmin =true;
+            }
+            catch(Exception ex){
+                Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_LONG).show();
+            }
+        }
 
         db = new dbSAMS(this);
 
@@ -44,7 +62,7 @@ public class TakeSubject extends AppCompatActivity implements AdapterTakeSubject
 
         data = new ArrayList<>();
 
-        Cursor r = db.getTakeSubject(prof_id);
+        Cursor r = db.getTakeSubjectAll();
 
         while(r.moveToNext())
         {
@@ -53,11 +71,11 @@ public class TakeSubject extends AppCompatActivity implements AdapterTakeSubject
                             Integer.parseInt(db.getTakeSubjectSemester(r.getString(4))),
                     Integer.parseInt(r.getString(1)),
                                     db.getBatchName(Integer.parseInt((r.getString(2)))),
-                                            Integer.parseInt(r.getString(3)),
+                                            db.getProfessorName(Integer.parseInt(r.getString(3))),
                                                     Integer.parseInt(r.getString(5))));
         }
 
-        myAdapter = new AdapterTakeSubject(this,data);
+        myAdapter = new AdapterTakeSubject(this,data,isAdmin);
         dataTakeSubject.setAdapter(myAdapter);
         myAdapter.notifyDataSetChanged();
 

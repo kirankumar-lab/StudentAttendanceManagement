@@ -82,6 +82,9 @@ public class AdminPanel extends AppCompatActivity {
     public void attendance(View v) {
         startActivity(new Intent(AdminPanel.this, Attendance.class));
     }
+
+    public void takeSubject(View view) {startActivity(new Intent(AdminPanel.this, TakeSubject.class));
+    }
 /*
     @Override
     public void onBackPressed() {
