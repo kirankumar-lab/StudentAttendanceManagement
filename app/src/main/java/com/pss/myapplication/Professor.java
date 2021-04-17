@@ -94,7 +94,7 @@ public class Professor extends AppCompatActivity implements AdapterProfessor.Ite
                             data.get(index).getProfessor_mobileno())
                     .putExtra("professor_email", data.get(index).getProfessor_email())
                     .putExtra("professor_password", data.get(index).getProfessor_password())
-                    .putExtra("bid", data.get(index).getBid())
+                    .putExtra("bid", data.get(index).getBranch_name())
                     .putExtra("action", action));
         }
         if (action.equals("delete")) {

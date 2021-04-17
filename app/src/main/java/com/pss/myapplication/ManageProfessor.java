@@ -1,9 +1,11 @@
 package com.pss.myapplication;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Patterns;
@@ -48,6 +50,7 @@ public class ManageProfessor extends AppCompatActivity {
 
     private ArrayList<String> listBranch = new ArrayList<>();
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +96,8 @@ public class ManageProfessor extends AppCompatActivity {
                 tietProfessorEmail.setText(professor_email);
                 tietProfessorPassword.setText(professor_password);
                 tietProfessorConfirmPassword.setText(professor_confirmPassword);
+
+                actvSelectBranch.setText(getIntent().getStringExtra("bid"),false);
 
                 tvAction.setText("Edit Professor");
                 btnProfessor.setText("Update");
