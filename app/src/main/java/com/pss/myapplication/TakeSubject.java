@@ -3,6 +3,7 @@ package com.pss.myapplication;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,6 +14,8 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -33,25 +36,26 @@ public class TakeSubject extends AppCompatActivity implements AdapterTakeSubject
     private Button btnCancle,btnYes;
     private TextView tvDeleteSubjectName,takeSubjectView,tackSubjectProfessor;
     private boolean isAdmin = false;
-
-
-
+    private CardView cardView;
+    private FloatingActionButton fabAdd;
+    private AutoCompleteTextView actvBatch,actvBranch;
+    private ArrayList<String> fetchedBatch = new ArrayList<>();
+    private ArrayList<String> fetchedBranch = new ArrayList<>();
+    private ArrayAdapter<String> fetchedBatchAdap,fetchedBranchAdap;
+    private String selectedBatch="",selectedBranch="";
     private String prof_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_subject);
 
+        cardView = (CardView) findViewById(R.id.search_take_subject);
+        fabAdd = (FloatingActionButton) findViewById(R.id.fabAdd);
+
         SharedPreferences prefs = getSharedPreferences(LOGGED_KEY, MODE_PRIVATE);
 
-        if (prefs.getString("userType", "").equals("admin")) {
-            try {
-                isAdmin =true;
-            }
-            catch(Exception ex){
-                Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_LONG).show();
-            }
-        }
+        prof_id = prefs.getString("userID", "");
 
         db = new dbSAMS(this);
 
@@ -62,7 +66,22 @@ public class TakeSubject extends AppCompatActivity implements AdapterTakeSubject
 
         data = new ArrayList<>();
 
-        Cursor r = db.getTakeSubjectAll();
+        Cursor r = db.getTakeSubject(prof_id);
+
+        if (prefs.getString("userType", "").equals("admin")) {
+            try {
+                isAdmin =true;
+                fabAdd.setVisibility(View.GONE);
+                r = db.getTakeSubjectAll();
+            }
+            catch(Exception ex){
+                Toast.makeText(this,ex.getMessage().toString(),Toast.LENGTH_LONG).show();
+            }
+        }
+        else
+        {
+            cardView.setVisibility(View.GONE);
+        }
 
         while(r.moveToNext())
         {
