@@ -97,7 +97,7 @@ public class Subject extends AppCompatActivity implements AdapterSubject.ItemCli
                     .putExtra("sbid",data.get(index).getSbid())
                     .putExtra("subject_name",data.get(index).getSubject_name())
                     .putExtra("semester",data.get(index).getSemester())
-                    .putExtra("bid",data.get(index).getBid())
+                    .putExtra("bid",data.get(index).getBranch_name())
                     .putExtra("action",action));
         }
         if (action.equals("delete")){

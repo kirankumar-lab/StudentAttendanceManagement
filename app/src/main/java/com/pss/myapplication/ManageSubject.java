@@ -3,6 +3,7 @@ package com.pss.myapplication;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -42,6 +44,7 @@ public class ManageSubject extends AppCompatActivity {
     private ArrayList<Integer> listSelect = new ArrayList<>();
 
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +98,11 @@ public class ManageSubject extends AppCompatActivity {
                 sbid = getIntent().getIntExtra("sbid", 0);
                 subject_name = getIntent().getStringExtra("subject_name");
                 edtSubjectName.setText(subject_name);
+
+                actvSelectBranch.setText(getIntent().getStringExtra("bid"),false);
+                actvSelectSemester.setText(String.valueOf(getIntent().getIntExtra("semester",0)),
+                        false);
+
                 tvAction.setText("Edit Subject");
                 btnSubject.setText("Update");
             } catch (Exception ex) {
