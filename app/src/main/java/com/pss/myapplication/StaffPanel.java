@@ -45,7 +45,7 @@ public class StaffPanel extends AppCompatActivity {
             branch_id.setText("Branch Id: " + prof_branch_id);
 
             if (!prefs.getString("userType", "").equals("staff")) {
-                Toast.makeText(StaffPanel.this, "LogOut Successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(StaffPanel.this, "Logout Successfully", Toast.LENGTH_SHORT).show();
                 SharedPreferences.Editor editor =
                         getSharedPreferences(LOGGED_KEY, MODE_PRIVATE).edit();
                 editor.putBoolean("isLoggedIn", false);
@@ -74,13 +74,17 @@ public class StaffPanel extends AppCompatActivity {
     }
 
     public void takeSubject(View v) {
-        Intent i  = new Intent(StaffPanel.this, TakeSubject.class);
-        i.putExtra("prof_id",prof_id);
+        Intent i = new Intent(StaffPanel.this, TakeSubject.class);
+        i.putExtra("prof_id", prof_id);
         startActivity(i);
     }
 
     public void ManageStudent(View view) {
-        startActivity(new Intent(StaffPanel.this, Student.class).putExtra("UserType","staff"));
+        startActivity(new Intent(StaffPanel.this, Student.class).putExtra("UserType", "staff"));
+    }
+
+    public void TakeAttendance(View view) {
+        startActivity(new Intent(StaffPanel.this, TakeAttendance.class).putExtra("prof_id", prof_id));
     }
 
 }

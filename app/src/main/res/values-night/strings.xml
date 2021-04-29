@@ -67,4 +67,11 @@
     <string name="forgot_your_password"><u>Forgot your password ?</u></string>
     <string name="batch_id">Batch ID</string>
     <string name="delete_take_subject">Delete Take Subject</string>
+    <string name="take_attendance">Take Attendance</string>
+    <string name="select_slot">Select Slot</string>
+    <string name="enter_description">Enter Description</string>
+    <string name="select_date">Select Date</string>
+    <string name="edit_attendance">Edit Attendance</string>
+    <string name="genrate_report">Genrate Report</string>
+    <string name="dateFormate">dd/MM/yyyy</string>
 </resources>

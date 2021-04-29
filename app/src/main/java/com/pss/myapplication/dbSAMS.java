@@ -105,25 +105,21 @@ dbSAMS extends SQLiteOpenHelper {
     //end student table
 
     //attendance table
-    private final String attendanceTable = "CREATE TABLE attendance(" +
-            "atid INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "bid INTEGER NOT NULL," +
-            "btid INTEGER NOT NULL," +
-            "sid INTEGER NOT NULL," +
-            "stid INTEGER NOT NULL," +
-            "sbid INTEGER NOT NULL," +
-            "lid INTEGER NOT NULL," +
+    private final String attendance_detailTable = "CREATE TABLE attendance_detial(" +
+            "adid INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "tsid INTEGER NOT NULL," +
             "slot INTEGER NOT NULL," +
-            "attend BOOLEAN NOT NULL," +
             "date DATE NOT NULL," +
             "descript TEXT NOT NULL," +
-            "FOREIGN KEY(bid) REFERENCES branch(bid)," +
-            "FOREIGN KEY(btid) REFERENCES batch(bid)," +
-            "FOREIGN KEY(sid) REFERENCES staff(sid)," +
-            "FOREIGN KEY(stid) REFERENCES student(stid)," +
-            "FOREIGN KEY(sbid) REFERENCES subject(sbid)," +
-            "FOREIGN KEY(lid) REFERENCES lecture(lid)" +
+            "FOREIGN KEY(tsid) REFERENCES take_subject(tsid)" +
             ");";
+    private final String attendanceTable = "CREATE TABLE attendance(" +
+            "atid INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "stid INTEGER NOT NULL," +
+            "attend BOOLEAN NOT NULL," +
+            "FOREIGN KEY(adid) REFERENCES attendance_detial(adid)" +
+            ");";
+
     //end attendance table
 
     public dbSAMS(Context context) {
@@ -134,6 +130,8 @@ dbSAMS extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(adminTable);
+        db.execSQL("INSERT INTO admin(name,email,password,mobileno) VALUES('admin','admin@admin" +
+                ".com','admin123',9876543210)");
         db.execSQL(branchTable);
         db.execSQL(batchTable);
         db.execSQL(subjectTable);
@@ -141,9 +139,9 @@ dbSAMS extends SQLiteOpenHelper {
         db.execSQL(staffTable);
         db.execSQL(takeSubjectTable);
         db.execSQL(studentTable);
+        db.execSQL("drop table IF EXISTS attendance");
+        db.execSQL(attendance_detailTable);
         db.execSQL(attendanceTable);
-        db.execSQL("INSERT INTO admin(name,email,password,mobileno) VALUES('admin','admin@admin" +
-                ".com','admin123',9876543210)");
     }
 
     @Override
@@ -727,14 +725,14 @@ dbSAMS extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(q, null);
         String sid = null;
         while (cursor.moveToNext()) {
-         sid = cursor.getString(0);
+            sid = cursor.getString(0);
         }
         return sid;
     }
 
     protected String getProfessorName(int sid) {
         SQLiteDatabase db = getWritableDatabase();
-        String q = "SELECT name FROM staff WHERE sid="+sid;
+        String q = "SELECT name FROM staff WHERE sid=" + sid;
         Cursor cursor = db.rawQuery(q, null);
         String name = null;
         while (cursor.moveToNext()) {
@@ -950,6 +948,18 @@ dbSAMS extends SQLiteOpenHelper {
         return password;
     }
 
+    protected boolean checkTakeSubject(int bid, int btid, int sid, int sbid, int lid) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM take_subject WHERE bid=" + bid + " AND btid=" + btid +
+                " AND " +
+                "sid=" + sid + " AND sbid=" + sbid + " AND lid=" + lid, null);
+        if (cursor.getCount() > 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
     protected String insertTakeSubject(int bid, int btid, int sid, int sbid, int lid) {
         SQLiteDatabase db = getWritableDatabase();
@@ -959,11 +969,15 @@ dbSAMS extends SQLiteOpenHelper {
         cv.put("sid", sid);
         cv.put("sbid", sbid);
         cv.put("lid", lid);
-        float insert = db.insert("take_subject", null, cv);
-        if (insert == -1) {
-            return "Failed to Take Subject";
+        if (checkTakeSubject(bid, btid, sid, sbid, lid)) {
+            float insert = db.insert("take_subject", null, cv);
+            if (insert == -1) {
+                return "Failed to Take Subject";
+            } else {
+                return "Take Subject Successfully!";
+            }
         } else {
-            return "Take Subject Successfully!";
+            return "This Subject Already Taken!";
         }
 
     }
@@ -1031,5 +1045,46 @@ dbSAMS extends SQLiteOpenHelper {
                         "BY tsid DESC";
         Cursor cursor = db.rawQuery(q, null);
         return cursor;
+    }
+
+    public Cursor getTakeSubjectByLecture(String lecture, String batch, String sid) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q =
+                "SELECT * FROM take_subject Where lid=" + getLectureID(lecture) + " AND btid=" + getBatchID(batch) + " AND sid=" + getProfessorId(sid);
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
+    public int getTakeSubjectID(int btid, int bid, int lid, int sbid, int sid) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            Cursor cursor = db.rawQuery("SELECT tsid FROM take_subject WHERE btid=" + btid + " and " +
+                    "bid=" + bid + " and " +
+                    "lid=" + lid + " and " +
+                    " sbid=" + sbid + " and " +
+                    " sid=" + sid, null);
+            int tsid = 0;
+            while (cursor.moveToNext()) {
+                tsid = cursor.getInt(0);
+            }
+            return tsid;
+        } catch (Exception ex) {
+            return 0;
+        }
+
+    }
+
+    public int getBranchIDBySID(String sid) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            Cursor cursor = db.rawQuery("SELECT bid FROM staff WHERE email='" + sid + "'", null);
+            int bid = 0;
+            while (cursor.moveToNext()) {
+                bid = cursor.getInt(0);
+            }
+            return bid;
+        } catch (Exception ex) {
+            return 0;
+        }
     }
 }

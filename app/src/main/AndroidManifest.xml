@@ -11,16 +11,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-
-        <activity android:name=".ManageTakeSubject"
+        <activity
+            android:name=".TakeAttendance"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.NoAction"/>
-        <activity android:name=".TakeSubject"
+            android:theme="@style/Theme.NoAction" />
+        <activity
+            android:name=".ManageTakeSubject"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.NoAction"/>
-        <activity android:name=".ForgotPassword"
+            android:theme="@style/Theme.NoAction" />
+        <activity
+            android:name=".TakeSubject"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.NoAction"/>
+            android:theme="@style/Theme.NoAction" />
+        <activity
+            android:name=".ForgotPassword"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.NoAction" />
         <activity
             android:name=".SelectProfessorData"
             android:screenOrientation="portrait"
