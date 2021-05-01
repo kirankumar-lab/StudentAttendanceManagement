@@ -53,6 +53,16 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
     private ArrayList<Integer> listSlot;
     private ArrayAdapter adpSlot, adpBatch, adpSubject, adpLecture;
 
+    private int btid;
+    private int bid;
+    private int lid;
+    private int sbid;
+    private int slot;
+    private String date;
+    private String decription;
+
+    int tsid = db.getTakeSubjectID(btid, bid, lid, sbid, Integer.parseInt(db.getProfessorId(sid)));
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +96,7 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
         listSubject = new ArrayList<>();
         listLecture = new ArrayList<>();
 
-        Cursor cursor = db.getTakeSubject(sid);
+        Cursor cursor = db.getTakeSubjectBySID(sid);
         while (cursor.moveToNext()) {
             listBatch.add(db.getBatchName(Integer.parseInt(cursor.getString(cursor.getColumnIndex("btid")))));
         }
@@ -114,6 +124,8 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
                 try {
                     Cursor cursor =
                             db.getTakeSubjectByLecture(parent.getItemAtPosition(position).toString(), actvSelectBatch.getText().toString(), sid);
+                    actvSelectSubject.setText("");
+                    listSubject.clear();
                     while (cursor.moveToNext()) {
                         listSubject.add(db.getTakeSubjectName(cursor.getString(cursor.getColumnIndex("sbid"))));
                     }
@@ -184,6 +196,7 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
         actvSelectDate.setText(selectedDate);
     }
 
+    //First Layout Take Attendance Method
     public void TakeAttendance(View view) {
         try {
             boolean isSlot = actvSelectSlot != null && actvSelectSlot.getText().toString().isEmpty();
@@ -194,14 +207,14 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
             boolean isDecription = tietDescription != null && tietDescription.getText().toString().isEmpty();
 
             if (!isBatch && !isLecture && !isSubject && !isSlot && !isDate && !isDecription) {
-                int btid = Integer.parseInt(db.getBatchID(actvSelectBatch.getText().toString()));
-                int bid = db.getBranchIDBySID(sid);
-                int lid = Integer.parseInt(db.getLectureID(actvSelectLecture.getText().toString()));
-                int sbid = Integer.parseInt(db.getSubjectID(actvSelectSubject.getText().toString()));
+                btid = Integer.parseInt(db.getBatchID(actvSelectBatch.getText().toString()));
+                bid = db.getBranchIDBySID(sid);
+                lid = Integer.parseInt(db.getLectureID(actvSelectLecture.getText().toString()));
+                sbid = Integer.parseInt(db.getSubjectID(actvSelectSubject.getText().toString()));
 
-                int slot = Integer.parseInt(actvSelectSlot.getText().toString());
-                String date = actvSelectDate.getText().toString();
-                String decription = tietDescription.getText().toString();
+                slot = Integer.parseInt(actvSelectSlot.getText().toString());
+                date = actvSelectDate.getText().toString();
+                decription = tietDescription.getText().toString();
 
                 int tsid = db.getTakeSubjectID(btid, bid, lid, sbid, Integer.parseInt(db.getProfessorId(sid)));
                 setContentView(R.layout.activity_take_attendance_p);

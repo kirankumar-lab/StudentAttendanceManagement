@@ -139,7 +139,7 @@ dbSAMS extends SQLiteOpenHelper {
         db.execSQL(staffTable);
         db.execSQL(takeSubjectTable);
         db.execSQL(studentTable);
-        db.execSQL("drop table IF EXISTS attendance");
+        //db.execSQL("drop table IF EXISTS attendance");
         db.execSQL(attendance_detailTable);
         db.execSQL(attendanceTable);
     }
@@ -155,6 +155,7 @@ dbSAMS extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS take_subject");
         db.execSQL("DROP TABLE IF EXISTS student");
         db.execSQL("DROP TABLE IF EXISTS attendance");
+        db.execSQL("DROP TABLE IF EXISTS attendance_detail");
         onCreate(db);
     }
 
@@ -1032,6 +1033,16 @@ dbSAMS extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         String q =
                 "SELECT * FROM take_subject WHERE sid=" + getProfessorId(sid) +
+                        " ORDER " +
+                        "BY tsid DESC";
+        Cursor cursor = db.rawQuery(q, null);
+        return cursor;
+    }
+
+    protected Cursor getTakeSubjectBySID(String sid) {
+        SQLiteDatabase db = getWritableDatabase();
+        String q =
+                "SELECT DISTINCT(btid) as btid FROM take_subject WHERE sid=" + getProfessorId(sid) +
                         " ORDER " +
                         "BY tsid DESC";
         Cursor cursor = db.rawQuery(q, null);
