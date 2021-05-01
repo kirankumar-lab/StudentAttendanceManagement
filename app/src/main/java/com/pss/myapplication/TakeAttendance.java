@@ -61,7 +61,7 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
     private String date;
     private String decription;
 
-    int tsid = db.getTakeSubjectID(btid, bid, lid, sbid, Integer.parseInt(db.getProfessorId(sid)));
+    private int tsid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
