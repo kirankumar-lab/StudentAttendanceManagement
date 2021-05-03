@@ -41,8 +41,9 @@ import static java.time.format.DateTimeFormatter.ofPattern;
 
 public class TakeAttendance extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private TextInputLayout tilSelectDate, tilSelectSlot, tilSelectSubject,
-            tilSelectLecture, tilDescription;
-    private AutoCompleteTextView actvSelectDate, actvSelectSlot, actvSelectBatch, actvSelectSubject,
+            tilSelectLecture,tilSelectSemester, tilDescription;
+    private AutoCompleteTextView actvSelectDate, actvSelectSlot, actvSelectBatch,
+            actvSelectSubject,actvSelectSemester,
             actvSelectLecture;
     private TextInputEditText tietDescription;
     private String selectedDate = null;
@@ -50,13 +51,14 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
     private dbSAMS db;
     private String sid;
     private ArrayList<String> listBatch, listSubject, listLecture;
-    private ArrayList<Integer> listSlot;
-    private ArrayAdapter adpSlot, adpBatch, adpSubject, adpLecture;
+    private ArrayList<Integer> listSlot,listSemester;
+    private ArrayAdapter adpSlot, adpBatch, adpSubject,adpSemester, adpLecture;
 
     private int btid;
     private int bid;
     private int lid;
     private int sbid;
+    private int sem;
     private int slot;
     private String date;
     private String decription;
@@ -80,6 +82,7 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
         tilSelectSlot = findViewById(R.id.tilSelectSlot);
         tilSelectSubject = findViewById(R.id.tilSelectSubject);
         tilSelectLecture = findViewById(R.id.tilSelectLecture);
+        tilSelectSemester = findViewById(R.id.tilSemester);
         tilDescription = findViewById(R.id.tilDescription);
 
         tietDescription = findViewById(R.id.tietDecription);
@@ -87,6 +90,7 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
         actvSelectDate = findViewById(R.id.actvSelectDate);
         actvSelectBatch = findViewById(R.id.actvSelectBatch);
         actvSelectSubject = findViewById(R.id.actvSelectSubject);
+        actvSelectSemester = findViewById(R.id.actvSelectSemester);
         actvSelectLecture = findViewById(R.id.actvSelectLecture);
         actvSelectSlot = findViewById(R.id.actvSelectSlot);
 
@@ -95,6 +99,7 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
         listBatch = new ArrayList<>();
         listSubject = new ArrayList<>();
         listLecture = new ArrayList<>();
+        listSemester = new ArrayList<>();
 
         Cursor cursor = db.getTakeSubjectBySID(sid);
         while (cursor.moveToNext()) {
@@ -106,24 +111,108 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
         actvSelectBatch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                tilSelectLecture.setEnabled(true);
+                tilSelectSemester.setEnabled(false);
+                listSemester.clear();
+                adpSemester = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu, listSemester);
+                actvSelectSemester.setAdapter(adpSemester);
+
+                tilSelectLecture.setEnabled(false);
+                listLecture.clear();
+                adpLecture = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu,
+                        listLecture);
+                actvSelectLecture.setAdapter(adpLecture);
+
+                tilSelectSubject.setEnabled(false);
+                listSubject.clear();
+                adpSubject = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu,
+                        listSubject);
+                actvSelectSubject.setAdapter(adpSubject);
+
+                tilSelectSlot.setEnabled(false);
+                listSlot.clear();
+                adpSlot = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu,
+                        listSlot);
+                actvSelectSlot.setAdapter(adpSlot);
+
+                tilSelectDate.setEnabled(false);
+                actvSelectDate.setText("");
+
+                tilDescription.setEnabled(false);
+                tietDescription.setText("");
+
+                tilSelectSemester.setEnabled(true);
+                for (int sem = 1; sem <= 8; sem++) {
+                    listSemester.add(sem);
+                }
+                adpSemester = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu, listSemester);
+                actvSelectSemester.setAdapter(adpSemester);
             }
         });
 
+        actvSelectSemester.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cursor cursor = db.getAllLecture();
 
-        cursor = db.getAllLecture();
-        while (cursor.moveToNext()) {
-            listLecture.add(cursor.getString(cursor.getColumnIndex("lecture_type")));
-        }
-        cursor.close();
-        adpLecture = new ArrayAdapter(this, R.layout.dropdown_menu, listLecture);
-        actvSelectLecture.setAdapter(adpLecture);
+                tilSelectLecture.setEnabled(false);
+                listLecture.clear();
+                adpLecture = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu,
+                        listLecture);
+                actvSelectLecture.setAdapter(adpLecture);
+
+                tilSelectSubject.setEnabled(false);
+                listSubject.clear();
+                adpSubject = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu,
+                        listSubject);
+                actvSelectSubject.setAdapter(adpSubject);
+
+                tilSelectSlot.setEnabled(false);
+                listSlot.clear();
+                adpSlot = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu,
+                        listSlot);
+                actvSelectSlot.setAdapter(adpSlot);
+
+                tilSelectDate.setEnabled(false);
+                actvSelectDate.setText("");
+
+                tilDescription.setEnabled(false);
+                tietDescription.setText("");
+
+                while (cursor.moveToNext()) {
+                    listLecture.add(cursor.getString(cursor.getColumnIndex("lecture_type")));
+                }
+                cursor.close();
+                tilSelectLecture.setEnabled(true);
+                adpLecture = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu, listLecture);
+                actvSelectLecture.setAdapter(adpLecture);
+            }
+        });
+
         actvSelectLecture.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                tilSelectSubject.setEnabled(false);
+                listSubject.clear();
+                adpSubject = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu,
+                        listSubject);
+                actvSelectSubject.setAdapter(adpSubject);
+
+                tilSelectSlot.setEnabled(false);
+                listSlot.clear();
+                adpSlot = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu,
+                        listSlot);
+                actvSelectSlot.setAdapter(adpSlot);
+
+                tilSelectDate.setEnabled(false);
+                actvSelectDate.setText("");
+
+                tilDescription.setEnabled(false);
+                tietDescription.setText("");
+
                 try {
                     Cursor cursor =
-                            db.getTakeSubjectByLecture(parent.getItemAtPosition(position).toString(), actvSelectBatch.getText().toString(), sid);
+                            db.getTakeSubjectByLecture(parent.getItemAtPosition(position).toString(), actvSelectBatch.getText().toString(), sid,Integer.parseInt(actvSelectSemester.getText().toString()));
                     actvSelectSubject.setText("");
                     listSubject.clear();
                     while (cursor.moveToNext()) {
@@ -138,27 +227,47 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
                 }
             }
         });
-
-
+        
         actvSelectSubject.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                tilSelectSlot.setEnabled(false);
+                listSlot.clear();
+                adpSlot = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu,
+                        listSlot);
+                actvSelectSlot.setAdapter(adpSlot);
+
+                tilSelectDate.setEnabled(false);
+                actvSelectDate.setText("");
+
+                tilDescription.setEnabled(false);
+                tietDescription.setText("");
+
+                for (int slot = 1; slot <= 6; slot++) {
+                    listSlot.add(slot);
+                }
+                adpSlot = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu, listSlot);
+                actvSelectSlot.setAdapter(adpSlot);
                 tilSelectSlot.setEnabled(true);
-                tilSelectDate.setEnabled(true);
-                tilDescription.setEnabled(true);
             }
         });
 
+        actvSelectSlot.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        for (int slot = 1; slot <= 6; slot++) {
-            listSlot.add(slot);
-        }
-        actvSelectSlot.setText("1");
-        adpSlot = new ArrayAdapter(this, R.layout.dropdown_menu, listSlot);
-        actvSelectSlot.setAdapter(adpSlot);
+                tilSelectDate.setEnabled(false);
+                actvSelectDate.setText("");
 
+                tilDescription.setEnabled(false);
+                tietDescription.setText("");
 
-        actvSelectDate.setText(simpleDate.format(Calendar.getInstance().getTime()));
+                tilSelectDate.setEnabled(true);
+                tilDescription.setEnabled(true);
+                actvSelectDate.setText(simpleDate.format(Calendar.getInstance().getTime()));
+            }
+        });
 
 
         //On Select Date
@@ -205,19 +314,20 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
             boolean isLecture = actvSelectLecture != null && actvSelectLecture.getText().toString().isEmpty();
             boolean isDate = actvSelectDate != null && actvSelectDate.getText().toString().isEmpty();
             boolean isDecription = tietDescription != null && tietDescription.getText().toString().isEmpty();
+            boolean isSemester = actvSelectSemester != null && actvSelectSemester.getText().toString().isEmpty();
 
-            if (!isBatch && !isLecture && !isSubject && !isSlot && !isDate && !isDecription) {
+            if (!isBatch && !isLecture && !isSubject && !isSlot && !isDate && !isDecription && !isSemester) {
                 btid = Integer.parseInt(db.getBatchID(actvSelectBatch.getText().toString()));
                 bid = db.getBranchIDBySID(sid);
                 lid = Integer.parseInt(db.getLectureID(actvSelectLecture.getText().toString()));
                 sbid = Integer.parseInt(db.getSubjectID(actvSelectSubject.getText().toString()));
-
+                sem = Integer.parseInt(actvSelectSemester.getText().toString());
                 slot = Integer.parseInt(actvSelectSlot.getText().toString());
                 date = actvSelectDate.getText().toString();
                 decription = tietDescription.getText().toString();
 
-                int tsid = db.getTakeSubjectID(btid, bid, lid, sbid, Integer.parseInt(db.getProfessorId(sid)));
-                setContentView(R.layout.activity_take_attendance_p);
+                tsid = db.getTakeSubjectID(btid, bid, lid, sbid, Integer.parseInt(db.getProfessorId(sid)));
+
             } else {
                 Toast.makeText(this, "Please Select Or Fill All The Fields.", Toast.LENGTH_SHORT).show();
             }

@@ -107,7 +107,8 @@ dbSAMS extends SQLiteOpenHelper {
     //attendance table
     private final String attendance_detailTable = "CREATE TABLE attendance_detial(" +
             "adid INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "tsid INTEGER NOT NULL," +
+            "tsid INTEGER NOT NULL,"+
+            "semester INTEGER NOT NULL,"+
             "slot INTEGER NOT NULL," +
             "date DATE NOT NULL," +
             "descript TEXT NOT NULL," +
@@ -1058,12 +1059,21 @@ dbSAMS extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Cursor getTakeSubjectByLecture(String lecture, String batch, String sid) {
+    public Cursor getTakeSubjectByLecture(String lecture, String batch, String sid,int sem) {
         SQLiteDatabase db = getWritableDatabase();
         String q =
-                "SELECT * FROM take_subject Where lid=" + getLectureID(lecture) + " AND btid=" + getBatchID(batch) + " AND sid=" + getProfessorId(sid);
-        Cursor cursor = db.rawQuery(q, null);
-        return cursor;
+                "SELECT * FROM take_subject join subject on take_subject.sbid = subject.sbid " +
+                        "Where take_subject.lid=" + getLectureID(lecture) + " " +
+                        "AND " +
+                        "take_subject.btid=" + getBatchID(batch) + " AND take_subject.sid=" + getProfessorId(sid) + " AND subject.semester ="+sem;
+        try{
+            Cursor cursor = db.rawQuery(q, null);
+            return cursor;
+        }
+        catch(Exception ex)
+        {
+            return null;
+        }
     }
 
     public int getTakeSubjectID(int btid, int bid, int lid, int sbid, int sid) {
