@@ -1059,7 +1059,7 @@ dbSAMS extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public Cursor getTakeSubjectByLecture(String lecture, String batch, String sid,int sem) {
+    protected Cursor getTakeSubjectByLecture(String lecture, String batch, String sid,int sem) {
         SQLiteDatabase db = getWritableDatabase();
         String q =
                 "SELECT * FROM take_subject join subject on take_subject.sbid = subject.sbid " +
@@ -1076,7 +1076,7 @@ dbSAMS extends SQLiteOpenHelper {
         }
     }
 
-    public int getTakeSubjectID(int btid, int bid, int lid, int sbid, int sid) {
+    protected int getTakeSubjectID(int btid, int bid, int lid, int sbid, int sid) {
         SQLiteDatabase db = getWritableDatabase();
         try {
             Cursor cursor = db.rawQuery("SELECT tsid FROM take_subject WHERE btid=" + btid + " and " +
@@ -1095,7 +1095,7 @@ dbSAMS extends SQLiteOpenHelper {
 
     }
 
-    public int getBranchIDBySID(String sid) {
+    protected int getBranchIDBySID(String sid) {
         SQLiteDatabase db = getWritableDatabase();
         try {
             Cursor cursor = db.rawQuery("SELECT bid FROM staff WHERE email='" + sid + "'", null);
@@ -1106,6 +1106,21 @@ dbSAMS extends SQLiteOpenHelper {
             return bid;
         } catch (Exception ex) {
             return 0;
+        }
+    }
+
+    protected Cursor getStudentListByTakeAttend(int tsid){
+        SQLiteDatabase db = getWritableDatabase();
+        try{
+            String q = "SELECT stid,name FROM student join take_subject on student" +
+                    ".btid=take_subject.btid" +
+                    " and student.bid=take_subject.bid WHERE take_subject.tsid="+tsid;
+            Cursor cursor = db.rawQuery(q,null);
+
+            return cursor;
+        }
+        catch (Exception ex){
+            return null;
         }
     }
 }

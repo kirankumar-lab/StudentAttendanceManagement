@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -61,7 +62,7 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
     private int sem;
     private int slot;
     private String date;
-    private String decription;
+    private String description;
 
     private int tsid;
 
@@ -324,10 +325,15 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
                 sem = Integer.parseInt(actvSelectSemester.getText().toString());
                 slot = Integer.parseInt(actvSelectSlot.getText().toString());
                 date = actvSelectDate.getText().toString();
-                decription = tietDescription.getText().toString();
+                description = tietDescription.getText().toString();
 
                 tsid = db.getTakeSubjectID(btid, bid, lid, sbid, Integer.parseInt(db.getProfessorId(sid)));
-
+                startActivity(new Intent(TakeAttendance.this,TakeAttend.class)
+                        .putExtra("tsid", tsid)
+                        .putExtra("slot", slot)
+                        .putExtra("date", date)
+                        .putExtra("description", description)
+                );
             } else {
                 Toast.makeText(this, "Please Select Or Fill All The Fields.", Toast.LENGTH_SHORT).show();
             }
