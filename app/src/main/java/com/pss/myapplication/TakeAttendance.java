@@ -157,6 +157,7 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
 
                 tilSelectLecture.setEnabled(false);
                 listLecture.clear();
+                //adpLecture.clear();
                 adpLecture = new ArrayAdapter(getApplicationContext(), R.layout.dropdown_menu,
                         listLecture);
                 actvSelectLecture.setAdapter(adpLecture);
@@ -332,6 +333,7 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
                         .putExtra("tsid", tsid)
                         .putExtra("slot", slot)
                         .putExtra("date", date)
+                        .putExtra("sem",sem)
                         .putExtra("description", description)
                 );
             } else {

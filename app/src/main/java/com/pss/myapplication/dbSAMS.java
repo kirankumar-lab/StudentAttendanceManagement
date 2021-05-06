@@ -107,8 +107,8 @@ dbSAMS extends SQLiteOpenHelper {
     //attendance table
     private final String attendance_detailTable = "CREATE TABLE attendance_detial(" +
             "adid INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "tsid INTEGER NOT NULL,"+
-            "semester INTEGER NOT NULL,"+
+            "tsid INTEGER NOT NULL," +
+            "semester INTEGER NOT NULL," +
             "slot INTEGER NOT NULL," +
             "date DATE NOT NULL," +
             "descript TEXT NOT NULL," +
@@ -1059,19 +1059,17 @@ dbSAMS extends SQLiteOpenHelper {
         return cursor;
     }
 
-    protected Cursor getTakeSubjectByLecture(String lecture, String batch, String sid,int sem) {
+    protected Cursor getTakeSubjectByLecture(String lecture, String batch, String sid, int sem) {
         SQLiteDatabase db = getWritableDatabase();
         String q =
                 "SELECT * FROM take_subject join subject on take_subject.sbid = subject.sbid " +
                         "Where take_subject.lid=" + getLectureID(lecture) + " " +
                         "AND " +
-                        "take_subject.btid=" + getBatchID(batch) + " AND take_subject.sid=" + getProfessorId(sid) + " AND subject.semester ="+sem;
-        try{
+                        "take_subject.btid=" + getBatchID(batch) + " AND take_subject.sid=" + getProfessorId(sid) + " AND subject.semester =" + sem;
+        try {
             Cursor cursor = db.rawQuery(q, null);
             return cursor;
-        }
-        catch(Exception ex)
-        {
+        } catch (Exception ex) {
             return null;
         }
     }
@@ -1109,17 +1107,16 @@ dbSAMS extends SQLiteOpenHelper {
         }
     }
 
-    protected Cursor getStudentListByTakeAttend(int tsid){
+    protected Cursor getStudentListByTakeAttend(int tsid) {
         SQLiteDatabase db = getWritableDatabase();
-        try{
+        try {
             String q = "SELECT stid,name FROM student join take_subject on student" +
                     ".btid=take_subject.btid" +
-                    " and student.bid=take_subject.bid WHERE take_subject.tsid="+tsid;
-            Cursor cursor = db.rawQuery(q,null);
+                    " and student.bid=take_subject.bid WHERE take_subject.tsid=" + tsid;
+            Cursor cursor = db.rawQuery(q, null);
 
             return cursor;
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             return null;
         }
     }
