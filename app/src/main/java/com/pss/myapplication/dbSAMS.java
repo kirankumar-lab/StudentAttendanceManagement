@@ -10,6 +10,7 @@ import android.os.strictmode.CredentialProtectedWhileLockedViolation;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class
 dbSAMS extends SQLiteOpenHelper {
@@ -18,111 +19,6 @@ dbSAMS extends SQLiteOpenHelper {
     private final static String DATABASE_NAME = "db_sams";
     private final static int DATABASE_VERSION = 1;
 
-    //admin table
-    private final String adminTable = "CREATE TABLE admin(" +
-            "aid INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "name TEXT NOT NULL," +
-            "email TEXT NOT NULL," +
-            "password TEXT NOT NULL," +
-            "mobileno NUMERIC NOT NULL" +
-            ");";
-    //end admin table
-
-    //branch table
-    private final String branchTable = "CREATE TABLE branch(" +
-            "bid INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "branch_name TEXT NOT NULL" +
-            ");";
-    //end branch table
-
-    //batch table
-    private final String batchTable = "CREATE TABLE batch(" +
-            "btid INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "batch_name TEXT NOT NULL" +
-            ");";
-    //end batch table
-
-    //subject table
-    private final String subjectTable = "CREATE TABLE subject(" +
-            "sbid INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "subject_name TEXT NOT NULL," +
-            "semester INTEGER NOT NULL," +
-            "bid INTEGER NOT NULL," +
-            "FOREIGN KEY(bid) REFERENCES branch(bid)" +
-            ");";
-    //end subject table
-
-    //lecture table
-    private final String lectureTable = "CREATE TABLE lecture(" +
-            "lid INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "lecture_type TEXT NOT NULL" +
-            ");";
-    //end lecture table
-
-    //staff table
-    private final String staffTable = "CREATE TABLE staff(" +
-            "sid INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "name TEXT NOT NULL," +
-            "email TEXT NOT NULL," +
-            "password TEXT NOT NULL," +
-            "mobileno TEXT NOT NULL," +
-            "bid INTEGER NOT NULL," +
-            "FOREIGN KEY(bid) REFERENCES branch(bid)" +
-            ");";
-    //end table
-
-    //take_subject table
-    private final String takeSubjectTable = "CREATE TABLE take_subject(" +
-            "tsid INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "bid INTEGER NOT NULL," +
-            "btid INTEGER NOT NULL," +
-            "sid INTEGER NOT NULL," +
-            "sbid INTEGER NOT NULL," +
-            "lid INTEGER NOT NULL," +
-            "FOREIGN KEY(bid) REFERENCES branch(bid)," +
-            "FOREIGN KEY(btid) REFERENCES batch(btid)," +
-            "FOREIGN KEY(sid) REFERENCES staff(sid)," +
-            "FOREIGN KEY(sbid) REFERENCES subject(sbid)," +
-            "FOREIGN KEY(lid) REFERENCES lecture(lid)" +
-            ");";
-    //end take_subject table
-
-    //student table
-    private final String studentTable = "CREATE TABLE student(" +
-            "stid INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "name TEXT NOT NULL," +
-            "email TEXT NOT NULL," +
-            "password TEXT NOT NULL," +
-            "mobileno TEXT NOT NULL," +
-            "parent_email TEXT NOT NULL," +
-            "parent_mobileno TEXT NOT NULL," +
-            "semester INTEGER NOT NULL," +
-            "bid INTEGER NOT NULL," +
-            "btid INTEGER NOT NULL," +
-            "FOREIGN KEY(bid) REFERENCES branch(bid)," +
-            "FOREIGN KEY(btid) REFERENCES batch(btid)" +
-            ");";
-    //end student table
-
-    //attendance table
-    private final String attendance_detailTable = "CREATE TABLE attendance_detial(" +
-            "adid INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "tsid INTEGER NOT NULL," +
-            "semester INTEGER NOT NULL," +
-            "slot INTEGER NOT NULL," +
-            "date DATE NOT NULL," +
-            "descript TEXT NOT NULL," +
-            "FOREIGN KEY(tsid) REFERENCES take_subject(tsid)" +
-            ");";
-    private final String attendanceTable = "CREATE TABLE attendance(" +
-            "atid INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "stid INTEGER NOT NULL," +
-            "attend BOOLEAN NOT NULL," +
-            "FOREIGN KEY(adid) REFERENCES attendance_detial(adid)" +
-            ");";
-
-    //end attendance table
-
     public dbSAMS(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -130,19 +26,125 @@ dbSAMS extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //admin table
+        String adminTable = "CREATE TABLE admin(" +
+                "aid INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "name TEXT NOT NULL," +
+                "email TEXT NOT NULL," +
+                "password TEXT NOT NULL," +
+                "mobileno NUMERIC NOT NULL" +
+                ");";
         db.execSQL(adminTable);
+        //end admin table
+
         db.execSQL("INSERT INTO admin(name,email,password,mobileno) VALUES('admin','admin@admin" +
                 ".com','admin123',9876543210)");
+        //branch table
+        String branchTable = "CREATE TABLE branch(" +
+                "bid INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "branch_name TEXT NOT NULL" +
+                ");";
         db.execSQL(branchTable);
+        //end branch table
+
+        //batch table
+        String batchTable = "CREATE TABLE batch(" +
+                "btid INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "batch_name TEXT NOT NULL" +
+                ");";
         db.execSQL(batchTable);
+        //end batch table
+
+        //subject table
+        String subjectTable = "CREATE TABLE subject(" +
+                "sbid INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "subject_name TEXT NOT NULL," +
+                "semester INTEGER NOT NULL," +
+                "bid INTEGER NOT NULL," +
+                "FOREIGN KEY(bid) REFERENCES branch(bid)" +
+                ");";
         db.execSQL(subjectTable);
+        //end subject table
+
+        //lecture table
+        String lectureTable = "CREATE TABLE lecture(" +
+                "lid INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "lecture_type TEXT NOT NULL" +
+                ");";
         db.execSQL(lectureTable);
+        //end lecture table
+
+        //staff table
+        String staffTable = "CREATE TABLE staff(" +
+                "sid INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "name TEXT NOT NULL," +
+                "email TEXT NOT NULL," +
+                "password TEXT NOT NULL," +
+                "mobileno TEXT NOT NULL," +
+                "bid INTEGER NOT NULL," +
+                "FOREIGN KEY(bid) REFERENCES branch(bid)" +
+                ");";
         db.execSQL(staffTable);
+        //end staff table
+
+        //take_subject table
+        String takeSubjectTable = "CREATE TABLE take_subject(" +
+                "tsid INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "bid INTEGER NOT NULL," +
+                "btid INTEGER NOT NULL," +
+                "sid INTEGER NOT NULL," +
+                "sbid INTEGER NOT NULL," +
+                "lid INTEGER NOT NULL," +
+                "FOREIGN KEY(bid) REFERENCES branch(bid)," +
+                "FOREIGN KEY(btid) REFERENCES batch(btid)," +
+                "FOREIGN KEY(sid) REFERENCES staff(sid)," +
+                "FOREIGN KEY(sbid) REFERENCES subject(sbid)," +
+                "FOREIGN KEY(lid) REFERENCES lecture(lid)" +
+                ");";
         db.execSQL(takeSubjectTable);
+        //end take_subject table
+
+        //student table
+        String studentTable = "CREATE TABLE student(" +
+                "stid INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "name TEXT NOT NULL," +
+                "email TEXT NOT NULL," +
+                "password TEXT NOT NULL," +
+                "mobileno TEXT NOT NULL," +
+                "parent_email TEXT NOT NULL," +
+                "parent_mobileno TEXT NOT NULL," +
+                "semester INTEGER NOT NULL," +
+                "bid INTEGER NOT NULL," +
+                "btid INTEGER NOT NULL," +
+                "FOREIGN KEY(bid) REFERENCES branch(bid)," +
+                "FOREIGN KEY(btid) REFERENCES batch(btid)" +
+                ");";
         db.execSQL(studentTable);
+        //end student table
+
         //db.execSQL("drop table IF EXISTS attendance");
+        //attendance details table
+        String attendance_detailTable = "CREATE TABLE attendance_detial(" +
+                "adid INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "tsid INTEGER NOT NULL," +
+                "semester INTEGER NOT NULL," +
+                "slot INTEGER NOT NULL," +
+                "date DATE NOT NULL," +
+                "descript TEXT NOT NULL," +
+                "FOREIGN KEY(tsid) REFERENCES take_subject(tsid)" +
+                ");";
         db.execSQL(attendance_detailTable);
+        //end attendance details table
+
+        //attendance table
+        String attendanceTable = "CREATE TABLE attendance(" +
+                "atid INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "stid INTEGER NOT NULL," +
+                "attend BOOLEAN NOT NULL," +
+                "FOREIGN KEY(adid) REFERENCES attendance_detial(adid)" +
+                ");";
         db.execSQL(attendanceTable);
+        //end attendance table
     }
 
     @Override
@@ -1118,6 +1120,18 @@ dbSAMS extends SQLiteOpenHelper {
             return cursor;
         } catch (Exception ex) {
             return null;
+        }
+    }
+
+    protected int insertAttendanceDetails(int tsid, int slot, int sem,
+                                          Date date,String description){
+        SQLiteDatabase db = getWritableDatabase();
+        try{
+
+            return 1;
+        }
+        catch (Exception ex){
+            return 0;
         }
     }
 }
