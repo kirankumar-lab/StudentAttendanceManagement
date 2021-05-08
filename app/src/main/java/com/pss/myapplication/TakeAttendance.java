@@ -329,13 +329,20 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
                 description = tietDescription.getText().toString();
 
                 tsid = db.getTakeSubjectID(btid, bid, lid, sbid, Integer.parseInt(db.getProfessorId(sid)));
-                startActivity(new Intent(TakeAttendance.this,TakeAttend.class)
-                        .putExtra("tsid", tsid)
-                        .putExtra("slot", slot)
-                        .putExtra("date", date)
-                        .putExtra("sem",sem)
-                        .putExtra("description", description)
-                );
+
+                if(db.checkAttendanceDetails(tsid,slot,sem,date,btid, bid, lid, sbid))
+                {
+                    startActivity(new Intent(TakeAttendance.this,TakeAttend.class)
+                            .putExtra("tsid", tsid)
+                            .putExtra("slot", slot)
+                            .putExtra("date", date)
+                            .putExtra("sem",sem)
+                            .putExtra("description", description)
+                    );
+                }
+                else{
+                    Toast.makeText(this, "This Details Already Exist", Toast.LENGTH_SHORT).show();
+                }
             } else {
                 Toast.makeText(this, "Please Select Or Fill All The Fields.", Toast.LENGTH_SHORT).show();
             }
