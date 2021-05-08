@@ -307,6 +307,7 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
         actvSelectDate.setText(selectedDate);
     }
 
+
     //First Layout Take Attendance Method
     public void TakeAttendance(View view) {
         try {
@@ -337,8 +338,8 @@ public class TakeAttendance extends AppCompatActivity implements DatePickerDialo
                             .putExtra("slot", slot)
                             .putExtra("date", date)
                             .putExtra("sem",sem)
-                            .putExtra("description", description)
-                    );
+                            .putExtra("description", description));
+                    finish();
                 }
                 else{
                     Toast.makeText(this, "This Details Already Exist", Toast.LENGTH_SHORT).show();

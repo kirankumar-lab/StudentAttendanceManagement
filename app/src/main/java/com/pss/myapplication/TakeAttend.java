@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.CheckBox;
@@ -87,15 +88,40 @@ public class TakeAttend extends AppCompatActivity  implements AdapterStudentAtte
                 }
             }
             if (item.getItemId() == R.id.saveAll) {
-                String a = "";
-                for (int i = 0; i < total; i++) {
-                    checkBox = recyclerView.getChildAt(i).findViewById(R.id.isPresent);
-                    student_id = recyclerView.getChildAt(i).findViewById(R.id.student_id);
-                    if (checkBox.isChecked()) {
-                        a += student_id.getText() + ",";
+                int adid =  db.insertAttendanceDetails(tsid,slot,sem,date,description);
+                if(adid != 0)
+                {
+                    int count=0;
+                    boolean inserted;
+                    for (int i = 0; i < total; i++) {
+                        checkBox = recyclerView.getChildAt(i).findViewById(R.id.isPresent);
+                        student_id = recyclerView.getChildAt(i).findViewById(R.id.student_id);
+                            inserted = db.insertAttendance(adid,
+                                    Integer.parseInt(student_id.getText().toString()),checkBox.isChecked());
+                            if(inserted){
+                                count++;
+                            }
+                            else
+                            {
+                                db.deleteAttend(adid);
+                                count = 0;
+                                break;
+                            }
+                    }
+                    if(count==total)
+                    {
+                        Toast.makeText(this,"Attendance Taked Successfully",Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                    else
+                    {
+                        Toast.makeText(this,"Attendance Taked Failed",Toast.LENGTH_SHORT).show();
+                        db.deleteAttendDetail(adid);
+                        db.deleteAttend(adid);
+                        startActivity(new Intent(TakeAttend.this,TakeAttendance.class));
+                        finish();
                     }
                 }
-                Toast.makeText(this, a, Toast.LENGTH_SHORT).show();
             }
             return true;
         });
