@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TakeAttendance">
+    tools:context=".ManageAttendance">
 
     <TextView
         android:id="@+id/take_attendance_title"
@@ -18,12 +18,13 @@
         android:gravity="center"
         android:isScrollContainer="false"
         android:padding="30dp"
-        android:text="@string/take_attendance"
+        android:text="@string/edit_attendance"
         android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="italic|bold" />
 
     <ScrollView
+        android:id="@+id/fetch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/take_attendance_title"
@@ -71,10 +72,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:enabled="false"
                 android:hint="@string/select_semester"
                 app:boxCornerRadiusBottomEnd="10dp"
                 app:boxCornerRadiusBottomStart="10dp"
-                android:enabled="false"
 
                 app:boxCornerRadiusTopEnd="10dp"
                 app:boxCornerRadiusTopStart="10dp"
@@ -213,36 +214,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:enabled="false"
-                android:hint="@string/enter_description"
-                app:boxBackgroundColor="@color/white"
-
-                app:boxBackgroundMode="outline"
-                app:boxCornerRadiusBottomEnd="10dp"
-                app:boxCornerRadiusBottomStart="10dp"
-                app:boxCornerRadiusTopEnd="10dp"
-
-                app:boxCornerRadiusTopStart="10dp"
-                app:boxStrokeColor="@color/blue"
-                app:boxStrokeWidth="2dp"
-                app:hintAnimationEnabled="true"
-                app:hintEnabled="true"
-                app:hintTextColor="@color/blue">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tietDecription"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/doppio_one"
-                    android:inputType="text"
-                    android:padding="15dp" />
-            </com.google.android.material.textfield.TextInputLayout>
-
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -253,5 +224,36 @@
                 android:textColor="@color/white" />
         </LinearLayout>
     </ScrollView>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/attendanceData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:liftOnScroll="true"
+                app:menu="@menu/top_bar"
+                app:navigationContentDescription="@string/back"
+                app:navigationIcon="@drawable/ic_arrow_back" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/student_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </RelativeLayout>

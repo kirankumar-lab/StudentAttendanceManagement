@@ -7,6 +7,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Arrays;
 import java.util.Date;
 
 public class
@@ -1107,6 +1108,67 @@ dbSAMS extends SQLiteOpenHelper {
         }
     }
 
+    protected String getStudentName(int stid){
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String q =
+                    "SELECT name FROM student WHERE stid="+stid;
+            Cursor cursor = db.rawQuery(q,null);
+            String name = "";
+            if(cursor.getCount() == 1)
+            {
+                while(cursor.moveToNext())
+                {
+                    name=cursor.getString(0);
+                }
+                return name;
+            }
+            else {
+                return "";
+            }
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    protected int getADID(int tsid,int slot,int sem,String date){
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String q =
+                    "SELECT adid FROM attendance_detail WHERE tsid="+tsid+" AND slot="+slot+" AND" +
+                            " semester="+sem+" AND date='"+date+"'";
+            Cursor cursor = db.rawQuery(q,null);
+            int adid = 0;
+            if(cursor.getCount() == 1)
+            {
+                while(cursor.moveToNext())
+                {
+                    adid=cursor.getInt(0);
+                }
+                return adid;
+            }
+            else {
+                return adid;
+            }
+        } catch (Exception ex) {
+            return 0;
+        }
+    }
+
+    protected Cursor getAttendance(int adid) {
+        SQLiteDatabase db = getWritableDatabase();
+        try {
+            String q =
+                    "SELECT attendance.stid as stid, attendance.attend as attend FROM attendance " +
+                            " WHERE adid="+adid;
+
+            return db.rawQuery(q, null);
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+
     protected boolean checkAttendanceDetails(int tsid, int slot, int sem,
                                              String date,int btid, int bid,
                                              int lid,int sbid){
@@ -1194,5 +1256,22 @@ dbSAMS extends SQLiteOpenHelper {
     protected void deleteAttendDetail(int adid){
         SQLiteDatabase db = getWritableDatabase();
         db.delete("attendance_detail","adid=?",new String[]{String.valueOf(adid)});
+    }
+
+    protected boolean updateAttendance(int adid, int stid, boolean attend) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("attend", attend);
+        try{
+            float update = db.update("attendance",  cv, "adid=? AND stid=?",
+                    new String[]{String.valueOf(adid),String.valueOf(stid)});
+            if (update != -1) {
+                return true;
+            }
+            return false;
+        }
+        catch (Exception ex){
+            return false;
+        }
     }
 }

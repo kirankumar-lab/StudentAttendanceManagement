@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Student Attendance Management</string>
     <string name="copy"><![CDATA[Developed By Parth Shah & Kirankumar Vaghela]]></string>
+    <string name="copyRights">Developed By Parth Shah &amp; Kirankumar Vaghela</string>
     <string name="logo">Logo</string>
     <string name="login_to_select_user">Login to Select User</string>
     <string name="admin">Admin</string>
@@ -75,7 +76,7 @@
     <string name="select_slot">Select Slot</string>
     <string name="enter_description">Enter Description</string>
     <string name="select_date">Select Date</string>
-    <string name="edit_attendance">Edit Attendance</string>
+    <string name="edit_attendance">View/Edit Attendance</string>
     <string name="genrate_report">Genrate Report</string>
     <string name="dateFormate">dd/MM/yyyy</string>
     <string name="title_activity_settings">SettingsActivity</string>

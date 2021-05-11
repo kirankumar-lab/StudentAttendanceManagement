@@ -24,7 +24,7 @@
         android:fontFamily="@font/amita"
         android:gravity="center"
         android:padding="5dp"
-        android:text="@string/copy"/>
+        android:text="@string/copyRights"/>
 
 
 </RelativeLayout>

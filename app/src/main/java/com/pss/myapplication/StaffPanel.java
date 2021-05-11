@@ -87,4 +87,7 @@ public class StaffPanel extends AppCompatActivity {
         startActivity(new Intent(StaffPanel.this, TakeAttendance.class).putExtra("prof_id", prof_id));
     }
 
+    public void EditAttendance(View view) {
+        startActivity(new Intent(StaffPanel.this, ManageAttendance.class).putExtra("prof_id", prof_id));
+    }
 }
