@@ -99,4 +99,7 @@
     <string name="save">Save</string>
     <string name="back">Back</string>
     <string name="present">Present</string>
+    <string name="attendance_status">Attendance Status</string>
+    <string name="absent">Absent</string>
+    <string name="total">Total</string>
 </resources>
