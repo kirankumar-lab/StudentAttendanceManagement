@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.ScrollView;
@@ -29,19 +31,19 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class ManageAttendance extends AppCompatActivity implements DatePickerDialog.OnDateSetListener,AdapterStudentAttendanceList.ItemClicked {
+public class ManageAttendance extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, AdapterStudentAttendanceList.ItemClicked {
     private TextInputLayout tilSelectDate, tilSelectSlot, tilSelectSubject,
-            tilSelectLecture,tilSelectSemester;
+            tilSelectLecture, tilSelectSemester;
     private AutoCompleteTextView actvSelectDate, actvSelectSlot, actvSelectBatch,
-            actvSelectSubject,actvSelectSemester,
+            actvSelectSubject, actvSelectSemester,
             actvSelectLecture;
     private String selectedDate = null;
     private SimpleDateFormat simpleDate;
     private dbSAMS db;
     private String sid;
     private ArrayList<String> listBatch, listSubject, listLecture;
-    private ArrayList<Integer> listSlot,listSemester;
-    private ArrayAdapter adpSlot, adpBatch, adpSubject,adpSemester, adpLecture;
+    private ArrayList<Integer> listSlot, listSemester;
+    private ArrayAdapter adpSlot, adpBatch, adpSubject, adpSemester, adpLecture;
 
     private MaterialToolbar toolbar;
     private CheckBox checkBox;
@@ -70,6 +72,10 @@ public class ManageAttendance extends AppCompatActivity implements DatePickerDia
     private String date;
 
     private int tsid;
+
+    private Dialog dialog;
+    private Button btnCancle, btnYes;
+    private TextView tvPresent, tvAbsent, tvTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,7 +224,7 @@ public class ManageAttendance extends AppCompatActivity implements DatePickerDia
 
                 try {
                     Cursor cursor =
-                            db.getTakeSubjectByLecture(parent.getItemAtPosition(position).toString(), actvSelectBatch.getText().toString(), sid,Integer.parseInt(actvSelectSemester.getText().toString()));
+                            db.getTakeSubjectByLecture(parent.getItemAtPosition(position).toString(), actvSelectBatch.getText().toString(), sid, Integer.parseInt(actvSelectSemester.getText().toString()));
                     actvSelectSubject.setText("");
                     listSubject.clear();
                     while (cursor.moveToNext()) {
@@ -282,77 +288,113 @@ public class ManageAttendance extends AppCompatActivity implements DatePickerDia
 
         toolbar = findViewById(R.id.topAppBar);
 
-        toolbar.setNavigationOnClickListener (v->{
-            if(backCount){
+        toolbar.setNavigationOnClickListener(v -> {
+            if (backCount) {
                 coordinatorLayout.setVisibility(View.GONE);
                 tvTitle.setVisibility(View.VISIBLE);
                 scrollView.setVisibility(View.VISIBLE);
-                backCount=false;
-            }
-            else{
+                backCount = false;
+            } else {
                 finish();
             }
         });
 
-        toolbar.setOnMenuItemClickListener (item -> {
-            if(item.getItemId() == R.id.selectAll){
-                for (int i=0; i< total; i++)
-                {
+        toolbar.setOnMenuItemClickListener(item -> {
+            if (item.getItemId() == R.id.selectAll) {
+                for (int i = 0; i < total; i++) {
                     checkBox = recyclerView.getChildAt(i).findViewById(R.id.isPresent);
-                    if(isCheck)
-                    {
+                    if (isCheck) {
                         checkBox.setChecked(false);
-                    }
-                    else
-                    {
+                    } else {
                         checkBox.setChecked(true);
                     }
                 }
-                if (isCheck)
-                {
+                if (isCheck) {
                     isCheck = false;
-                }
-                else{
+                } else {
                     isCheck = true;
                 }
             }
             if (item.getItemId() == R.id.saveAll) {
-                if(adid != 0)
-                {
-                    int count=0;
-                    boolean updated;
-                    for (int i = 0; i < total; i++) {
-                        checkBox = recyclerView.getChildAt(i).findViewById(R.id.isPresent);
-                        student_id = recyclerView.getChildAt(i).findViewById(R.id.student_id);
-                        updated = db.updateAttendance(adid,
-                                Integer.parseInt(student_id.getText().toString()),checkBox.isChecked());
-                        if(updated){
-                            count++;
-                        }
-                        else
+                if (adid != 0) {
+                    int present = 0;
+                    int absent = 0;
+                    int totalS = 0;
+
+                    try
+                    {
+                        for (int i = 0; i < total; i++)
                         {
-                            db.deleteAttend(adid);
-                            count = 0;
-                            break;
+                            checkBox = recyclerView.getChildAt(i).findViewById(R.id.isPresent);
+                            if (checkBox.isChecked()) {
+                                present++;
+                            } else {
+                                absent++;
+                            }
                         }
-                    }
-                    if(count==total)
-                    {
-                        Toast.makeText(this,"Attendance Taked Successfully",Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                    else
-                    {
-                        Toast.makeText(this,"Attendance Taked Failed",Toast.LENGTH_SHORT).show();
-                        if(backCount){
-                            coordinatorLayout.setVisibility(View.GONE);
-                            tvTitle.setVisibility(View.VISIBLE);
-                            scrollView.setVisibility(View.VISIBLE);
-                            backCount=false;
-                        }
-                        else{
-                            finish();
-                        }
+
+                        totalS = present + absent;
+
+                        dialog = new Dialog(this);
+                        dialog.setContentView(R.layout.layout_attendance_status);
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.setCancelable(true);
+
+                        btnCancle = dialog.findViewById(R.id.btnCancle);
+                        btnYes = dialog.findViewById(R.id.btnYes);
+                        tvPresent = dialog.findViewById(R.id.tvPresent);
+                        tvAbsent = dialog.findViewById(R.id.tvAbsent);
+                        tvTotal = dialog.findViewById(R.id.tvTotal);
+                        tvPresent.setText(present + "");
+                        tvAbsent.setText(absent + "");
+                        tvTotal.setText(totalS + "");
+
+                        dialog.show();
+
+                        btnCancle.setOnClickListener(v -> {
+                            dialog.dismiss();
+                        });
+
+                        btnYes.setOnClickListener(v -> {
+                            /*---------------------------------------------------Change this Line---------------------------------------------------------------*/
+                            int count=0;
+                            boolean updated;
+                            for (int i = 0; i < total; i++) {
+                                checkBox = recyclerView.getChildAt(i).findViewById(R.id.isPresent);
+                                student_id = recyclerView.getChildAt(i).findViewById(R.id.student_id);
+                                updated = db.updateAttendance(adid,
+                                        Integer.parseInt(student_id.getText().toString()),checkBox.isChecked());
+                                if(updated){
+                                    count++;
+                                }
+                                else
+                                {
+                                    db.deleteAttend(adid);
+                                    count = 0;
+                                    break;
+                                }
+                            }
+                            if(count==total)
+                            {
+                                Toast.makeText(this,"Attendance Updated Successfully",Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                            else
+                            {
+                                Toast.makeText(this,"Attendance Taked Failed",Toast.LENGTH_SHORT).show();
+                                if(backCount){
+                                    coordinatorLayout.setVisibility(View.GONE);
+                                    tvTitle.setVisibility(View.VISIBLE);
+                                    scrollView.setVisibility(View.VISIBLE);
+                                    backCount=false;
+                                }
+                                else{
+                                    finish();
+                                }
+                            }
+                        });
+                    } catch (Exception ex) {
+                        Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -405,14 +447,13 @@ public class ManageAttendance extends AppCompatActivity implements DatePickerDia
 
                 tsid = db.getTakeSubjectID(btid, bid, lid, sbid, Integer.parseInt(db.getProfessorId(sid)));
 
-                if(!db.checkAttendanceDetails(tsid,slot,sem,date,btid, bid, lid, sbid))
-                {
+                if (!db.checkAttendanceDetails(tsid, slot, sem, date, btid, bid, lid, sbid)) {
                     backCount = true;
                     scrollView.setVisibility(View.GONE);
                     tvTitle.setVisibility(View.GONE);
                     coordinatorLayout.setVisibility(View.VISIBLE);
 
-                    adid   = db.getADID(tsid,slot,sem,date);
+                    adid = db.getADID(tsid, slot, sem, date);
 
                     Cursor cursor = db.getAttendance(adid);
                     int no = 1;
@@ -420,7 +461,7 @@ public class ManageAttendance extends AppCompatActivity implements DatePickerDia
                         data.add(new ListStudentAttendance(cursor.getInt(0),
                                 db.getStudentName(cursor.getInt(0)),
                                 cursor.getInt(1) == 1
-                                ,no));
+                                , no));
                         no++;
                     }
                     cursor.close();
@@ -428,8 +469,7 @@ public class ManageAttendance extends AppCompatActivity implements DatePickerDia
                     recyclerView.setAdapter(myAdapter);
                     myAdapter.notifyDataSetChanged();
                     total = myAdapter.getItemCount();
-                }
-                else{
+                } else {
                     Toast.makeText(this, "Records Not Found", Toast.LENGTH_SHORT).show();
                 }
             } else {
@@ -442,13 +482,12 @@ public class ManageAttendance extends AppCompatActivity implements DatePickerDia
 
     @Override
     public void onBackPressed() {
-        if(backCount){
+        if (backCount) {
             coordinatorLayout.setVisibility(View.GONE);
             tvTitle.setVisibility(View.VISIBLE);
             scrollView.setVisibility(View.VISIBLE);
-            backCount=false;
-        }
-        else{
+            backCount = false;
+        } else {
             finish();
         }
     }

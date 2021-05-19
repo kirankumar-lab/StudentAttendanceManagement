@@ -98,78 +98,75 @@ public class TakeAttend extends AppCompatActivity  implements AdapterStudentAtte
                 int absent = 0;
                 int totalS = 0;
 
-                for (int i = 0; i < total; i++) {
-                    checkBox = recyclerView.getChildAt(i).findViewById(R.id.isPresent);
-                    if (checkBox.isChecked())
-                    {
-                        present++;
+                try {
+                    for (int i = 0; i < total; i++) {
+                        checkBox = recyclerView.getChildAt(i).findViewById(R.id.isPresent);
+                        if (checkBox.isChecked()) {
+                            present++;
+                        } else {
+                            absent++;
+                        }
                     }
-                    else
-                    {
-                        absent++;
-                    }
-                }
 
-                totalS = present + absent;
+                    totalS = present + absent;
 
-                dialog = new Dialog(this);
-                dialog.setContentView(R.layout.layout_delete_student);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.setCancelable(true);
+                    dialog = new Dialog(this);
+                    dialog.setContentView(R.layout.layout_attendance_status);
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.setCancelable(true);
 
-                btnCancle = dialog.findViewById(R.id.btnCancle);
-                btnYes = dialog.findViewById(R.id.btnYes);
-                tvPresent = dialog.findViewById(R.id.tvPresent);
-                tvAbsent = dialog.findViewById(R.id.tvAbsent);
-                tvTotal = dialog.findViewById(R.id.tvTotal);
-                tvPresent.setText(present);
-                tvAbsent.setText(absent);
-                tvTotal.setText(totalS);
+                    btnCancle = dialog.findViewById(R.id.btnCancle);
+                    btnYes = dialog.findViewById(R.id.btnYes);
+                    tvPresent = dialog.findViewById(R.id.tvPresent);
+                    tvAbsent = dialog.findViewById(R.id.tvAbsent);
+                    tvTotal = dialog.findViewById(R.id.tvTotal);
+                    tvPresent.setText(present + "");
+                    tvAbsent.setText(absent + "");
+                    tvTotal.setText(totalS + "");
 
-                dialog.show();
+                    dialog.show();
 
-                btnCancle.setOnClickListener(v -> {
-                    dialog.dismiss();
-                });
+                    btnCancle.setOnClickListener(v -> {
+                        dialog.dismiss();
+                    });
 
-                btnYes.setOnClickListener(v -> {
-                    /*---------------------------------------------------Change this Line---------------------------------------------------------------*/
-                    int adid =  db.insertAttendanceDetails(tsid,slot,sem,date,description);
-                    if(adid != 0)
-                    {
-                        int count=0;
-                        boolean inserted;
-                        for (int i = 0; i < total; i++) {
-                            checkBox = recyclerView.getChildAt(i).findViewById(R.id.isPresent);
-                            student_id = recyclerView.getChildAt(i).findViewById(R.id.student_id);
-                            inserted = db.insertAttendance(adid,
-                                    Integer.parseInt(student_id.getText().toString()),checkBox.isChecked());
-                            if(inserted){
-                                count++;
+                    btnYes.setOnClickListener(v -> {
+                        /*---------------------------------------------------Change this Line---------------------------------------------------------------*/
+                        int adid = db.insertAttendanceDetails(tsid, slot, sem, date, description);
+                        if (adid != 0) {
+                            int count = 0;
+                            boolean inserted;
+                            for (int i = 0; i < total; i++) {
+                                checkBox = recyclerView.getChildAt(i).findViewById(R.id.isPresent);
+                                student_id = recyclerView.getChildAt(i).findViewById(R.id.student_id);
+                                inserted = db.insertAttendance(adid,
+                                        Integer.parseInt(student_id.getText().toString()), checkBox.isChecked());
+                                if (inserted) {
+                                    count++;
+                                } else {
+                                    db.deleteAttend(adid);
+                                    count = 0;
+                                    break;
+                                }
                             }
-                            else
-                            {
+                            if (count == total) {
+                                dialog.dismiss();
+                                Toast.makeText(this, "Attendance Taked Successfully", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                Toast.makeText(this, "Attendance Taked Failed", Toast.LENGTH_SHORT).show();
+                                db.deleteAttendDetail(adid);
                                 db.deleteAttend(adid);
-                                count = 0;
-                                break;
+                                startActivity(new Intent(TakeAttend.this, TakeAttendance.class));
+                                finish();
                             }
                         }
-                        if(count==total)
-                        {
-                            dialog.dismiss();
-                            Toast.makeText(this,"Attendance Taked Successfully",Toast.LENGTH_SHORT).show();
-                            finish();
-                        }
-                        else
-                        {
-                            Toast.makeText(this,"Attendance Taked Failed",Toast.LENGTH_SHORT).show();
-                            db.deleteAttendDetail(adid);
-                            db.deleteAttend(adid);
-                            startActivity(new Intent(TakeAttend.this,TakeAttendance.class));
-                            finish();
-                        }
-                    }
-                });
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Toast.makeText(this, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
             return true;
         });
