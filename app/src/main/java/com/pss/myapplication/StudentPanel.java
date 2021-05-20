@@ -28,4 +28,13 @@ public class StudentPanel extends AppCompatActivity {
         startActivity(new Intent(StudentPanel.this, MainActivity.class));
         finish();
     }
+
+    public void changePassword(View view) {
+    }
+
+    public void ViewAttendance(View view) {
+    }
+
+    public void GenrateReport(View view) {
+    }
 }
